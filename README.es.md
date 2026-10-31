@@ -10,7 +10,7 @@
 [English](README.md) · [Inicio rápido](docs/QUICKSTART.md) · [Flujo](docs/WORKFLOW.md) · [CLI](docs/CLI.md) · [Ejemplo](examples/formulario-academico.md)
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** La CLI, la Skill fuente y el paquete npm empaquetado se prueban localmente (Windows, Node 24). La matriz de CI para Linux, macOS y Windows con Node 20/22/24 está configurada pero aún no se ha ejecutado. La instalación remota desde GitHub, el reconocimiento de la Skill por agentes concretos y un piloto completo con un agente real **todavía no están verificados**.
+> **Beta — 0.9.0-beta.1.** La CLI, la Skill y el paquete npm han sido validados localmente. La primera ejecución de GitHub Actions aprobó los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`5a99bcd`](https://github.com/Nachovn114/specspire/commit/5a99bcd)). La instalación remota, el reconocimiento de la Skill por agentes de IA específicos y los pilotos completos con agentes reales continúan **NOT VERIFIED**.
 
 ## Qué es
 
