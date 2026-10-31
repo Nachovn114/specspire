@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, writeFileSync, readdirSync, existsSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdtempSync, realpathSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
@@ -10,7 +10,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const bin = path.join(root, 'bin/specspire.mjs');
 const runCli = (args, cwd) => spawnSync(process.execPath, [bin, ...args], { cwd, encoding: 'utf8' });
 const withTemp = fn => {
-  const d = mkdtempSync(path.join(tmpdir(), 'specspire-priv-'));
+  const d = realpathSync(mkdtempSync(path.join(tmpdir(), 'specspire-priv-')));
   try { fn(d); } finally { rmSync(d, { recursive: true, force: true }); }
 };
 
