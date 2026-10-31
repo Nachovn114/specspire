@@ -1,0 +1,49 @@
+{
+  "name": "specspire",
+  "version": "0.9.0-beta.1",
+  "description": "One AI agent skill for spec-driven planning, thoughtful UI/UX, TDD, code review and verified software delivery.",
+  "type": "module",
+  "bin": {
+    "specspire": "./bin/specspire.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "templates/",
+    "docs/*.md",
+    "examples/",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.es.md",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/cli.test.mjs tests/docs.test.mjs tests/identity.test.mjs tests/hardening.test.mjs",
+    "check": "node bin/specspire.mjs validate-source",
+    "test:package": "node tests/package-smoke.mjs"
+  },
+  "keywords": [
+    "agent-skills",
+    "ai-coding",
+    "software-engineering",
+    "spec-driven-development",
+    "tdd",
+    "ui-ux",
+    "developer-workflow",
+    "code-review"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nachovn114/specspire.git"
+  },
+  "homepage": "https://github.com/Nachovn114/specspire#readme",
+  "bugs": {
+    "url": "https://github.com/Nachovn114/specspire/issues"
+  }
+}

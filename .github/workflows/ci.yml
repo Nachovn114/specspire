@@ -1,0 +1,38 @@
+name: Kit validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['20.0.0', '22', '24']
+    runs-on: ${{ matrix.os }}
+    env:
+      SPECSPIRE_REQUIRE_NATIVE_LINKS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      - run: npm run check
+      - run: npm run test:package
+  required:
+    if: always()
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every platform and security control
+        env:
+          RESULT: ${{ needs.test.result }}
+        run: |
+          if [ "$RESULT" != "success" ]; then
+            echo "FAIL: matrix failed, was cancelled, or a required control was BLOCKED"
+            exit 1
+          fi
+          echo "PASS: all required matrix jobs completed"
