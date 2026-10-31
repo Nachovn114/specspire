@@ -10,7 +10,7 @@
 [Español](README.es.md) · [Quick start](docs/QUICKSTART.md) · [Workflow](docs/WORKFLOW.md) · [CLI](docs/CLI.md) · [Example](examples/formulario-academico.md)
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** The CLI, the Skill source and the packed npm tarball are tested locally (Windows, Node 24). The CI matrix for Linux, macOS and Windows on Node 20/22/24 is configured but has not run yet. Remote installation from GitHub, Skill discovery by specific AI agents and an end-to-end pilot with a real agent are **not verified yet**.
+> **Beta — 0.9.0-beta.1.** The CLI, Skill source and npm tarball have been validated locally. The initial GitHub Actions CI passed all 9 matrix jobs on Linux, Windows and macOS with Node.js 20, 22 and 24 (commit [`5a99bcd`](https://github.com/Nachovn114/specspire/commit/5a99bcd)). Remote installation, Skill discovery by specific AI agents and end-to-end agent pilots remain **NOT VERIFIED**.
 
 ## What it is
 
