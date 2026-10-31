@@ -35,6 +35,6 @@ specspire/
 5. Sin duplicación del flujo de Spec Kit si `.specify/` ya existe.
 6. Aprobación humana para operaciones externas, costosas o irreversibles.
 
-## Limitaciones conocidas
+## Limitaciones conocidas y estado de verificación
 
-La compatibilidad del reconocimiento automático de la Skill depende del agente. La instalación remota desde GitHub queda pendiente de validación hasta publicar el repositorio. Los resultados de los tests de la CLI no predicen calidad UI/UX ni de arquitectura de las aplicaciones generadas.
+La instalación remota de la Skill mediante `npx skills add` está verificada (detecta exactamente una Skill pública y 15 referencias), y su activación automática fue probada en Google Antigravity en escenarios controlados de Fase 0. Sin embargo, la compatibilidad con otros agentes (Codex, Cursor, etc.), la instalación remota del kit completo (`npm exec github:`) y el desarrollo de aplicaciones completas de producción continúan sin verificar. Los tests del kit validan estructura, instalación e integridad documental, pero no certifican calidad ni cumplimiento legal de las aplicaciones construidas.
