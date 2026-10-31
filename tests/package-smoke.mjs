@@ -24,7 +24,7 @@ const tarball = join(temp, packed.filename);
 const packedPaths = packed.files.map(f => f.path.replace(/\\/g, '/'));
 assert.deepEqual(packedPaths.filter(p => p.startsWith('docs/audits/')), [], 'Historical audit reports must stay out of the npm package');
 const refs = packedPaths.filter(p => /^skills\/specspire\/references\/[^/]+\.md$/.test(p));
-assert.equal(refs.length, 14, `Expected 14 Skill references, packed ${refs.length}`);
+assert.equal(refs.length, 15, `Expected 15 Skill references, packed ${refs.length}`);
 for (const required of ['skills/specspire/SKILL.md', 'bin/specspire.mjs', 'package.json', 'README.md', 'README.es.md', 'LICENSE',
   'templates/AGENTS.md', 'templates/PROJECT.md', 'templates/README-DESARROLLO.md',
   ...['spec', 'plan', 'design', 'tasks', 'review'].map(n => `templates/feature/${n}.md`),
@@ -60,4 +60,4 @@ const spec = join(project,'specs/smoke/spec.md');writeFileSync(spec,'Preserved f
 cli(['feature','new','smoke']);assert.equal(readFileSync(spec,'utf8'),'Preserved feature content.');
 assert.equal(readFileSync(join(project,'AGENTS.md'),'utf8'),'Existing project rules: preserve me.');
 assert.equal(Object.keys(JSON.parse(readFileSync(join(install,'node_modules/specspire/package.json'),'utf8')).dependencies || {}).length,0);
-console.log(`PASS: packed ${packed.files.length} files (no docs/audits, Skill + 14 references, templates and linked docs present); relative Markdown links resolve in the installed package; installed tarball twice; installed bin, init twice, doctor, next, feature new and preservation verified.`);
+console.log(`PASS: packed ${packed.files.length} files (no docs/audits, Skill + 15 references, templates and linked docs present); relative Markdown links resolve in the installed package; installed tarball twice; installed bin, init twice, doctor, next, feature new and preservation verified.`);

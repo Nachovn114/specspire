@@ -21,7 +21,7 @@ specspire/
 ## Separación de responsabilidades
 
 - **`SKILL.md`:** decide el procedimiento según intención y fase. Es la única Skill visible.
-- **`references/`:** explica cómo ejecutar requisitos, arquitectura, TDD, UX, debugging, revisión y entrega; se lee bajo demanda.
+- **`references/`:** explica cómo ejecutar requisitos, arquitectura, TDD, UX, debugging, revisión, privacidad y entrega; se lee bajo demanda.
 - **`templates/`:** entrega documentos mínimos al proyecto. No crea un framework o backend por defecto.
 - **CLI:** copia archivos de forma conservadora, crea plantillas bajo demanda y detecta marcadores pendientes.
 - **Tests del kit:** prueban instalación y estructura; **no certifican** productos construidos por los agentes.

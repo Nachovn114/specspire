@@ -20,7 +20,7 @@ An optional, dependency-free CLI installs the project guide and templates withou
 
 ## Capabilities
 
-- **One public skill** with 14 focused references, loaded on demand.
+- **One public skill** with 15 focused references, loaded on demand.
 - **Spec before code:** observable acceptance criteria, a minimal plan and a stack justified with official sources when online.
 - **UI only when there is a UI:** visual direction, accessibility and a responsive / cross-platform evidence matrix.
 - **Test-first building:** RED → GREEN → REFACTOR for automatable behavior; systematic debugging for bugs.
@@ -87,7 +87,7 @@ my-project/
 ├── README-DESARROLLO.md
 └── .agents/skills/specspire/
     ├── SKILL.md
-    └── references/        # 14 references, loaded as needed
+    └── references/        # 15 references, loaded as needed
 ```
 
 Feature documents under `specs/<feature>/` are created on demand. `doctor`, `status` and `next` check documents, not application correctness or UX quality.

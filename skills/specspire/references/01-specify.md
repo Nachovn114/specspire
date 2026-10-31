@@ -8,7 +8,8 @@
 4. Ordena por valor: la primera historia debe producir un resultado usable de punta a punta, aunque tenga una UI o validación mínima.
 5. Para actividades académicas, vincula requisitos a la pauta original. No atribuir criterios ni puntajes inexistentes.
 6. Alinea vocabulario del dominio con nombres reales; si la terminología es compleja y repetida, crea `GLOSSARY.md` **solo si ayuda**.
-7. Revisa el spec con el usuario en trozos breves antes de diseñar. No preguntar otra vez lo que ya está claro.
+7. Si la funcionalidad captura datos personales, identifica categorías, finalidad explícita y jurisdicción; no agregues obligaciones de privacidad si la función no trata datos de personas.
+8. Revisa el spec con el usuario en trozos breves antes de diseñar. No preguntar otra vez lo que ya está claro.
 
 **Gate:** requisitos comprobables, alcance finito, errores considerados y ninguna duda bloqueante. No instalar framework durante esta fase.
 

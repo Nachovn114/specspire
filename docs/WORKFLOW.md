@@ -31,6 +31,7 @@ No reinicies el proceso: entra en la etapa afectada.
 |---|---|---|
 | Requisito nuevo o cambio de alcance | Actualiza solo los documentos afectados y reevalúa tareas | [07-maintain](../skills/specspire/references/07-maintain.md) |
 | Bug o regresión | Reproduce, diagnostica, crea regresión y corrige | [09-debugging](../skills/specspire/references/09-debugging.md) |
+| Tratamiento de datos personales o rastreadores | Aplica privacidad desde el diseño, base de licitud y retención | [12-data-privacy-compliance](../skills/specspire/references/12-data-privacy-compliance.md) |
 | `review.md` detecta diferencias con la especificación | Crea tareas correctivas y repite desarrollo → verificación | [05-converge](../skills/specspire/references/05-converge.md) |
 
 ## Un mensaje útil para el agente

@@ -20,7 +20,7 @@ No copies Skills externas sin revisar sus licencias y condiciones de atribución
 
 Los tests nativos de enlaces pueden indicar BLOCKED por permisos locales. Esos casos no son PASS: conserva el motivo y el recuento. CI exige su ejecución y falla si están bloqueados; para reproducir ese modo local usa `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` como variable del proceso. No cambies políticas globales para ocultar un fallo.
 
-`test:package` empaqueta e instala offline en un directorio temporal con caché aislada; muestra su ruta y conserva artefactos para inspección. También comprueba el contenido real del tarball: la Skill con sus 14 referencias, plantillas y guías enlazadas deben estar presentes y `docs/audits/` ausente. No publica ni instala globalmente. La matriz configurada cubre Node 20.0.0, 22 y 24 en Linux, Windows y macOS; solo los runs remotos completados permiten declarar cada combinación verificada. Configura el job `required` como check obligatorio de PR después del primer push.
+`test:package` empaqueta e instala offline en un directorio temporal con caché aislada; muestra su ruta y conserva artefactos para inspección. También comprueba el contenido real del tarball: la Skill con sus 15 referencias, plantillas y guías enlazadas deben estar presentes y `docs/audits/` ausente. No publica ni instala globalmente. La matriz configurada cubre Node 20.0.0, 22 y 24 en Linux, Windows y macOS; solo los runs remotos completados permiten declarar cada combinación verificada. Configura el job `required` como check obligatorio de PR después del primer push.
 
 ## Evidencia histórica
 

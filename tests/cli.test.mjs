@@ -15,14 +15,14 @@ const temp = fn => {
 };
 const names = [
   'README-DESARROLLO.md','PROJECT.md','AGENTS.md','.agents/skills/specspire/SKILL.md',
-  ...['00-prepare','01-specify','02-plan-design','02-ui-quality','02-responsive-cross-platform','03-tasks','04-implement','05-converge','06-deliver','07-maintain','08-code-quality','09-debugging','10-security-operations','11-agent-collaboration'].map(n=>`.agents/skills/specspire/references/${n}.md`)
+  ...['00-prepare','01-specify','02-plan-design','02-ui-quality','02-responsive-cross-platform','03-tasks','04-implement','05-converge','06-deliver','07-maintain','08-code-quality','09-debugging','10-security-operations','11-agent-collaboration','12-data-privacy-compliance'].map(n=>`.agents/skills/specspire/references/${n}.md`)
 ];
 const fill = (d, slug, file, token) => {
   const p = path.join(d, 'specs', slug, file);
   writeFileSync(p, readFileSync(p, 'utf8').replaceAll(token, 'Contenido revisado y verificado por el usuario'));
 };
 
-test('source validation: one skill, fourteen references and five feature templates',()=>{
+test('source validation: one skill, fifteen references and five feature templates',()=>{
   const x=run('validate-source'); assert.equal(x.status,0,x.stderr); assert.equal(readdirSync(path.join(root,'skills')).length,1);
 });
 
@@ -144,6 +144,6 @@ test('next guides junior to correct document without claiming code completion',(
 
 test('single public skill, quality standards and evidence-first gates wired',()=>{
   const skill=readFileSync(path.join(root,'skills/specspire/SKILL.md'),'utf8');
-  for(const needle of ['08-code-quality.md','09-debugging.md','10-security-operations.md','11-agent-collaboration.md','RED','GREEN','REFACTOR','evidencia','UI']) assert.ok(skill.includes(needle),needle);
+  for(const needle of ['08-code-quality.md','09-debugging.md','10-security-operations.md','11-agent-collaboration.md','12-data-privacy-compliance.md','RED','GREEN','REFACTOR','evidencia','UI']) assert.ok(skill.includes(needle),needle);
   assert.equal(readdirSync(path.join(root,'skills')).length,1);
 });
