@@ -32,6 +32,7 @@ TODO_PLAN
 
 - **Cómo se probará:** TODO_PLAN
 - **Seguridad, rendimiento o accesibilidad relevante:** TODO_PLAN
+- **Protección de datos y privacidad (solo si trata datos personales o rastreadores):** TODO_PLAN
 - **Compatibilidad con PROJECT.md y spec.md:** TODO_PLAN
 
 **Gate:** cada decisión responde a un requisito, sin capas innecesarias.

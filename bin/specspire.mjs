@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const kit = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const VERSION = JSON.parse(readFileSync(join(kit, 'package.json'), 'utf8')).version;
-const refs = ['00-prepare', '01-specify', '02-plan-design', '02-ui-quality', '02-responsive-cross-platform', '03-tasks', '04-implement', '05-converge', '06-deliver', '07-maintain', '08-code-quality', '09-debugging', '10-security-operations', '11-agent-collaboration'];
+const refs = ['00-prepare', '01-specify', '02-plan-design', '02-ui-quality', '02-responsive-cross-platform', '03-tasks', '04-implement', '05-converge', '06-deliver', '07-maintain', '08-code-quality', '09-debugging', '10-security-operations', '11-agent-collaboration', '12-data-privacy-compliance'];
 const stages = {
   new: { file: 'spec.md', template: 'spec.md', requires: [] },
   plan: { file: 'plan.md', template: 'plan.md', requires: [['spec.md', 'TODO_SPEC']] },

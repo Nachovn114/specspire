@@ -20,7 +20,7 @@ Una CLI opcional y sin dependencias instala la guía del proyecto y las plantill
 
 ## Capacidades
 
-- **Una sola Skill pública** con 14 referencias especializadas que se cargan bajo demanda.
+- **Una sola Skill pública** con 15 referencias especializadas que se cargan bajo demanda.
 - **Especificación antes del código:** criterios de aceptación observables, plan mínimo y stack justificado con fuentes oficiales cuando hay conexión.
 - **UI solo cuando hay interfaz:** dirección visual, accesibilidad y matriz de evidencia responsive y multiplataforma.
 - **Construcción con pruebas primero:** RED → GREEN → REFACTOR para comportamiento automatizable; depuración sistemática para bugs.
@@ -87,7 +87,7 @@ mi-proyecto/
 ├── README-DESARROLLO.md
 └── .agents/skills/specspire/
     ├── SKILL.md
-    └── references/        # 14 referencias, se cargan según la fase
+    └── references/        # 15 referencias, se cargan según la fase
 ```
 
 Los documentos por funcionalidad en `specs/<funcionalidad>/` se crean bajo demanda. `doctor`, `status` y `next` revisan documentos, no la corrección de la aplicación ni la calidad UX.

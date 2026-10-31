@@ -9,7 +9,8 @@
 5. **Si hay UI:** investigar 2 referencias relevantes (Refero/RicoUI/etc.), identificar patrón útil y diferencia propia; escribir dirección visual en `design.md` (tipografía, jerarquía, tokens, estados, contenido, mobile-first). No copiar diseños ni marcas.
 6. Para aplicar una auditoría visual completa, consulta [02-ui-quality.md](02-ui-quality.md) solo en proyectos con UI.
    En ese caso lee también el [estándar responsive multiplataforma](02-responsive-cross-platform.md): define matriz, rama web/nativa, criterios R01–R06 y pruebas antes de implementar. Conserva el diseño existente cuando no se pidió rediseñarlo.
-7. Verifica coherencia **spec ↔ plan ↔ restricciones**; devuelve al spec los cambios de intención autorizados.
+8. **Si trata datos personales, cuentas o rastreadores:** consulta [privacidad y datos](12-data-privacy-compliance.md) para definir flujos, base de licitud, retención y encargados; no agregar banners ni políticas donde no se justifiquen.
+9. Verifica coherencia **spec ↔ plan ↔ restricciones**; devuelve al spec los cambios de intención autorizados.
 
 ## Selección de stack (solo si aplica)
 

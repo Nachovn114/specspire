@@ -11,6 +11,7 @@
 | Código | Diff revisado, sin duplicación ni abstracciones injustificadas | Simplificar y volver a comprobar |
 | Integración | Flujos críticos ejecutados | Abrir tarea correctiva |
 | Seguridad | Entradas, permisos y secretos verificados según riesgo | Corregir antes de entrega |
+| Privacidad, cuando aplica | Minimización, base de licitud, retención y avisos (P01–P06) | Corregir flujo o textos antes de entrega |
 | UI/UX, cuando aplica | Navegador, responsive, accesibilidad y estados | Registrar hallazgos y volver a probar |
 | Reproducibilidad | Instrucciones de arranque probadas | Arreglar README y/o configuración |
 

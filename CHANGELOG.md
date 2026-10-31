@@ -9,6 +9,7 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 - Simplified `templates/AGENTS.md`, `07-maintain` (routes bugs to `09-debugging`), `docs/WORKFLOW.md` and `docs/QUALITY.md` (PASS / FAIL / BLOCKED / NOT VERIFIED).
 - Clarified that phase 0 records context in `PROJECT.md` only when it exists or the developer authorizes it.
 - Excluded `docs/audits/` from the npm package; the package smoke test now asserts the real tarball contents.
+- Added Privacy by Design and Legal Compliance Gate (15 references): `12-data-privacy-compliance.md`, conditional routing in `SKILL.md`, P01–P06 evidence controls in `review.md`, and dedicated `tests/privacy.test.mjs`.
 
 ## [0.9.0-beta.1] — 2026-10-31
 

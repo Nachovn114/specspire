@@ -26,6 +26,7 @@ description: Guía única y progresiva para desarrollar, mantener y entregar sof
 | Desglose y dependencias | [03-tasks](references/03-tasks.md) | `tasks.md` por valor entregable |
 | Implementación / mejoras | [04-implement](references/04-implement.md) + [estándares](references/08-code-quality.md) | comportamiento + pruebas |
 | Bug / bloqueo técnico | [09-debugging](references/09-debugging.md) | reproducción → causa → regresión |
+| Privacidad, datos personales y legal | [privacidad y datos](references/12-data-privacy-compliance.md), obligatorio **solo si trata datos personales, cuentas o rastreadores**; no cargar sin datos de personas | Clasificación de datos, base de licitud, retención y avisos contextuales |
 | Verificación / refactor / seguridad | [05-converge](references/05-converge.md) + [seguridad](references/10-security-operations.md) si procede | `review.md` + evidencias |
 | Varios agentes independientes | [11-agent-collaboration](references/11-agent-collaboration.md) solo si merece la pena | trabajo aislado y revisado |
 | Entrega | [06-deliver](references/06-deliver.md) | README real, PR y demo verificable |
@@ -33,13 +34,14 @@ description: Guía única y progresiva para desarrollar, mantener y entregar sof
 
 ## Gates obligatorios
 
-1. **Entendimiento:** objetivo, alcance fuera de proyecto y aceptación observables. No inventar requisitos; preguntar solo lo imprescindible.
-2. **Diseño:** elegir el stack más simple que cumpla restricciones, **verificando fuentes oficiales y versiones cuando hay navegación**; sin navegación, declarar versiones no verificadas. Para UI, dirección visual aprobable antes de picar componentes.
+1. **Entendimiento:** objetivo, alcance fuera de proyecto y aceptación observables. No inventar requisitos; preguntar solo lo imprescindible. Distinguir decisiones o riesgos pendientes de bloqueos reales que efectivamente impiden avanzar.
+2. **Diseño:** elegir el stack más simple que cumpla restricciones, **verificando fuentes oficiales y versiones cuando hay navegación**; sin navegación, declarar versiones no verificadas. Para UI, dirección visual aprobable antes de picar componentes. Si hay tratamiento de datos personales, aplicar privacidad desde el diseño (minimización, base de licitud demostrable y retención).
 3. **Plan de trabajo:** cada tarea liga requisito, comportamiento y evidencia. El primer corte entrega valor extremo a extremo, sin infraestructura especulativa.
 4. **Construcción:** para comportamiento automatizable, **RED → GREEN → REFACTOR**; rojo por causa correcta, verde real, refactor con suite verde. Tests de integración para fronteras, E2E para recorridos críticos. No testear píxeles con unit tests.
 5. **Revisión:** comparar **dos ejes independientes**: (A) fidelidad al spec y (B) calidad/simplicidad del diff. Buscar deuda y complejidad accidental, no refactorizar por moda.
 6. **Evidencia:** nunca afirmar tests, builds, inspecciones visuales o seguridad sin comandos/salidas reales. `doctor` y `status` comprueban documentación, no calidad. Si falla, crear tarea correctiva y repetir.
    Para UI, ejecutar el gate responsive de la matriz acordada; no declarar completada con fallos conocidos ni controles obligatorios BLOCKED/NOT VERIFIED. Un viewport emulado no demuestra safe areas físicas o teclado real.
+   Para privacidad, si se tratan datos personales, registrar controles P01–P06 evaluados individualmente en `review.md`. Una decisión de diseño no constituye evidencia: controles diseñados pero no verificados deben registrarse como NOT VERIFIED (o BLOCKED ante un bloqueo real documentado); solo declarar PASS con evidencia técnica de ejecución, pruebas o inspección real (sin asumir certificación jurídica automática). N/A exige justificación documentada por control y no se infiere por mera ausencia de almacenamiento o red (la ausencia de telemetría no descarta encargados). La falta de cookies no demuestra ausencia de tratamiento de datos personales. La ausencia de justificación en tratamientos reales impide cerrar el gate.
 7. **Entrega:** otra persona puede instalar, ejecutar, entender y comprobar el producto; documentar pendientes de manera honesta.
 
 ## Reglas innegociables

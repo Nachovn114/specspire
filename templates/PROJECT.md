@@ -12,6 +12,7 @@
 | Incluye | _Lo necesario_ |
 | Excluye | _Lo que NO construiremos_ |
 | Perfil de riesgo | _Pequeño / medio / alto, por qué_ |
+| Datos personales y privacidad | _Ninguno / Contacto / Cuentas / Sensibles / Cookies o analítica (indicar jurisdicción)_ |
 
 ## Principios de ingeniería (constitución)
 
