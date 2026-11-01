@@ -88,10 +88,20 @@ function cli(args) {
 assert.match(cli(['--help']), /Specspire/);
 assert.match(cli(['validate-source']), /PASS: 1 Skill, 30 referencias \(15 es, 15 en\)/);
 assert.match(cli(['init']), /31 archivos/); // Three personalized documents already exist.
+function countRegularFiles(dir) {
+  let count = 0;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) throw new Error(`Entrada symlink inesperada en ${dir}: ${entry.name}`);
+    if (entry.isDirectory()) count += countRegularFiles(join(dir, entry.name));
+    else if (entry.isFile()) count++;
+    else throw new Error(`Entrada no regular inesperada en ${dir}: ${entry.name}`);
+  }
+  return count;
+}
 const installedFiles = ['AGENTS.md', 'PROJECT.md', 'README-DESARROLLO.md', '.agents/skills/specspire/SKILL.md',
   ...refs.concat(enRefs).map(p => `.agents/${p}`)];
 assert.equal(installedFiles.length, 34);
-assert.equal(readdirSync(project, { recursive: true, withFileTypes: true }).filter(e => e.isFile()).length, 34);
+assert.equal(countRegularFiles(project), 34);
 const before = installedFiles.map(p => readFileSync(join(project, p)));
 assert.match(cli(['init']), /0 archivos/);
 installedFiles.forEach((p, i) => assert.deepEqual(readFileSync(join(project, p)), before[i], `init overwrote ${p}`));

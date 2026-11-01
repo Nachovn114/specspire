@@ -154,6 +154,16 @@ const legacyRouter = "---\nname: specspire\ndescription: Gu\u00eda \u00fanica y 
 const enNames = names.filter(n => n.includes('/references/')).map(n => n.replace('/references/', '/references/en/'));
 const allNames = [...names, ...enNames];
 const routerPath = d => path.join(d, '.agents/skills/specspire/SKILL.md');
+function countRegularFiles(dir) {
+  let count = 0;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) throw new Error(`Entrada symlink inesperada en ${dir}: ${entry.name}`);
+    if (entry.isDirectory()) count += countRegularFiles(path.join(dir, entry.name));
+    else if (entry.isFile()) count++;
+    else throw new Error(`Entrada no regular inesperada en ${dir}: ${entry.name}`);
+  }
+  return count;
+}
 function legacyInstall(d) {
   for (const n of names) {
     const src = n.startsWith('.agents/') ? path.join(root, n.slice('.agents/'.length)) : path.join(root, 'templates', n);
@@ -164,7 +174,7 @@ function legacyInstall(d) {
 test('bilingual init installs exactly 34 files with intact EN and is fully idempotent', () => temp(d => {
   const first = run('init', '--target', d); assert.equal(first.status, 0, first.stderr);
   assert.match(first.stdout, /34 archivos/);
-  assert.equal(readdirSync(d, { recursive: true, withFileTypes: true }).filter(e => e.isFile()).length, 34);
+  assert.equal(countRegularFiles(d), 34);
   for (const n of enNames) assert.deepEqual(readFileSync(path.join(d,n)), readFileSync(path.join(root,n.slice('.agents/'.length))));
   for (const n of ['AGENTS.md','PROJECT.md','README-DESARROLLO.md']) writeFileSync(path.join(d,n), `Custom ${n}\n`);
   const before = allNames.map(n => readFileSync(path.join(d,n)));
