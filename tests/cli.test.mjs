@@ -225,3 +225,117 @@ for (const mode of ['crlf','missing-es','empty-en','partial-en','altered-router'
   assert.equal(x.status,mode==='crlf'?2:1,x.stderr); assert.doesNotMatch(x.stdout,/PASS/);
   if(mode!=='crlf') assert.doesNotMatch(x.stderr,/ACTUALIZACION:/);
 }));
+
+// Phase 3 contract: language is explicit per invocation, never persisted.
+const initialTemplates = ['AGENTS.md', 'PROJECT.md', 'README-DESARROLLO.md'];
+const featureTemplates = [['new','spec','SPEC'], ['plan','plan','PLAN'], ['design','design','DESIGN'], ['tasks','tasks','TASK'], ['review','review','REVIEW']];
+const snapshot = dir => Object.fromEntries(readdirSync(dir, {withFileTypes:true}).flatMap(e => {
+  const p = path.join(dir,e.name);
+  return e.isDirectory() ? Object.entries(snapshot(p)).map(([n,b])=>[`${e.name}/${n}`,b]) : [[e.name,readFileSync(p).toString('hex')]];
+}));
+const success = x => assert.equal(x.status,0,x.stderr || x.stdout);
+for (const lang of [undefined,'es','en']) test(`phase3: init ${lang || 'default'} exact sources and 34 files`,()=>temp(d=>{
+  success(run('init','--target',d,...(lang ? ['--lang',lang] : [])));
+  assert.equal(Object.keys(snapshot(d)).length,34);
+  for(const n of initialTemplates) assert.deepEqual(readFileSync(path.join(d,n)),readFileSync(path.join(root,'templates',lang==='en'?'en':'',n)));
+  assert.deepEqual(snapshot(path.join(d,'.agents/skills/specspire')),snapshot(path.join(root,'skills/specspire')));
+}));
+for(const [stage,file,token] of featureTemplates) test(`phase3: EN feature ${stage}`,()=>temp(d=>{
+  success(run('init','--target',d));
+  const folder=path.join(d,'specs/example');mkdirSync(folder,{recursive:true});
+  for(const n of ['spec','plan','tasks']) if(n!==file) writeFileSync(path.join(folder,`${n}.md`),'Reviewed prerequisite.');
+  success(run('feature',stage,'example','--target',d,'--lang','en'));
+  const actual=readFileSync(path.join(folder,`${file}.md`),'utf8');
+  const date=actual.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+  assert.equal(actual,readFileSync(path.join(root,'templates/en/feature',`${file}.md`),'utf8').replaceAll('{{FEATURE}}','example').replaceAll('{{DATE}}',date || ''));
+  assert.ok(actual.includes(`TODO_${token}`));
+}));
+test('phase3: feature defaults to ES after English init; no config files',()=>temp(d=>{
+  success(run('init','--target',d,'--lang','en'));
+  assert.equal(Object.keys(snapshot(d)).length,34);
+  success(run('feature','new','example','--target',d));
+  const actual=readFileSync(path.join(d,'specs/example/spec.md'),'utf8');
+  assert.equal(actual,readFileSync(path.join(root,'templates/feature/spec.md'),'utf8').replaceAll('{{FEATURE}}','example').replaceAll('{{DATE}}',actual.match(/\d{4}-\d{2}-\d{2}/)[0]));
+}));
+for(const flags of [['--lang'],['--lang','fr'],['--lang','../en'],['--lang','EN'],['--lang','en','--lang','en'],['--lang','es','--lang','en']]) {
+  for(const command of [['init'],['feature','new','example']]) test(`phase3: reject ${command.join(' ')} ${flags.join(' ')} without writes`,()=>temp(d=>{
+    if(command[0]==='feature') success(run('init','--target',d));
+    const before=snapshot(d);const x=run(...command,'--target',d,...flags);
+    assert.equal(x.status,1);assert.match(x.stderr,/--lang/);assert.deepEqual(snapshot(d),before);
+  }));
+}
+for(const command of ['doctor','status','next','validate-source']) test(`phase3: ${command} rejects lang without writes`,()=>temp(d=>{
+  success(run('init','--target',d));const before=snapshot(d);
+  const x=run(command,'--target',d,'--lang','en');assert.equal(x.status,1);assert.match(x.stderr,/--lang/);assert.deepEqual(snapshot(d),before);
+}));
+test('phase3: init preserves all custom content across language changes',()=>temp(d=>{
+  success(run('init','--target',d));
+  for(const n of initialTemplates) writeFileSync(path.join(d,n),`Custom ${n}`);
+  const before=snapshot(d);
+  success(run('init','--target',d,'--lang','en'));assert.deepEqual(snapshot(d),before);
+  success(run('init','--target',d,'--lang','es'));assert.deepEqual(snapshot(d),before);
+}));
+test('phase3: next recognizes untouched English PROJECT',()=>temp(d=>{
+  const source=path.join(root,'templates/en/PROJECT.md');assert.ok(existsSync(source),'English PROJECT template must exist');
+  success(run('init','--target',d));writeFileSync(path.join(d,'PROJECT.md'),readFileSync(source));
+  const x=run('next','--target',d);success(x);assert.match(x.stdout,/Fase 0/);
+}));
+for(const lang of ['es','en']) test(`phase3: ${lang} dry-run writes nothing`,()=>temp(d=>{
+  success(run('init','--target',path.join(d,'new'),'--lang',lang,'--dry-run'));assert.deepEqual(readdirSync(d),[]);
+}));
+for(const [file,token,stage] of [['spec','TODO_SPEC','plan'],['spec','[ACLARAR: question]','design'],['plan','TODO_PLAN','tasks'],['design','TODO_DESIGN','tasks'],['tasks','TODO_TASK','review']]) test(`phase3: EN gate ${token}`,()=>temp(d=>{
+  success(run('init','--target',d));const folder=path.join(d,'specs/example');mkdirSync(folder,{recursive:true});
+  for(const n of ['spec','plan','design','tasks']) writeFileSync(path.join(folder,`${n}.md`),n===file?token:'Reviewed.');
+  const before=snapshot(d);const x=run('feature',stage,'example','--target',d,'--lang','en');
+  assert.equal(x.status,1);assert.match(x.stderr,/Completa|Resuelve/);assert.deepEqual(snapshot(d),before);
+}));
+test('phase3: TODO_REVIEW keeps next pending',()=>temp(d=>{
+  success(run('init','--target',d));writeFileSync(path.join(d,'PROJECT.md'),'Prepared context.');
+  const folder=path.join(d,'specs/example');mkdirSync(folder,{recursive:true});
+  for(const n of ['spec','plan','tasks','review']) writeFileSync(path.join(folder,`${n}.md`),n==='review'?'TODO_REVIEW':'Reviewed.');
+  const x=run('next','example','--target',d);success(x);assert.match(x.stdout,/Fase 4/);
+}));
+const allTemplates=[...initialTemplates,...featureTemplates.map(([,f])=>`feature/${f}.md`)];
+for(const name of allTemplates) test(`phase3: template parity ${name}`,()=>{
+  const enPath=path.join(root,'templates/en',name);assert.ok(existsSync(enPath),`Missing English template: ${name}`);
+  const es=readFileSync(path.join(root,'templates',name),'utf8'), en=readFileSync(enPath,'utf8');
+  assert.ok(en.trim());assert.notEqual(en,es,'English must not be a copy of Spanish');assert.ok(!en.startsWith('\uFEFF'));assert.doesNotMatch(en,/[\t ]+$/m);
+  const tokens=s=>s.match(/\{\{[A-Z]+\}\}|TODO_[A-Z]+|RF-\d+|\b[PR]0[1-6]\b|\b(?:PASS|FAIL|BLOCKED|NOT VERIFIED|N\/A)\b/g)||[];
+  assert.deepEqual(tokens(en).sort(),tokens(es).sort());
+  const links=s=>[...s.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)].map(m=>m[1]).sort();
+  assert.deepEqual(links(en),links(es));
+  for(const link of links(en)) assert.ok(existsSync(path.resolve(path.dirname(enPath),link)),link);
+  if(name==='AGENTS.md') assert.match(en,/\.specify\//);
+  if(name==='feature/review.md') {assert.match(en,/personal data/i);assert.match(en,/only if|if applicable/i);assert.match(en,/not.*(?:legal|certification)|(?:legal|certification).*not/i);}
+});
+// Synthetic EN fixtures isolate inventory validation from missing translations.
+for(const mode of ['missing','empty','unexpected']) test(`phase3: validate-source EN ${mode}`,()=>temp(d=>{
+  const kit=path.join(d,'kit');mkdirSync(kit);
+  for(const n of ['bin','skills','templates']) cpSync(path.join(root,n),path.join(kit,n),{recursive:true});
+  cpSync(path.join(root,'package.json'),path.join(kit,'package.json'));
+  const en=path.join(kit,'templates/en');mkdirSync(en,{recursive:true});
+  for(const n of allTemplates) {const p=path.join(en,n);mkdirSync(path.dirname(p),{recursive:true});writeFileSync(p,readFileSync(path.join(root,'templates',n)));}
+  if(mode==='missing') rmSync(path.join(en,'PROJECT.md'));
+  if(mode==='empty') writeFileSync(path.join(en,'PROJECT.md'),'');
+  if(mode==='unexpected') writeFileSync(path.join(en,'unexpected.md'),'Unexpected');
+  const x=spawnSync(process.execPath,[path.join(kit,'bin/specspire.mjs'),'validate-source'],{encoding:'utf8'});
+  assert.equal(x.status,1,x.stdout);assert.match(x.stderr,/PROJECT|unexpected/);
+}));
+
+test('phase3: English init warns that feature language is not inherited',()=>temp(d=>{
+  const x=run('init','--target',d,'--lang','en');success(x);
+  assert.match(x.stdout,/feature/);assert.match(x.stdout,/--lang en/);
+  assert.match(x.stdout,/no se hereda|not inherited|not inherit|no.*hereda/i);
+}));
+for(const slug of ['../escape','a/b','Upper']) test(`phase3: EN traversal rejection ${slug}`,()=>temp(d=>{
+  success(run('init','--target',d));const before=snapshot(d);
+  const x=run('feature','new',slug,'--target',d,'--lang','en');
+  assert.equal(x.status,1);assert.match(x.stderr,/SLUG/);assert.deepEqual(snapshot(d),before);
+}));
+test('phase3: EN init rejects linked destination without external writes',()=>temp(d=>{
+  const outside=path.join(d,'outside');mkdirSync(outside);
+  const target=path.join(d,'project');mkdirSync(target);
+  symlinkSync(outside,path.join(target,'.agents'),process.platform==='win32'?'junction':'dir');
+  const x=run('init','--target',target,'--lang','en');
+  assert.equal(x.status,1);assert.match(x.stderr,/Destino inseguro.*symlink/);assert.deepEqual(readdirSync(outside),[]);
+}));

@@ -39,8 +39,9 @@ const expectedPaths = [
   ...['QUICKSTART', 'CLI', 'WORKFLOW', 'QUALITY', 'DESIGN', 'ARCHITECTURE', 'REFERENCIAS', 'PUBLISH', 'I18N_PLAN'].map(n => `docs/${n}.md`),
   ...['QUICKSTART', 'WORKFLOW', 'QUALITY'].map(n => `docs/en/${n}.md`),
 ];
-assert.equal(expectedPaths.length, 60);
-assert.deepEqual([...packedPaths].sort(), expectedPaths.sort(), 'Tarball must contain exactly the 60 reviewed distribution files');
+expectedPaths.push(...expectedPaths.filter(p => p.startsWith('templates/')).map(p => p.replace('templates/', 'templates/en/')));
+assert.equal(expectedPaths.length, 68);
+assert.deepEqual([...packedPaths].sort(), expectedPaths.sort(), 'Tarball must contain exactly the 68 reviewed distribution files');
 const install = join(temp, 'installation');mkdirSync(install);
 writeFileSync(join(install, 'package.json'), JSON.stringify({name:'specspire-smoke',version:'1.0.0',private:true}));
 for (let i = 0; i < 2; i++) npm(['install', '--offline', '--ignore-scripts', '--no-audit', '--no-fund', '--no-package-lock', tarball], install);
@@ -115,3 +116,26 @@ for (const [name, content] of Object.entries(customDocs)) assert.equal(readFileS
 const manifest = JSON.parse(readFileSync(join(installedPkg, 'package.json'), 'utf8'));
 for (const field of ['dependencies', 'optionalDependencies', 'peerDependencies']) assert.equal(Object.keys(manifest[field] || {}).length, 0, `Unexpected runtime dependency field: ${field}`);
 console.log(`PASS: packed ${packed.files.length} files; one Skill, 30 references (15 es, 15 en), exact basename parity, 30 router links and ${englishLinkCount} EN links resolved; no audit artifacts or temporary scripts; offline tarball install twice, validate-source, 34 installed project files, init twice, doctor, next, feature and preservation verified; zero runtime dependencies.`);
+
+// Both languages must work from the offline-installed tarball, not repository sources.
+for (const lang of ['es', 'en']) {
+  const target = join(temp, `project-${lang}`);
+  const invoke = (...args) => {
+    const x = spawnSync(process.execPath, [join(installedPkg, 'bin/specspire.mjs'), ...args, '--target', target], {encoding:'utf8'});
+    assert.equal(x.status, 0, x.stderr); return x.stdout;
+  };
+  invoke('init', '--lang', lang);
+  assert.equal(countRegularFiles(target), 34);
+  for (const name of ['AGENTS.md','PROJECT.md','README-DESARROLLO.md'])
+    assert.deepEqual(readFileSync(join(target,name)),readFileSync(join(installedPkg,'templates',lang==='en'?'en':'',name)));
+  for (const [stage,file,token] of [['new','spec','SPEC'],['plan','plan','PLAN'],['design','design','DESIGN'],['tasks','tasks','TASK'],['review','review','REVIEW']]) {
+    invoke('feature',stage,'offline','--lang',lang);
+    const dest=join(target,'specs/offline',`${file}.md`);
+    const actual=readFileSync(dest,'utf8');
+    const date=actual.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '';
+    assert.equal(actual,readFileSync(join(installedPkg,'templates',lang==='en'?'en':'','feature',`${file}.md`),'utf8').replaceAll('{{FEATURE}}','offline').replaceAll('{{DATE}}',date));
+    writeFileSync(dest,actual.replaceAll(`TODO_${token}`,'Reviewed.'));
+  }
+  invoke('doctor');
+}
+console.log('PASS: bilingual templates generated from the offline tarball.');
