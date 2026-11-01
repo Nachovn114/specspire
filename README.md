@@ -10,7 +10,7 @@
 [Español](README.es.md) · [Quick start](docs/QUICKSTART.md) · [Workflow](docs/WORKFLOW.md) · [CLI](docs/CLI.md) · [Example](examples/formulario-academico.md)
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** The CLI, Skill source and npm tarball have been validated locally. The initial GitHub Actions CI passed all 9 matrix jobs on Linux, Windows and macOS with Node.js 20, 22 and 24 (commit [`5a99bcd`](https://github.com/Nachovn114/specspire/commit/5a99bcd)). Remote installation, Skill discovery by specific AI agents and end-to-end agent pilots remain **NOT VERIFIED**.
+> **Beta — 0.9.0-beta.1.** The CLI, Skill source, npm tarball and GitHub Actions CI passed all 9 matrix jobs on Linux, Windows and macOS with Node.js 20, 22 and 24 (commit [`405d674`](https://github.com/Nachovn114/specspire/commit/405d674d79b1a222b0398ee3bba1010281ec941e)). Remote Skill installation via `npx skills add` and Phase 0 activation in Google Antigravity are verified. Full remote kit bootstrap (`npm exec github:`), untested agents and full end-to-end production pilots remain **NOT VERIFIED**.
 
 ## What it is
 
@@ -42,15 +42,15 @@ node ..\Specspire\bin\specspire.mjs doctor
 This installs the full kit: `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill under `.agents/skills/specspire/`. Running `init` again only adds missing files; existing files are kept as they are.
 
 <details>
-<summary><strong>Remote install from GitHub (not verified yet)</strong></summary>
+<summary><strong>Remote install from GitHub</strong></summary>
 
-Pick **one** after the repository is public. Both commands are documented, but neither has been verified end to end.
+Pick **one** depending on whether you want just the Skill or the full project guide:
 
 ```bash
-# Skill only
+# Skill only (verified: installs 1 Skill and 15 references)
 npx skills add Nachovn114/specspire --skill specspire
 
-# Full kit: guide, rules, context template and local Skill
+# Full kit: guide, rules, context template and local Skill (not verified end to end)
 npm exec --yes --package=github:Nachovn114/specspire -- specspire init
 ```
 

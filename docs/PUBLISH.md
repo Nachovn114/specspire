@@ -32,16 +32,17 @@ git push -u origin main
 
 These commands assume an empty remote repository and a configured Git identity. Do not run `git init` inside a project that already has a different Git history.
 
-## 3. Check the public repository
+## 3. Repository verification status
 
-- [ ] GitHub renders `README.md` on the main page.
-- [ ] `.github/workflows/ci.yml` runs `npm test` and `npm run check` successfully.
-- [ ] The repository includes `LICENSE`, `SECURITY.md` and `skills/specspire/SKILL.md`.
-- [ ] Set repository topics: `agent-skills`, `spec-driven-development`, `software-engineering`, `ai-coding`, `tdd`, `developer-tools`, `ui-ux`.
-- [ ] Verify the GitHub installation commands documented in `README.md` **after** publishing.
-- [ ] Require the `required` CI job in branch protection; confirm all OS/Node jobs and native-link checks ran without BLOCKED results.
-- [ ] Validate remote Skill discovery and a real-agent pilot before advertising those channels as verified.
+- [x] GitHub renders `README.md` on the main page.
+- [x] `.github/workflows/ci.yml` passed all 9 matrix jobs (Ubuntu, Windows, macOS × Node 20, 22, 24) and the `required` check on `main`.
+- [x] The repository includes `LICENSE`, `SECURITY.md`, `skills/specspire/SKILL.md`, and 15 references including `12-data-privacy-compliance.md`.
+- [x] Repository topics: `agent-skills`, `spec-driven-development`, `software-engineering`, `ai-coding`, `tdd`, `developer-tools`, `ui-ux`.
+- [x] Verified remote Skill installation via `npx skills add Nachovn114/specspire --skill specspire`.
+- [x] Tested Phase 0 agent activation in Google Antigravity (5 initial scenarios and 2 focused re-pilots).
+- [ ] Full kit remote bootstrap via `npm exec --package=github:` (pending independent verification).
+- [ ] End-to-end agent pilots across other agents (Codex, Cursor, etc.).
 
 ## 4. Publish a beta release
 
-Create a GitHub release with tag `v0.9.0-beta.1`, title `Specspire v0.9.0-beta.1` and a short description of the workflow and beta limitations. Do not label it a stable or enterprise-certified release before running a real end-to-end pilot.
+Create a GitHub release with tag `v0.9.0-beta.1`, title `Specspire v0.9.0-beta.1`, marking it as a **prerelease** with the prepared release notes and known beta limitations. Do not label it a stable, production, or enterprise-certified release before running full real-world pilots.

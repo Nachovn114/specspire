@@ -10,7 +10,7 @@
 [English](README.md) · [Inicio rápido](docs/QUICKSTART.md) · [Flujo](docs/WORKFLOW.md) · [CLI](docs/CLI.md) · [Ejemplo](examples/formulario-academico.md)
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** La CLI, la Skill y el paquete npm han sido validados localmente. La primera ejecución de GitHub Actions aprobó los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`5a99bcd`](https://github.com/Nachovn114/specspire/commit/5a99bcd)). La instalación remota, el reconocimiento de la Skill por agentes de IA específicos y los pilotos completos con agentes reales continúan **NOT VERIFIED**.
+> **Beta — 0.9.0-beta.1.** La CLI, la Skill, el paquete npm y GitHub Actions CI aprobaron los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`405d674`](https://github.com/Nachovn114/specspire/commit/405d674d79b1a222b0398ee3bba1010281ec941e)). La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**.
 
 ## Qué es
 
@@ -42,15 +42,15 @@ node ..\Specspire\bin\specspire.mjs doctor
 Esto instala el kit completo: `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/`. Repetir `init` solo agrega archivos faltantes; los existentes se conservan tal como están.
 
 <details>
-<summary><strong>Instalación remota desde GitHub (aún no verificada)</strong></summary>
+<summary><strong>Instalación remota desde GitHub</strong></summary>
 
-Elige **una** cuando el repositorio sea público. Ambos comandos están documentados, pero ninguno se ha verificado de extremo a extremo.
+Elige **una** según desees solo la Skill o la guía completa del proyecto:
 
 ```bash
-# Solo la Skill
+# Solo la Skill (verificado: instala 1 Skill y 15 referencias)
 npx skills add Nachovn114/specspire --skill specspire
 
-# Kit completo: guía, reglas, plantilla de contexto y Skill local
+# Kit completo: guía, reglas, plantilla de contexto y Skill local (sin verificar de extremo a extremo)
 npm exec --yes --package=github:Nachovn114/specspire -- specspire init
 ```
 

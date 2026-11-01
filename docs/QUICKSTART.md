@@ -18,9 +18,10 @@ code .
 
 | Modalidad | Qué obtienes | Estado |
 |---|---|---|
-| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Verificado localmente con la suite de tests |
-| **Solo Skill** | Solo `SKILL.md` y sus 15 referencias, sin CLI ni documentos de proyecto | Reconocimiento por cada agente sin verificar |
-| **Comandos remotos** (`npx skills add`, `npm exec github:`) | Las mismas dos modalidades, desde GitHub | Sin verificar hasta publicar el repositorio |
+| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Verificado localmente con suite de tests y CI |
+| **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 15 referencias, sin CLI ni documentos de proyecto | Activación probada en Google Antigravity (Fase 0); otros agentes sin verificar |
+| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Verificado desde GitHub (1 Skill, 15 referencias); activación probada en Fase 0 |
+| **Remoto: Kit completo** (`npm exec github:`) | Instala el kit completo desde el repositorio de GitHub | Sin verificar de extremo a extremo |
 
 **Kit completo.** Con Specspire descargado en una carpeta hermana:
 
