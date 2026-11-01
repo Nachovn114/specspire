@@ -4,12 +4,12 @@
 
 ## Status and scope
 
-Phase 1 documentation is complete. Phase 2 is implemented and tested locally on the bilingual branch, pending real-agent ES/EN pilots and branch CI. This is Unreleased work, not a bilingual capability shipped in historical v0.9.0-beta.1. Local tarball installation does not imply npm publication.
+Phase 1 documentation is complete. Phase 2 is implemented, evaluated, and merged into `main` via PR #5 (commit [`1ba9c54`](https://github.com/Nachovn114/specspire/commit/1ba9c549142274b4151a025b0f8f8dd0dbf8c8f9)). Post-merge CI passed all 9 matrix jobs (Node 20.0.0, 22, 24 on Ubuntu, Windows, macOS) and the required gate. This is unreleased work on `main`, not a bilingual capability shipped in historical v0.9.0-beta.1. Local tarball installation and `main` integration do not imply npm publication.
 
 | Phase | Scope | Status |
 |---|---|---|
 | 1 | Bilingual READMEs, core guides and contribution guidance | Completed |
-| 2 | 15 EN operational references, bilingual router, CLI integrity and distribution tests | Implemented locally; real-agent pilots and branch CI pending |
+| 2 | 15 EN operational references, bilingual router, CLI integrity and distribution tests | Completed & integrated into `main` (PR #5) |
 | 3 | English project templates and optional `specspire init --lang en` | Future; neither exists in Phase 2 |
 
 ## One Skill, progressive loading
@@ -36,8 +36,11 @@ Use the negotiated language for explanations and appropriate artifacts while pre
 
 `init` never overwrites existing files, including `SKILL.md`. Follow the [controlled migration procedure](en/QUICKSTART.md#updating-an-existing-installation): backup, clean comparison, reviewed per-file integration and final diagnosis. Customized old routers may require manual integration even when their content is not recognized as the known legacy router. Symlink and traversal protections remain mandatory.
 
-## Pending evidence
+## Evaluation evidence and remaining limits
 
-Run bilingual pilots with real agents and record agent/version, OS, source revision, prompt, files actually loaded, observed response language, gates, artifacts and limitations. Cover explicit overrides, unambiguous ES/EN, ambiguous input, Spanish requests with English technical terms, conditional privacy/UI and Skill-only use. Historical Antigravity Phase 0 evidence does not establish this branch's bilingual behavior or universal agent compatibility.
+Phase 2 empirical pilots evaluated real agent behavior across bilingual scenarios:
+- **Codex:** 2 PASS, 5 BLOCKED due to environment API quota limits.
+- **Gemini 3.8 Flash (in Google Antigravity):** 6 PASS, 1 NOT VERIFIED (attributed to harness tool isolation in an unseeded run).
+- **Spanish fallback under completely ambiguous input:** remains NOT VERIFIED.
 
-Run the branch CI matrix separately. Local Windows native symlink fixtures may be SKIPPED due to permissions; the strict CI policy remains unchanged. Full remote kit bootstrap and end-to-end production pilots remain unverified.
+Post-merge GitHub Actions CI verified cross-platform compatibility across 9 matrix jobs (Ubuntu, Windows, macOS on Node.js 20.0.0, 22, and 24) plus the required gate. On local Windows development without elevated privileges, 3 native symlink security fixtures may be reported as SKIPPED (`BLOCKED`); in CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` mandates running them without exception. Full remote kit bootstrap (`npm exec github:`) and full end-to-end production pilots remain unverified.

@@ -4,7 +4,7 @@
 
 This guide documents the formal release process, quality gates, and verification procedures for Specspire maintainers.
 
-**Current status (Unreleased):** Phase 2 is implemented and verified locally. Branch CI and real-agent ES/EN pilots remain pending. Historical v0.9.0-beta.1 evidence does not establish bilingual release availability. No npm publication is claimed. `skills/` already includes EN references in the package manifest; no additional files pattern is needed.
+**Current status (Unreleased):** Phase 2 is implemented, evaluated, and merged into `main` via PR #5 (commit [`1ba9c54`](https://github.com/Nachovn114/specspire/commit/1ba9c549142274b4151a025b0f8f8dd0dbf8c8f9)). Post-merge CI passed all 9 matrix jobs (Node 20.0.0, 22, 24 on Ubuntu, Windows, macOS) and the required gate. Agent evaluations verified 2 PASS / 5 BLOCKED (quota) on Codex and 6 PASS / 1 NOT VERIFIED on Gemini 3.8 Flash; fallback under ambiguous input remains NOT VERIFIED. Historical v0.9.0-beta.1 evidence does not establish bilingual release availability. No npm publication is claimed. `skills/` already includes EN references in the package manifest; no additional files pattern is needed.
 
 For legacy installation updates, use the reviewed comparison, backup and manual merge procedure in [Quick Start](en/QUICKSTART.md#updating-an-existing-installation). `init` never replaces the router. `doctor` returns 0 for a complete bilingual install, 2 for a recognized legacy router requiring migration, and 1 for incomplete/invalid installs.
 

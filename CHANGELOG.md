@@ -17,13 +17,13 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 - **Packaging & Test Maintenance:** Updated `package.json` manifest (`"files"`) and `tests/docs.test.mjs` to track `CONTRIBUTING.es.md` and reflect removal of `examples/`.
 - **Packaging Smoke Test Clarification:** Clarified in `README.md` and `README.es.md` that local npm packaging smoke tests verify tarball structure and offline CLI installation and do not indicate publication to the npm registry.
 
-### Bilingual Skill and installation (Phase 2, locally implemented)
+### Bilingual Skill and installation (Phase 2, integrated in `main` via PR #5)
 - Added 15 operational English references alongside the 15 Spanish originals under one public Skill.
 - Added a bilingual router with explicit preference, unambiguous context and Spanish fallback; references load progressively in the selected language.
 - Updated the CLI contract to 34 installed files, with exclusive writes and no automatic router replacement. Doctor distinguishes complete (0), recognized legacy/partially migrated (2), and incomplete/invalid (1) installations.
 - Added privacy parity checks and real tarball assertions for 15 ES + 15 EN references, matching basenames, 30 router links, 14 EN links and offline installation with preservation checks.
 - Documented controlled legacy updates using backups, clean comparison and manual integration of router customizations.
-- Limitations: branch CI and real-agent bilingual pilots remain pending; local native symlink fixtures can be blocked by permissions. Privacy checks do not certify legal compliance. Templates remain Spanish; English templates and `--lang` belong to future Phase 3. No npm publication or bilingual availability in historical v0.9.0-beta.1 is claimed.
+- Verification & Limitations: merged into `main` via PR #5 (commit `1ba9c54`) with all 9 CI matrix jobs passing on Ubuntu, Windows, and macOS (Node 20.0.0, 22, 24) and required check passing. Real-agent bilingual evaluations recorded 2 PASS / 5 BLOCKED (quota) on Codex and 6 PASS / 1 NOT VERIFIED on Gemini 3.8 Flash; Spanish fallback under completely ambiguous input remains NOT VERIFIED. Local native symlink fixtures can be blocked by permissions. Privacy checks do not certify legal compliance. Templates remain Spanish; English templates and `--lang` belong to future Phase 3. No npm publication or bilingual availability in historical v0.9.0-beta.1 is claimed.
 
 ## [0.9.0-beta.1] — 2026-10-31
 

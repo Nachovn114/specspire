@@ -22,9 +22,9 @@ code .
 
 | Modalidad | Qué obtienes | Estado |
 |---|---|---|
-| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Verificado localmente; CI y pilotos bilingües de la rama pendientes |
-| **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 30 referencias (15 ES + 15 EN), sin CLI ni documentos de proyecto | Archivos bilingües locales; activación bilingüe real pendiente |
-| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Evidencia histórica v0.9.0-beta.1 (15 ES); no verifica esta rama bilingüe |
+| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Integrado en `main` (PR #5); evaluado con tests, CI y pilotos de agentes (sin publicar en npm) |
+| **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 30 referencias (15 ES + 15 EN), sin CLI ni documentos de proyecto | Integrado en `main` (PR #5); evaluado con agentes en Fase 2 (sin publicar en npm) |
+| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Evidencia histórica v0.9.0-beta.1 (15 ES); instalación remota bilingüe sin verificar |
 | **Remoto: Kit completo** (`npm exec github:`) | Instala el kit completo desde el repositorio de GitHub | Sin verificar de extremo a extremo |
 
 **Kit completo.** Con Specspire descargado en una carpeta hermana:
