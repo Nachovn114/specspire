@@ -18,6 +18,8 @@ const stages = {
   tasks: { file: 'tasks.md', template: 'tasks.md', requires: [['spec.md', 'TODO_SPEC'], ['plan.md', 'TODO_PLAN']] },
   review: { file: 'review.md', template: 'review.md', requires: [['tasks.md', 'TODO_TASK']] },
 };
+const templateRoots = { es: join(kit, 'templates'), en: join(kit, 'templates/en') };
+const initialTemplates = ['README-DESARROLLO.md', 'PROJECT.md', 'AGENTS.md'];
 const required = [
   'README-DESARROLLO.md', 'PROJECT.md', 'AGENTS.md',
   '.agents/skills/specspire/SKILL.md',
@@ -35,33 +37,45 @@ function validateSkill(content) {
 function help() {
   console.log(`Specspire ${VERSION} — una Skill, ciclo completo de desarrollo
 
-  specspire init [--target RUTA] [--dry-run]
+  specspire init [--target RUTA] [--dry-run] [--lang es|en]
   specspire doctor [--target RUTA]
   specspire status [--target RUTA]
   specspire next [SLUG] [--target RUTA]
-  specspire feature new SLUG [--target RUTA]
-  specspire feature plan SLUG [--target RUTA]
-  specspire feature design SLUG [--target RUTA]   (solo con UI)
-  specspire feature tasks SLUG [--target RUTA]
-  specspire feature review SLUG [--target RUTA]
+  specspire feature new SLUG [--target RUTA] [--lang es|en]
+  specspire feature plan SLUG [--target RUTA] [--lang es|en]
+  specspire feature design SLUG [--target RUTA] [--lang es|en]   (solo con UI)
+  specspire feature tasks SLUG [--target RUTA] [--lang es|en]
+  specspire feature review SLUG [--target RUTA] [--lang es|en]
   specspire validate-source
 
+Idioma: es predeterminado; en requiere --lang en en cada init o feature.
+Sin herencia persistente; los documentos existentes se conservan.
 SLUG: letras minúsculas, números y guiones (ej.: formulario-contacto).
 No sobrescribe archivos. Las plantillas NO implementan ni verifican código.`);
 }
 function parse(argv) {
-  const args = [], opts = { target: resolve('.'), dryRun: false };
+  const args = [], opts = { target: resolve('.'), dryRun: false, lang: 'es' };
+  let languageSeen = false, helpRequested = false;
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--target' || arg === '-t') {
       if (!argv[i + 1] || argv[i + 1].startsWith('--')) throw new Error(`Falta ruta después de ${arg}`);
       opts.target = resolve(argv[++i]);
+    } else if (arg === '--lang') {
+      if (languageSeen) throw new Error('--lang repetido');
+      languageSeen = true;
+      const value = argv[++i];
+      if (value !== 'es' && value !== 'en') throw new Error('--lang requiere es o en');
+      opts.lang = value;
     } else if (arg === '--dry-run') opts.dryRun = true;
-    else if (arg === '--help' || arg === '-h') return { command: 'help', ...opts };
+    else if (arg === '--help' || arg === '-h') helpRequested = true;
     else if (arg.startsWith('-')) throw new Error(`Argumento desconocido: ${arg}`);
     else args.push(arg);
   }
-  return { command: args.shift() || 'help', args, ...opts };
+  const command = args.shift() || 'help';
+  if (languageSeen && command !== 'init' && !(command === 'feature' && Object.hasOwn(stages, args[0])))
+    throw new Error('--lang solo se admite en init y feature new|plan|design|tasks|review');
+  return { command: helpRequested ? 'help' : command, args, ...opts };
 }
 function isSymlink(p) {
   try { return lstatSync(p).isSymbolicLink(); }
@@ -84,9 +98,9 @@ function secureDestination(base, target) {
     if (isSymlink(current)) throw new Error(`Destino inseguro (symlink): ${current}`);
   }
 }
-function sources() {
+function sources(lang = 'es') {
   return [
-    ...['README-DESARROLLO.md', 'PROJECT.md', 'AGENTS.md'].map(n => ({ src: join(kit, 'templates', n), dest: n })),
+    ...initialTemplates.map(n => ({ src: join(templateRoots[lang], n), dest: n })),
     { src: join(kit, 'skills/specspire/SKILL.md'), dest: '.agents/skills/specspire/SKILL.md' },
     ...referencePaths.map(n => ({ src: join(kit, `skills/specspire/${n}`), dest: `.agents/skills/specspire/${n}` })),
   ];
@@ -105,11 +119,12 @@ function installOne({ src, dest }, target, dryRun) {
   console.log(`  ${dryRun ? 'CREARÍA' : 'CREADO '}  ${dest}`);
   return true;
 }
-function init({ target, dryRun, args }) {
-  if (args.length) throw new Error('Uso: init [--target RUTA] [--dry-run]');
+function init({ target, dryRun, args, lang }) {
+  if (args.length) throw new Error('Uso: init [--target RUTA] [--dry-run] [--lang es|en]');
   console.log(`Specspire ${VERSION} → ${target}${dryRun ? ' (simulación)' : ''}`);
+  if (lang === 'en') console.log('AVISO: el idioma no se hereda; usa --lang en en cada comando feature para generar documentos en ingles.');
   let count = 0;
-  for (const file of sources()) if (installOne(file, target, dryRun)) count++;
+  for (const file of sources(lang)) if (installOne(file, target, dryRun)) count++;
   console.log(`\n${count} archivos ${dryRun ? 'previstos' : 'creados'}, ${required.length - count} existentes.`);
   const router = join(target, '.agents/skills/specspire/SKILL.md');
   secureDestination(target, router);
@@ -161,27 +176,30 @@ function doctor({ target, args }) {
   }
   console.log('AVISO: doctor NO evalúa calidad del código, pruebas ni requisitos.');
 }
-function feature({ target, args, dryRun }) {
+function feature({ target, args, dryRun, lang }) {
   const [stage, slug, ...extras] = args;
   if (!Object.hasOwn(stages, stage) || !slug || extras.length) throw new Error('Uso: feature <new|plan|design|tasks|review> <slug>');
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(slug)) throw new Error('SLUG inválido; usa minúsculas, números y guiones.');
+  secureDestination(target, join(target, 'PROJECT.md'));
   if (!existsSync(join(target, 'PROJECT.md'))) throw new Error('Primero ejecuta init y prepara PROJECT.md.');
   if (existsSync(join(target, '.specify'))) throw new Error('Detectado Spec Kit oficial: utiliza sus comandos y artefactos existentes; evita un flujo paralelo.');
   const folder = resolve(target, 'specs', slug);
   const { file, template, requires } = stages[stage];
   const dest = join(folder, file);
   secureDestination(target, dest);
+  secureDestination(target, join(folder, 'design.md'));
   if (stage === 'tasks' && existsSync(join(folder, 'design.md'))) {
     secureDestination(target, join(folder, 'design.md'));
     if (readFileSync(join(folder, 'design.md'), 'utf8').includes(tokenFor('design.md'))) throw new Error('Completa los TODO de design.md antes de avanzar.');
   }
   for (const [name, token] of requires) {
     const path = join(folder, name);
+    secureDestination(target, path);
     if (!existsSync(path)) throw new Error(`Primero crea y completa specs/${slug}/${name}.`);
     if (readFileSync(path, 'utf8').includes(token)) throw new Error(`Completa los TODO de specs/${slug}/${name} antes de avanzar.`);
     if (name === 'spec.md' && readFileSync(path, 'utf8').includes('[ACLARAR:')) throw new Error(`Resuelve las dudas [ACLARAR] de specs/${slug}/spec.md antes de avanzar.`);
   }
-  const source = join(kit, 'templates/feature', template);
+  const source = join(templateRoots[lang], 'feature', template);
   if (existsSync(dest)) { console.log(`EXISTE specs/${slug}/${file} (no sobrescrito).`); return; }
   if (!dryRun) {
     const content = readFileSync(source, 'utf8')
@@ -195,17 +213,27 @@ function feature({ target, args, dryRun }) {
   console.log(`${dryRun ? 'CREARÍA' : 'CREADO'} specs/${slug}/${file}`);
   console.log('La plantilla está PENDIENTE: complétala con el agente, revisa y verifica el Gate antes de avanzar.');
 }
+function featureDirectories(target, folder) {
+  secureDestination(target, folder);
+  if (!existsSync(folder)) return [];
+  return readdirSync(folder, { withFileTypes: true }).filter(entry => {
+    secureDestination(target, join(folder, entry.name));
+    return entry.isDirectory();
+  }).map(entry => entry.name).sort();
+}
 function status({ target, args }) {
   if (args.length) throw new Error('Uso: status [--target RUTA]');
+  secureDestination(target, join(target, 'PROJECT.md'));
   if (!existsSync(join(target, 'PROJECT.md'))) throw new Error('Primero ejecuta init.');
   console.log(`Specspire · documentos en ${target}`);
   const folder = join(target, 'specs');
-  const dirs = existsSync(folder) ? readdirSync(folder, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name).sort() : [];
+  const dirs = featureDirectories(target, folder);
   if (!dirs.length) { console.log('Sin funcionalidades. Siguiente: feature new <slug>'); return; }
   for (const slug of dirs) {
     console.log(`\n${slug}:`);
     for (const [stage, value] of Object.entries(stages)) {
       const file = join(folder, slug, value.file);
+      secureDestination(target, file);
       const token = tokenFor(value.file);
       if (!existsSync(file)) console.log(`  - ${value.file}: no creado${stage === 'design' ? ' (opcional)' : ''}`);
       else if (readFileSync(file, 'utf8').includes(token)) console.log(`  ~ ${value.file}: por completar`);
@@ -216,22 +244,24 @@ function status({ target, args }) {
 }
 function next({ target, args }) {
   if (args.length > 1) throw new Error('Uso: next [SLUG] [--target RUTA]');
+  secureDestination(target, join(target, 'PROJECT.md'));
   if (!existsSync(join(target, 'PROJECT.md'))) throw new Error('Primero ejecuta init.');
   if (existsSync(join(target, '.specify'))) { console.log('Detectado Spec Kit oficial: usa sus artefactos; no crees flujos paralelos.'); return; }
   const slug = args[0];
   if (slug && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(slug)) throw new Error('SLUG inválido.');
   const project = readFileSync(join(target, 'PROJECT.md'), 'utf8');
-  if (project.includes('_Nombre_') || project.includes('_Qué problema resuelve_')) {
+  if (project.includes('_Nombre_') || project.includes('_Qué problema resuelve_') || /^\|\s*(?:Project\s*\|\s*_Name_|Objective\s*\|\s*_What problem it solves_)\s*\|\s*$/m.test(project)) {
     console.log('Fase 0 · Completa PROJECT.md: objetivo, usuarios, restricciones y alcance.');
     console.log('Este diagnóstico es DOCUMENTAL; confirma la fase con tu agente.'); return;
   }
   const specs = join(target, 'specs');
-  const dirs = existsSync(specs) ? readdirSync(specs, {withFileTypes:true}).filter(d=>d.isDirectory()).map(d=>d.name).sort() : [];
+  const dirs = featureDirectories(target, specs);
   if (!dirs.length) { console.log('Fase 1 · Crea tu primera funcionalidad: specspire feature new <slug>'); return; }
   if (!slug && dirs.length > 1) { console.log(`Especifica una función: specspire next <slug>. Disponibles: ${dirs.join(', ')}`); return; }
   const name = slug || dirs[0];
   if (!dirs.includes(name)) throw new Error(`Funcionalidad inexistente: ${name}`);
   const dir = join(specs, name);
+  secureDestination(target, join(dir, 'design.md'));
   const order = [
     ['spec.md',tokenFor('spec.md'),'Fase 1 · Completa spec.md y valida criterios de aceptación.','feature new'],
     ['plan.md',tokenFor('plan.md'),'Fase 2 · Completa plan.md y justifica stack/arquitectura.','feature plan'],
@@ -241,6 +271,7 @@ function next({ target, args }) {
   ];
   for (const [file,token,action,command] of order) {
     const p = join(dir,file);
+    secureDestination(target, p);
     if (!existsSync(p)) { console.log(`${name}: ${action} Primero: specspire ${command} ${name}`); return; }
     const content = readFileSync(p,'utf8');
     if (content.includes(token) || (file==='spec.md' && content.includes('[ACLARAR:'))) {
@@ -263,6 +294,42 @@ function validateReferenceInventory(skillRoot, allowLegacy = false) {
     if (!prefix && allowLegacy) break;
   }
 }
+function validateTemplates() {
+  const names = [...initialTemplates, ...Object.values(stages).map(s => `feature/${s.template}`)];
+  const contracts = new Map();
+  const tokens = text => (text.match(/\{\{[A-Z]+\}\}|TODO_[A-Z]+|\[ACLARAR:|RF-\d+|\bT0[12]\b|\b[PR]0[1-6]\b|\b(?:PASS|FAIL|BLOCKED|NOT VERIFIED|N\/A)\b/g) || []).sort();
+  for (const lang of ['es', 'en']) {
+    const root = templateRoots[lang];
+    for (const sub of ['', 'feature']) {
+      const folder = join(root, sub);
+      secureDestination(kit, folder);
+      const allowed = new Set(sub ? Object.values(stages).map(s => s.template) : [...initialTemplates, 'feature', ...(lang === 'es' ? ['en'] : [])]);
+      for (const entry of readdirSync(folder)) {
+        if (!allowed.has(entry)) throw new Error(`Plantilla inesperada: ${lang}/${sub}/${entry}`);
+      }
+    }
+    for (const name of names) {
+      const file = join(root, name);
+      secureDestination(kit, file);
+      if (!existsSync(file) || !lstatSync(file).isFile()) throw new Error(`Plantilla faltante o no regular: ${lang}/${name}`);
+      const text = readFileSync(file, 'utf8');
+      if (!text.trim()) throw new Error(`Plantilla vacia: ${lang}/${name}`);
+      const actual = tokens(text);
+      if (name.startsWith('feature/')) {
+        const requiredTokens = ['{{FEATURE}}', tokenFor(name.slice(8)), ...(name === 'feature/tasks.md' ? [] : ['{{DATE}}'])];
+        for (const token of requiredTokens) if (!actual.includes(token)) throw new Error(`Plantilla ${lang}/${name}: falta ${token}`);
+      }
+      if (lang === 'es') contracts.set(name, actual);
+      else if (JSON.stringify(actual) !== JSON.stringify(contracts.get(name))) throw new Error(`Marcadores distintos: en/${name}`);
+      for (const [, link] of text.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)) {
+        if (/^(?:https?:|mailto:|#)/.test(link)) continue;
+        const destination = resolve(dirname(file), decodeURIComponent(link.split('#')[0]));
+        secureDestination(root, destination);
+        if (!existsSync(destination) || !lstatSync(destination).isFile()) throw new Error(`Enlace invalido: ${lang}/${name}: ${link}`);
+      }
+    }
+  }
+}
 function validateSource() {
   validateReferenceInventory(join(kit, 'skills/specspire'));
   for (const {src, dest} of sources()) {
@@ -274,11 +341,8 @@ function validateSource() {
   validateSkill(skill);
   const dirs = readdirSync(join(kit, 'skills'));
   if (dirs.length !== 1 || dirs[0] !== 'specspire') throw new Error('Debe haber una sola Skill principal');
-  for (const s of Object.values(stages)) {
-    const file = join(kit, 'templates/feature', s.template);
-    if (!existsSync(file) || !readFileSync(file,'utf8').includes('{{FEATURE}}')) throw new Error(`Plantilla inválida: ${s.template}`);
-  }
-  console.log(`PASS: 1 Skill, ${referencePaths.length} referencias (15 es, 15 en), 3 plantillas de instalación y ${Object.keys(stages).length} plantillas progresivas.`);
+  validateTemplates();
+  console.log(`PASS: 1 Skill, ${referencePaths.length} referencias (15 es, 15 en), 3 plantillas de instalación y ${Object.keys(stages).length} plantillas progresivas por idioma (16 plantillas ES/EN).`);
 }
 try {
   const opts = parse(process.argv.slice(2));
