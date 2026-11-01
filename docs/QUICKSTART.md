@@ -4,6 +4,10 @@
 
 **Necesitas:** Git y Node.js 20+ si vas a usar la CLI; un agente compatible con Skills si quieres asistencia de IA.
 
+**Contrato local sin publicar:** una Skill, 15 referencias ES + 15 EN; `init` instala 34 archivos (3 documentos + router + 30 referencias). Las plantillas siguen en español; las inglesas y `--lang` pertenecen a Fase 3 futura. No implica publicación npm ni disponibilidad bilingüe en v0.9.0-beta.1.
+
+Idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Cargar solo referencias pertinentes en el idioma seleccionado; comparar ambas únicamente por traducción, auditoría de equivalencia o mantenimiento bilingüe explícitos.
+
 ## 1. Abre el proyecto
 
 En VS Code, abre una carpeta nueva o existente. En Windows:
@@ -18,9 +22,9 @@ code .
 
 | Modalidad | Qué obtienes | Estado |
 |---|---|---|
-| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Verificado localmente con suite de tests y CI |
-| **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 15 referencias, sin CLI ni documentos de proyecto | Activación probada en Google Antigravity (Fase 0); otros agentes sin verificar |
-| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Verificado desde GitHub (1 Skill, 15 referencias); activación probada en Fase 0 |
+| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Verificado localmente; CI y pilotos bilingües de la rama pendientes |
+| **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 30 referencias (15 ES + 15 EN), sin CLI ni documentos de proyecto | Archivos bilingües locales; activación bilingüe real pendiente |
+| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Evidencia histórica v0.9.0-beta.1 (15 ES); no verifica esta rama bilingüe |
 | **Remoto: Kit completo** (`npm exec github:`) | Instala el kit completo desde el repositorio de GitHub | Sin verificar de extremo a extremo |
 
 **Kit completo.** Con Specspire descargado en una carpeta hermana:
@@ -78,25 +82,21 @@ Pide al agente que ejecute los comandos **del proyecto real** (tests, lint, buil
 
 ## Actualizar una instalación previa
 
-`init` no reemplaza una Skill ni un `AGENTS.md` existentes, así que repetirlo **no actualiza** sus contenidos. Para actualizar de forma controlada desde la carpeta del proyecto:
+`init` nunca sustituye `SKILL.md`, referencias existentes ni documentos de proyecto. Un router heredado reconocido produce código 2 en `doctor`, antes y después de añadir EN; solo la instalación bilingüe válida produce 0. Archivos faltantes/inválidos producen 1. Un router antiguo personalizado puede no coincidir con la huella heredada conocida: revisarlo manualmente, sin asumir que sea una versión antigua válida.
 
-1. Revisa el [CHANGELOG](../CHANGELOG.md) de la nueva versión.
-2. Instala una copia limpia en una carpeta temporal y compárala con la tuya:
-
-   ```powershell
-   $nuevo = Join-Path $env:TEMP ('specspire-' + (Get-Date -Format 'yyyyMMddHHmmss'))
-   node ..\Specspire\bin\specspire.mjs init --target $nuevo
-   git diff --no-index .agents\skills\specspire "$nuevo\.agents\skills\specspire"
-   ```
-
-3. Si aceptas los cambios, copia la Skill nueva y ejecuta `doctor`:
+1. Revisa el [CHANGELOG](../CHANGELOG.md) y selecciona la revisión local deseada. Detén ediciones del agente durante la migración. Usa rutas físicas; inspecciona origen, destino y ancestros por symlinks/junctions. No eludas protecciones ni uses rutas de traversal.
+2. Antes de cambiar archivos instalados, respalda íntegramente `.agents/skills/specspire/` (incluidos directorios ocultos) y los tres documentos de proyecto en un directorio físico nuevo y separado. Verifica el contenido del respaldo y registra su ubicación; no reutilices un destino de respaldo existente.
+3. Crea una instalación limpia para comparar:
 
    ```powershell
-   Copy-Item -Recurse -Force "$nuevo\.agents\skills\specspire\*" .agents\skills\specspire\
-   node ..\Specspire\bin\specspire.mjs doctor
+   $nuevo = Join-Path $env:TEMP ('specspire-review-' + [guid]::NewGuid().ToString())
+   node ../Specspire/bin/specspire.mjs init --target $nuevo
+   git diff --no-index .agents/skills/specspire "$nuevo/.agents/skills/specspire"
    ```
 
-4. Integra a mano lo que te interese de `$nuevo\AGENTS.md` en tu `AGENTS.md`; tus reglas propias se conservan. `PROJECT.md` y `README-DESARROLLO.md` son tuyos: no los reemplaces.
+   Revisa los resultados: código 1 de `git diff --no-index` significa diferencias, no instalación fallida. Detente ante errores reales de comandos.
+4. Ejecuta `init` de la CLI local seleccionada sobre el proyecto para añadir solo faltantes. Compara cada referencia existente y el router contra la copia limpia. Integra los cambios aceptados archivo por archivo, preservando personalizaciones deliberadas. Integra el protocolo bilingüe y los 30 enlaces en un router antiguo personalizado; no reemplaces el directorio en bloque. Conserva el contenido propio de `AGENTS.md`, `PROJECT.md` y `README-DESARROLLO.md`.
+5. Ejecuta `node ../Specspire/bin/specspire.mjs doctor` y revisa `$LASTEXITCODE`: 0 acredita el contrato documental bilingüe; 2 indica router pendiente; 1 exige corregir los archivos faltantes/inválidos informados. Inspecciona el diff final y conserva el respaldo. Si necesitas revertir, restaura solo archivos revisados desde el respaldo y repite el diagnóstico; restaurar un router heredado no completa el contrato bilingüe.
 
 ## Problemas habituales
 

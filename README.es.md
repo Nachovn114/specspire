@@ -17,6 +17,10 @@ npx skills add Nachovn114/specspire --skill specspire
 > [!IMPORTANT]
 > **Beta — 0.9.0-beta.1.** La CLI y la Skill cuentan con pruebas automatizadas, y GitHub Actions CI aprobó los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). El empaquetado del tarball npm fue probado localmente, pero Specspire todavía no está publicado en el registro npm. La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**.
 
+**Rama bilingüe sin publicar:** Fase 1 documental completada; Fase 2 implementada y probada localmente, pendiente de CI de la rama y pilotos ES/EN con agentes reales. Estos cambios no pertenecen a la versión histórica v0.9.0-beta.1; la verificación anterior no valida esta rama ni implica publicación npm.
+
+Prioridad de idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Los términos técnicos ingleses en una petición española no cambian el idioma. Cargar solo referencias pertinentes en ese idioma; comparar ambas únicamente ante traducción, auditoría de equivalencia o mantenimiento bilingüe solicitados explícitamente. Las plantillas siguen en español en Fase 2; `--lang` y plantillas inglesas son futuros de Fase 3.
+
 ## Qué es
 
 Los agentes de IA suelen saltar directo al código, añadir infraestructura que nadie pidió y declarar pruebas que no ejecutaron. Specspire les da un único `SKILL.md` que identifica la tarea, ubica la fase actual y carga solo la referencia necesaria: especificar, planificar, diseñar, construir con pruebas primero, verificar contra requisitos y entregar.
@@ -39,7 +43,7 @@ Contexto → Especificar → Plan y diseño → Tareas → Construir → Verific
 
 ## Capacidades
 
-- **Una sola Skill pública** con 15 referencias especializadas que se cargan bajo demanda.
+- **Una sola Skill pública** con 30 referencias (15 españolas + 15 inglesas) que se cargan bajo demanda.
 - **Privacidad desde el diseño:** Gate contextual (P01–P06) con marco chileno (Ley 19.628 / 21.719), GDPR, LGPD y CCPA.
 - **Especificación antes del código:** Criterios observables, plan mínimo y stack justificado.
 - **UI y accesibilidad:** Dirección visual, responsive y matrices de evidencia multiplataforma.
@@ -51,7 +55,7 @@ Contexto → Especificar → Plan y diseño → Tareas → Construir → Verific
 
 **Solo Skill remota (recomendado):** Ejecuta `npx skills add Nachovn114/specspire --skill specspire`. Indica a tu agente `.agents/skills/specspire/SKILL.md`.
 
-**Kit completo (local):** Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
+**Kit completo (local, esta rama):** `init` instala 34 archivos (3 documentos + 1 router + 30 referencias). Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
 
 ```text
 Activa la Skill specspire. Lee AGENTS.md, PROJECT.md y README-DESARROLLO.md.
