@@ -28,6 +28,10 @@ Se usa el mismo vocabulario que `review.md` y el estándar responsive:
 
 `BLOCKED` y `NOT VERIFIED` nunca cuentan como `PASS`. Un control obligatorio en esos estados impide declarar la tarea completa.
 
+### Aclaración sobre N/A en controles de privacidad
+
+El estado `N/A` está reservado exclusivamente a los controles de privacidad P01–P06 cuando un control específico resulta inaplicable al tratamiento evaluado. Cada uso de `N/A` exige una justificación documentada en la revisión. Está prohibido inferir `N/A` automáticamente por la simple ausencia de backend, almacenamiento permanente, red o cookies: el procesamiento transitorio en memoria sigue constituyendo tratamiento de datos personales, la ausencia de red no demuestra por sí sola inexistencia de terceros encargados y la falta de cookies no descarta operaciones en terminal ni exime de evaluar el tratamiento de datos.
+
 ## Pruebas sin simulaciones
 
 Un test rojo útil falla por un requisito que todavía no se implementó, **no** por errores de compilación. Un test verde requiere ejecutar el comando y observar el resultado; la suite general también debe comprobarse antes de cerrar cambios.

@@ -2,15 +2,20 @@
 
 **Una Skill para agentes de IA: especificación, pruebas primero y entrega verificable.**
 
+[English](README.md) · **Español** · [Inicio rápido](docs/QUICKSTART.md) ([en](docs/en/QUICKSTART.md)) · [Flujo](docs/WORKFLOW.md) ([en](docs/en/WORKFLOW.md)) · [Controles](docs/QUALITY.md) ([en](docs/en/QUALITY.md)) · [CLI](docs/CLI.md)
+
 [![CI](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg)](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml)
 [![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
 ![Node.js 20+](https://img.shields.io/badge/node-%3E%3D20-339933)
 ![Estado: beta](https://img.shields.io/badge/estado-beta-orange)
 
-[English](README.md) · [Inicio rápido](docs/QUICKSTART.md) · [Flujo](docs/WORKFLOW.md) · [CLI](docs/CLI.md) · [Ejemplo](examples/formulario-academico.md)
+```bash
+# Instala la Skill verificada directamente desde GitHub en cualquier proyecto:
+npx skills add Nachovn114/specspire --skill specspire
+```
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** La CLI, la Skill, el paquete npm y GitHub Actions CI aprobaron los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`405d674`](https://github.com/Nachovn114/specspire/commit/405d674d79b1a222b0398ee3bba1010281ec941e)). La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**.
+> **Beta — 0.9.0-beta.1.** La CLI y la Skill cuentan con pruebas automatizadas, y GitHub Actions CI aprobó los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). El empaquetado del tarball npm fue probado localmente, pero Specspire todavía no está publicado en el registro npm. La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**.
 
 ## Qué es
 
@@ -18,96 +23,54 @@ Los agentes de IA suelen saltar directo al código, añadir infraestructura que 
 
 Una CLI opcional y sin dependencias instala la guía del proyecto y las plantillas sin tocar archivos existentes. Specspire se inspira en el desarrollo guiado por especificaciones y en prácticas de ingeniería disciplinadas; **no está afiliado** a GitHub Spec Kit, Superpowers ni Matt Pocock Skills.
 
-## Capacidades
-
-- **Una sola Skill pública** con 15 referencias especializadas que se cargan bajo demanda.
-- **Especificación antes del código:** criterios de aceptación observables, plan mínimo y stack justificado con fuentes oficiales cuando hay conexión.
-- **UI solo cuando hay interfaz:** dirección visual, accesibilidad y matriz de evidencia responsive y multiplataforma.
-- **Construcción con pruebas primero:** RED → GREEN → REFACTOR para comportamiento automatizable; depuración sistemática para bugs.
-- **Gates con evidencia:** cada resultado se registra como PASS, FAIL, BLOCKED o NOT VERIFIED, nunca inventado.
-- **Instalador conservador:** `init` nunca sobrescribe; `doctor` revisa los documentos instalados.
-- **Control humano:** sin push, merge, despliegues ni acciones con coste sin permiso explícito.
-
-## Instalación
-
-**Requisitos:** Node.js 20+ para la CLI y un agente de IA capaz de leer Agent Skills.
-
-Con la carpeta `Specspire` junto a tu proyecto, ejecuta desde la carpeta del proyecto:
-
-```powershell
-node ..\Specspire\bin\specspire.mjs init
-node ..\Specspire\bin\specspire.mjs doctor
-```
-
-Esto instala el kit completo: `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/`. Repetir `init` solo agrega archivos faltantes; los existentes se conservan tal como están.
-
-<details>
-<summary><strong>Instalación remota desde GitHub</strong></summary>
-
-Elige **una** según desees solo la Skill o la guía completa del proyecto:
-
-```bash
-# Solo la Skill (verificado: instala 1 Skill y 15 referencias)
-npx skills add Nachovn114/specspire --skill specspire
-
-# Kit completo: guía, reglas, plantilla de contexto y Skill local (sin verificar de extremo a extremo)
-npm exec --yes --package=github:Nachovn114/specspire -- specspire init
-```
-
-</details>
-
-- **PowerShell bloquea `npm` o `npx`:** usa `npm.cmd` / `npx.cmd` en lugar de cambiar políticas de ejecución.
-- **Actualizar una instalación previa:** `init` no reemplaza una Skill existente ni tu `AGENTS.md`. Sigue la actualización controlada del [inicio rápido](docs/QUICKSTART.md).
-
-## Inicio rápido
-
-**Kit completo:** abre `README-DESARROLLO.md` en tu proyecto y pide al agente:
-
-```text
-Activa la Skill specspire. Lee AGENTS.md, PROJECT.md y README-DESARROLLO.md.
-Quiero desarrollar [descripción o rúbrica].
-Identifica la fase actual y dime solo la siguiente tarea y cómo verificarla.
-No introduzcas arquitectura ni dependencias innecesarias.
-```
-
-**Skill-only (solo Skill):** indica al agente la ubicación real de `SKILL.md` y define objetivo y restricciones en el chat. No se presupone CLI, `PROJECT.md`, `AGENTS.md` ni guía; el agente mantiene el contexto en la conversación y solo escribe un documento de contexto si lo autorizas.
-
-## Cómo funciona el flujo
+## Las siete fases
 
 ```text
 Contexto → Especificar → Plan y diseño → Tareas → Construir → Verificar → Entregar
 ```
 
-Cada fase termina con un gate respaldado por evidencia, y la profundidad se adapta al alcance real: un formulario no necesita microservicios. Los bugs no recorren el ciclo completo: **reproducir → diagnosticar → corregir → prueba de regresión**. La rúbrica académica tiene prioridad. El mapa fase por fase está en [docs/WORKFLOW.md](docs/WORKFLOW.md).
+1. **Contexto:** Problema, usuarios, límites y alcance (`PROJECT.md` o contexto en el chat).
+2. **Especificar:** Criterios de aceptación observables y casos de error (`spec.md`).
+3. **Plan y diseño:** Arquitectura mínima, justificación de stack y matriz UI (`plan.md`, `design.md`).
+4. **Tareas:** Incrementos verticales medibles con criterios de comprobación (`tasks.md`).
+5. **Construir:** Pruebas primero (RED → GREEN → REFACTOR) o depuración sistemática.
+6. **Verificar:** Comparación de requisitos vs realidad y revisión de diff (`review.md`).
+7. **Entregar:** Instrucciones reproducibles de ejecución, evidencias y cierre.
+
+## Capacidades
+
+- **Una sola Skill pública** con 15 referencias especializadas que se cargan bajo demanda.
+- **Privacidad desde el diseño:** Gate contextual (P01–P06) con marco chileno (Ley 19.628 / 21.719), GDPR, LGPD y CCPA.
+- **Especificación antes del código:** Criterios observables, plan mínimo y stack justificado.
+- **UI y accesibilidad:** Dirección visual, responsive y matrices de evidencia multiplataforma.
+- **Pruebas primero:** Tests reales; resultados registrados como PASS, FAIL, BLOCKED o NOT VERIFIED.
+- **Seguridad conservadora:** `init` nunca sobrescribe; protección contra symlinks y path traversal.
+- **Control humano:** Sin push, merge, despliegues ni acciones con coste sin permiso explícito.
+
+## Inicio rápido
+
+**Solo Skill remota (recomendado):** Ejecuta `npx skills add Nachovn114/specspire --skill specspire`. Indica a tu agente `.agents/skills/specspire/SKILL.md`.
+
+**Kit completo (local):** Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
 
 ```text
-mi-proyecto/
-├── AGENTS.md
-├── PROJECT.md
-├── README-DESARROLLO.md
-└── .agents/skills/specspire/
-    ├── SKILL.md
-    └── references/        # 15 referencias, se cargan según la fase
+Activa la Skill specspire. Lee AGENTS.md, PROJECT.md y README-DESARROLLO.md.
+Quiero desarrollar [descripción]. Identifica la fase actual y dime solo la siguiente tarea y cómo verificarla.
 ```
 
-Los documentos por funcionalidad en `specs/<funcionalidad>/` se crean bajo demanda. `doctor`, `status` y `next` revisan documentos, no la corrección de la aplicación ni la calidad UX.
+**Skill-only (solo Skill):** Indica al agente la ruta a `SKILL.md` y define restricciones en chat. Sin archivos de proyecto asumidos; el contexto vive en la conversación.
 
 ## Documentación
 
-> [!NOTE]
-> Este README existe en inglés y español. Las guías de `docs/`, la Skill, sus referencias y las plantillas instaladas están en español. El soporte internacional completo no se ha verificado.
+Las guías principales cuentan con versiones en inglés bajo `docs/en/` y en español bajo `docs/`. Consulta el [plan de internacionalización](docs/I18N_PLAN.md).
 
-| Quiero… | Guía |
-|---|---|
-| Instalar e iniciar un proyecto | [Inicio rápido](docs/QUICKSTART.md) |
-| Entender las siete fases | [Flujo de desarrollo](docs/WORKFLOW.md) |
-| Registrar evidencia antes de aprobar | [Controles de calidad](docs/QUALITY.md) |
-| Diseñar una UI accesible y responsive | [Diseño UI/UX](docs/DESIGN.md) |
-| Consultar un comando | [Referencia de la CLI](docs/CLI.md) |
-| Entender la estructura del repositorio | [Arquitectura](docs/ARCHITECTURE.md) |
-| Seguir un ejemplo completo | [Formulario académico](examples/formulario-academico.md) |
-| Ver fuentes y atribuciones | [Referencias](docs/REFERENCIAS.md) |
+| Tema | Español | English |
+|---|---|---|
+| Inicio rápido | [docs/QUICKSTART.md](docs/QUICKSTART.md) | [docs/en/QUICKSTART.md](docs/en/QUICKSTART.md) |
+| Flujo de desarrollo | [docs/WORKFLOW.md](docs/WORKFLOW.md) | [docs/en/WORKFLOW.md](docs/en/WORKFLOW.md) |
+| Controles de calidad | [docs/QUALITY.md](docs/QUALITY.md) | [docs/en/QUALITY.md](docs/en/QUALITY.md) |
+| Diseño UI/UX y responsive | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md (es)](docs/DESIGN.md) |
+| Referencia de la CLI | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md (es)](docs/CLI.md) |
+| Arquitectura del repositorio | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | [docs/ARCHITECTURE.md (es)](docs/ARCHITECTURE.md) |
 
-## Contribución, seguridad y licencia
-
-[Contribuir](CONTRIBUTING.md) · [Política de seguridad](SECURITY.md) · [Changelog](CHANGELOG.md) · [Guía de publicación](docs/PUBLISH.md) · [Licencia MIT](LICENSE)
+[Contribuir](CONTRIBUTING.es.md) · [Seguridad](SECURITY.md) · [Changelog](CHANGELOG.md) · [Publicación](docs/PUBLISH.md) · [Licencia MIT](LICENSE)

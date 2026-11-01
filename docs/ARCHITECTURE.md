@@ -7,7 +7,6 @@ specspire/
 ├── README.md                       # Entrada única para usuarios
 ├── docs/                           # Guías cortas por intención
 │   └── audits/                     # Informes históricos; solo GitHub, fuera del paquete npm
-├── examples/                       # Recorridos reproducibles
 ├── skills/specspire/
 │   ├── SKILL.md                    # Enrutador de tareas del agente
 │   └── references/                # Disciplinas técnicas bajo demanda

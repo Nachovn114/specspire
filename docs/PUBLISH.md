@@ -1,48 +1,74 @@
-# Publish Specspire on GitHub
+# Specspire Release Engineering & Maintenance Guide
 
-**Target repository:** `https://github.com/Nachovn114/specspire`.
+[English README](../README.md) · [Español README](../README.es.md) · [Workflow](WORKFLOW.md)
 
-## 1. Create the empty repository
+This guide documents the formal release process, quality gates, and verification procedures for Specspire maintainers.
 
-At [GitHub → New repository](https://github.com/new), enter:
+## 1. Release Philosophy & Quality Gates
 
-| Setting | Value |
-|---|---|
-| Repository name | `specspire` |
-| Description | `One AI agent skill to plan, design, build, test, review, and ship maintainable software.` |
-| Visibility | `Public` |
-| Add a README | **Off** |
-| Add .gitignore | **None** |
-| Choose a license | **None** (already included in this ZIP) |
+Specspire enforces disciplined, evidence-backed releases. Every release candidate must pass all quality gates across supported platforms before publication.
 
-## 2. Upload the source (PowerShell)
+| Gate | Verification Command | Acceptance Standard |
+|---|---|---|
+| **Unit & Integration Tests** | `npm test` (`npm.cmd test`) | All platform tests pass. Local Windows environments without elevated privileges report 3 native symlink fixtures as `SKIPPED`/`BLOCKED`; never record skipped tests as `PASS`. In CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` mandates running them, and any blocked check causes job failure. |
+| **Source Integrity** | `npm run check` | Exactly 1 Skill, 15 references, 3 project templates, 5 feature templates. |
+| **Packaging Smoke Test** | `npm run test:package` | Tarball contains only distribution files; all relative links resolve; CLI smoke passes. |
+| **Format & Hygiene** | `git diff --check` | Zero whitespace errors, zero conflict markers, clean working tree. |
+| **CI Matrix** | GitHub Actions `ci.yml` | 9/9 jobs pass on Linux, Windows, and macOS (Node 20, 22, 24) + `required` check. |
 
-Before uploading, run `npm.cmd test`, `npm.cmd run check` and `npm.cmd run test:package` (use `npm` outside PowerShell). Review BLOCKED security controls explicitly; they are not passes. Review staged files before committing. Uploading or publishing requires the maintainer's authorization.
+> [!NOTE]
+> **Native Symlink Testing Policy:** On local Windows development environments lacking elevated symlink privileges, 3 native symlink security fixtures report as `SKIPPED` (`BLOCKED` status). A skipped test must never be counted as a `PASS`. In GitHub Actions CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` is enforced across all platforms; if any mandatory security check remains blocked or fails in CI, the entire workflow job fails.
 
-**Unzip** the download first: GitHub does **not** extract ZIP files for you. In VS Code, open the folder that directly contains `README.md`, `package.json` and `skills/`.
+## 2. Pre-Release Preparation Checklist
 
-```powershell
-git init
-git add .
-git commit -m "feat: initial Specspire beta release"
-git branch -M main
-git remote add origin https://github.com/Nachovn114/specspire.git
-git push -u origin main
-```
+Before cutting a new release:
 
-These commands assume an empty remote repository and a configured Git identity. Do not run `git init` inside a project that already has a different Git history.
+1. **Verify Base State:**
+   - Ensure local `main` is synchronized with `origin/main`.
+   - Ensure working tree is clean (`git status --short` returns empty).
+2. **Review Documentation & Versioning:**
+   - Bump version in `package.json` following semantic versioning.
+   - Update `CHANGELOG.md`: convert relevant `[Unreleased]` entries into a new version section `[X.Y.Z] — YYYY-MM-DD`.
+   - Ensure `README.md` and `README.es.md` badges and version notes accurately reflect the release.
+3. **Execute Local Verification Suite:**
+   ```bash
+   npm test
+   npm run check
+   npm run test:package
+   git diff --check
+   ```
+4. **Distribution Boundary Check:**
+   - Verify that `docs/audits/`, `tests/`, and temporary scripts are excluded from the package tarball.
+   - Confirm that exactly 1 public Skill (`skills/specspire/SKILL.md`) and 15 references are packed.
 
-## 3. Repository verification status
+## 3. GitHub Release Workflow
 
-- [x] GitHub renders `README.md` on the main page.
-- [x] `.github/workflows/ci.yml` passed all 9 matrix jobs (Ubuntu, Windows, macOS × Node 20, 22, 24) and the `required` check on `main`.
-- [x] The repository includes `LICENSE`, `SECURITY.md`, `skills/specspire/SKILL.md`, and 15 references including `12-data-privacy-compliance.md`.
-- [x] Repository topics: `agent-skills`, `spec-driven-development`, `software-engineering`, `ai-coding`, `tdd`, `developer-tools`, `ui-ux`.
-- [x] Verified remote Skill installation via `npx skills add Nachovn114/specspire --skill specspire`.
-- [x] Tested Phase 0 agent activation in Google Antigravity (5 initial scenarios and 2 focused re-pilots).
-- [ ] Full kit remote bootstrap via `npm exec --package=github:` (pending independent verification).
-- [ ] End-to-end agent pilots across other agents (Codex, Cursor, etc.).
+Once the release PR or commit is approved and merged into `main`:
 
-## 4. Publish a beta release
+1. **Pull updated `main`:**
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+2. **Create and push annotated Git tag:**
+   ```bash
+   git tag -a vX.Y.Z -m "Release vX.Y.Z"
+   git push origin vX.Y.Z
+   ```
+3. **Create GitHub Release:**
+   - Associate with the tag `vX.Y.Z`.
+   - Title: `Specspire vX.Y.Z` (or `Specspire vX.Y.Z-beta.N` during beta).
+   - If in beta, check **Set as a pre-release**.
+   - Paste release notes from `CHANGELOG.md`, including verified capabilities and explicit known limitations.
+   - Attach or generate release notes.
 
-Create a GitHub release with tag `v0.9.0-beta.1`, title `Specspire v0.9.0-beta.1`, marking it as a **prerelease** with the prepared release notes and known beta limitations. Do not label it a stable, production, or enterprise-certified release before running full real-world pilots.
+## 4. Post-Release Verification
+
+1. **Verify Remote Skill Installation:**
+   ```bash
+   npx skills add Nachovn114/specspire --skill specspire
+   ```
+   Confirm that `.agents/skills/specspire/` is installed with `SKILL.md` and all 15 references.
+2. **Package Registry Policy:**
+   - Local packaging smoke tests verify tarball structure and offline installation only.
+   - Publication to the npm registry is reserved for post-beta, production-validated milestones and requires explicit maintainer authorization.
