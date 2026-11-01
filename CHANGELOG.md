@@ -5,10 +5,17 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 ## [Unreleased]
 
 ### Added
-- **Bilingual Developer Experience (Phase 1):** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).
-- **Clarification on N/A in Privacy Controls:** Added explicit guidance to `docs/QUALITY.md` and `docs/en/QUALITY.md` restricting `N/A` strictly to P01–P06 controls with documented justification and prohibiting automatic inferences.
-- **Packaging Smoke Test Clarification:** Clarified in `README.md` and `README.es.md` that local npm packaging smoke tests verify tarball structure only and do not indicate publication to the npm registry.
+- **Bilingual Developer Experience:** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).
+- **Bilingual Contribution Guidelines:** Added English `CONTRIBUTING.md` as primary GitHub guide and created `CONTRIBUTING.es.md` with semantic equivalence.
+- **Attribution & Licensing Policy:** Documented third-party contribution rules, case-by-case copyleft evaluation, and transparent attribution in `docs/REFERENCIAS.md`.
+- **Release Engineering Guide:** Modernized `docs/PUBLISH.md` into a maintainer release and quality gate guide detailing CI matrix and native symlink testing policies.
+- **Clarification on N/A in Privacy Controls:** Added explicit guidance in `docs/QUALITY.md` and `docs/en/QUALITY.md` restricting `N/A` strictly to P01–P06 controls with documented justification and prohibiting automatic inferences.
+
+### Changed
+- **Streamlined Repository Structure:** Removed unused hypothetical academic example (`examples/formulario-academico.md` and `examples/` directory) and cleaned up all internal documentation links across guides.
 - **Portable Paths in CLI Examples:** Updated CLI invocation examples to use forward-slash paths for cross-platform portability.
+- **Packaging & Test Maintenance:** Updated `package.json` manifest (`"files"`) and `tests/docs.test.mjs` to track `CONTRIBUTING.es.md` and reflect removal of `examples/`.
+- **Packaging Smoke Test Clarification:** Clarified in `README.md` and `README.es.md` that local npm packaging smoke tests verify tarball structure only and do not indicate publication to the npm registry.
 
 ## [0.9.0-beta.1] — 2026-10-31
 

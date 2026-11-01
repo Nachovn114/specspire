@@ -15,7 +15,7 @@ npx skills add Nachovn114/specspire --skill specspire
 ```
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** La CLI, la Skill, el paquete npm y GitHub Actions CI aprobaron los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**. Las pruebas locales de empaquetado verifican únicamente la estructura del tarball y no implican publicación en el registro npm.
+> **Beta — 0.9.0-beta.1.** La CLI y la Skill cuentan con pruebas automatizadas, y GitHub Actions CI aprobó los 9 jobs de la matriz en Linux, Windows y macOS con Node.js 20, 22 y 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). El empaquetado del tarball npm fue probado localmente, pero Specspire todavía no está publicado en el registro npm. La instalación remota de la Skill con `npx skills add` y la activación en Fase 0 con Google Antigravity están verificadas. La instalación remota del kit completo (`npm exec github:`), agentes no probados y pilotos completos de producción continúan **NOT VERIFIED**.
 
 ## Qué es
 

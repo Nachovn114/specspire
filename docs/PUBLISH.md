@@ -10,11 +10,14 @@ Specspire enforces disciplined, evidence-backed releases. Every release candidat
 
 | Gate | Verification Command | Acceptance Standard |
 |---|---|---|
-| **Unit & Integration Tests** | `npm test` (`npm.cmd test`) | All platform tests pass (Windows skips elevated symlink fixtures). |
+| **Unit & Integration Tests** | `npm test` (`npm.cmd test`) | All platform tests pass. Local Windows environments without elevated privileges report 3 native symlink fixtures as `SKIPPED`/`BLOCKED`; never record skipped tests as `PASS`. In CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` mandates running them, and any blocked check causes job failure. |
 | **Source Integrity** | `npm run check` | Exactly 1 Skill, 15 references, 3 project templates, 5 feature templates. |
 | **Packaging Smoke Test** | `npm run test:package` | Tarball contains only distribution files; all relative links resolve; CLI smoke passes. |
 | **Format & Hygiene** | `git diff --check` | Zero whitespace errors, zero conflict markers, clean working tree. |
 | **CI Matrix** | GitHub Actions `ci.yml` | 9/9 jobs pass on Linux, Windows, and macOS (Node 20, 22, 24) + `required` check. |
+
+> [!NOTE]
+> **Native Symlink Testing Policy:** On local Windows development environments lacking elevated symlink privileges, 3 native symlink security fixtures report as `SKIPPED` (`BLOCKED` status). A skipped test must never be counted as a `PASS`. In GitHub Actions CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` is enforced across all platforms; if any mandatory security check remains blocked or fails in CI, the entire workflow job fails.
 
 ## 2. Pre-Release Preparation Checklist
 
