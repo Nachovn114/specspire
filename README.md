@@ -72,6 +72,5 @@ Core guides are available in English under `docs/en/` and Spanish under `docs/`.
 | UI/UX & responsive design | [docs/DESIGN.md (es)](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | CLI reference | [docs/CLI.md (es)](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
 | Architecture & layout | [docs/ARCHITECTURE.md (es)](docs/ARCHITECTURE.md) | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| Worked academic example | [examples/formulario-academico.md (es)](examples/formulario-academico.md) | [examples/formulario-academico.md](examples/formulario-academico.md) |
 
 [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) · [Publishing](docs/PUBLISH.md) · [MIT License](LICENSE)

@@ -8,8 +8,8 @@ const markdownFiles = dir => readdirSync(path.join(root, dir), {withFileTypes:tr
   const name = path.join(dir, entry.name);
   return entry.isDirectory() ? markdownFiles(name) : name.endsWith('.md') ? [name] : [];
 });
-const files = ['README.md','README.es.md','SECURITY.md','CONTRIBUTING.md','CHANGELOG.md',
-  ...['docs','examples','skills','templates'].flatMap(markdownFiles)];
+const files = ['README.md','README.es.md','SECURITY.md','CONTRIBUTING.md','CONTRIBUTING.es.md','CHANGELOG.md',
+  ...['docs','skills','templates'].flatMap(markdownFiles)];
 test('all referenced local Markdown documents exist',()=>{
   for(const f of files){
     const full=path.join(root,f);

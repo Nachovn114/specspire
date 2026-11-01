@@ -76,8 +76,6 @@ Abre `specs/formulario-contacto/spec.md`, complétalo con el agente y revísalo 
 
 Pide al agente que ejecute los comandos **del proyecto real** (tests, lint, build, pruebas en navegador cuando aplique), revise el cumplimiento de requisitos y deje constancia de lo que no pudo ejecutar. El protocolo está en [Controles de calidad](QUALITY.md).
 
-**Ejemplo:** [Formulario académico paso a paso](../examples/formulario-academico.md).
-
 ## Actualizar una instalación previa
 
 `init` no reemplaza una Skill ni un `AGENTS.md` existentes, así que repetirlo **no actualiza** sus contenidos. Para actualizar de forma controlada desde la carpeta del proyecto:

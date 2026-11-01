@@ -72,6 +72,5 @@ Las guías principales cuentan con versiones en inglés bajo `docs/en/` y en esp
 | Diseño UI/UX y responsive | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md (es)](docs/DESIGN.md) |
 | Referencia de la CLI | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md (es)](docs/CLI.md) |
 | Arquitectura del repositorio | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | [docs/ARCHITECTURE.md (es)](docs/ARCHITECTURE.md) |
-| Ejemplo académico paso a paso | [examples/formulario-academico.md](examples/formulario-academico.md) | [examples/formulario-academico.md](examples/formulario-academico.md) |
 
-[Contribuir](CONTRIBUTING.md) · [Seguridad](SECURITY.md) · [Changelog](CHANGELOG.md) · [Publicación](docs/PUBLISH.md) · [Licencia MIT](LICENSE)
+[Contribuir](CONTRIBUTING.es.md) · [Seguridad](SECURITY.md) · [Changelog](CHANGELOG.md) · [Publicación](docs/PUBLISH.md) · [Licencia MIT](LICENSE)

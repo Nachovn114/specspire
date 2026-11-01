@@ -84,8 +84,6 @@ Open `specs/contact-form/spec.md`, complete it with the agent, and review it bef
 
 Instruct the agent to execute **real project commands** (tests, linter, build, browser audits where applicable), verify requirements against observable output, and record anything that could not be run. Follow the protocol in [Quality gates](QUALITY.md).
 
-**Worked example:** [Academic form step-by-step (es)](../../examples/formulario-academico.md).
-
 ## Updating an existing installation
 
 `init` does not replace an existing Skill or `AGENTS.md`, so running it again **does not overwrite** your customizations. To update in a controlled way:

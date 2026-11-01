@@ -36,4 +36,4 @@ No copies logotipos, layouts completos, imágenes ni estilos de marca protegidos
 
 Para toda interfaz es obligatorio el [estándar responsive multiplataforma](../skills/specspire/references/02-responsive-cross-platform.md). Define matriz objetivo, rama web/PWA o nativa y evidencia R01–R06. No se declara completa una UI con contenido oculto, navegación inaccesible, overflow accidental, formularios bloqueados por teclado, pérdida de función al redimensionar o accesibilidad crítica pendiente. La emulación de viewport no acredita hardware físico ni teclado real.
 
-Ver también: [Quality gates](QUALITY.md) · [Ejemplo académico](../examples/formulario-academico.md).
+Ver también: [Quality gates](QUALITY.md) · [Flujo de desarrollo](WORKFLOW.md).
