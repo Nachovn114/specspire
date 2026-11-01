@@ -14,6 +14,7 @@
     "skills/",
     "templates/",
     "docs/*.md",
+    "docs/en/*.md",
     "examples/",
     "README.md",
     "CONTRIBUTING.md",

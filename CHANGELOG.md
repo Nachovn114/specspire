@@ -2,6 +2,14 @@
 
 Notable changes to Specspire are documented here. This is a **beta release**; the toolkit has not been certified against a production application.
 
+## [Unreleased]
+
+### Added
+- **Bilingual Developer Experience (Phase 1):** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).
+- **Clarification on N/A in Privacy Controls:** Added explicit guidance to `docs/QUALITY.md` and `docs/en/QUALITY.md` restricting `N/A` strictly to P01–P06 controls with documented justification and prohibiting automatic inferences.
+- **Packaging Smoke Test Clarification:** Clarified in `README.md` and `README.es.md` that local npm packaging smoke tests verify tarball structure only and do not indicate publication to the npm registry.
+- **Portable Paths in CLI Examples:** Updated CLI invocation examples to use forward-slash paths for cross-platform portability.
+
 ## [0.9.0-beta.1] — 2026-10-31
 
 ### Added
