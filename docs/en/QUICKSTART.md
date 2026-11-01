@@ -6,7 +6,7 @@
 
 **Prerequisites:** Git and Node.js 20+ if you use the CLI; an agent compatible with Agent Skills for AI assistance.
 
-**Unreleased local contract:** one Skill, 15 ES + 15 EN references; `init` installs 34 files (3 project documents + router + 30 references). Templates remain Spanish; English templates and `--lang` are future Phase 3 capabilities. No npm publication or bilingual availability in historical v0.9.0-beta.1 is implied.
+**Bilingual contract (integrated in `main` via PR #5, unreleased):** one Skill, 15 ES + 15 EN references; `init` installs 34 files (3 project documents + router + 30 references). Templates remain Spanish; English templates and `--lang` are future Phase 3 capabilities. No npm publication or bilingual availability in historical v0.9.0-beta.1 is implied.
 
 Language selection: explicit preference → unambiguous request/project context → Spanish fallback. Load only relevant references in the selected language; comparison is reserved for explicitly requested translation, equivalence auditing or bilingual maintenance.
 
@@ -24,9 +24,9 @@ code .
 
 | Mode | What you get | Verification status |
 |---|---|---|
-| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Verified locally; bilingual branch CI and agent pilots pending |
-| **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Local bilingual files; real-agent bilingual activation not yet verified |
-| **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Historical v0.9.0-beta.1 evidence only (15 ES); does not verify this bilingual branch |
+| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Integrated in `main` (PR #5); verified via tests, CI, and agent pilots (unreleased on npm) |
+| **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Integrated in `main` (PR #5); evaluated with agents in Phase 2 (unreleased on npm) |
+| **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Historical v0.9.0-beta.1 evidence only (15 ES); current bilingual remote install unverified |
 | **Remote: Full kit** (`npm exec github:`) | Installs the complete kit from the GitHub repository | Unverified end-to-end |
 
 **Full kit (local).** With Specspire downloaded in a sibling folder, run from your project directory:
