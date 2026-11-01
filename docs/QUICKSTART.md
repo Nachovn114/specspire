@@ -4,7 +4,9 @@
 
 **Necesitas:** Git y Node.js 20+ si vas a usar la CLI; un agente compatible con Skills si quieres asistencia de IA.
 
-**Contrato local sin publicar:** una Skill, 15 referencias ES + 15 EN; `init` instala 34 archivos (3 documentos + router + 30 referencias). Las plantillas siguen en español; las inglesas y `--lang` pertenecen a Fase 3 futura. No implica publicación npm ni disponibilidad bilingüe en v0.9.0-beta.1.
+Fase 3 implementada y validada localmente en `feat/english-project-templates`, sin fusionar en `main` ni publicar. GitHub Actions y la matriz Node 20.0.0/22/24 en Windows, Linux y macOS siguen pendientes para Fase 3. La versión histórica v0.9.0-beta.1 no incluye esta funcionalidad.
+
+Hay ocho plantillas originales ES y ocho contrapartes EN. `init` instala 34 archivos, no 42: tres documentos del idioma elegido, un router y 30 referencias. El tarball local de Fase 3 contiene 68 archivos; el de Fase 2 contenía 60. El idioma predeterminado es español. Usa `init --lang en` y repite `--lang en` en cada comando `feature`. No hay persistencia ni inferencia de idioma; los documentos existentes se conservan y no se traducen automáticamente.
 
 Idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Cargar solo referencias pertinentes en el idioma seleccionado; comparar ambas únicamente por traducción, auditoría de equivalencia o mantenimiento bilingüe explícitos.
 
@@ -22,7 +24,7 @@ code .
 
 | Modalidad | Qué obtienes | Estado |
 |---|---|---|
-| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Integrado en `main` (PR #5); evaluado con tests, CI y pilotos de agentes (sin publicar en npm) |
+| **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Fase 2 integrada; Fase 3 validada localmente en la rama, CI pendiente |
 | **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 30 referencias (15 ES + 15 EN), sin CLI ni documentos de proyecto | Integrado en `main` (PR #5); evaluado con agentes en Fase 2 (sin publicar en npm) |
 | **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Evidencia histórica v0.9.0-beta.1 (15 ES); instalación remota bilingüe sin verificar |
 | **Remoto: Kit completo** (`npm exec github:`) | Instala el kit completo desde el repositorio de GitHub | Sin verificar de extremo a extremo |
@@ -76,6 +78,15 @@ node ..\Specspire\bin\specspire.mjs feature new formulario-contacto
 
 Abre `specs/formulario-contacto/spec.md`, complétalo con el agente y revísalo antes de planificar.
 
+Completa y revisa cada requisito previo antes de avanzar; design solo aplica con UI. Usa la CLI local de esta rama. Si no está en PATH, reemplaza `specspire` por `node ../Specspire/bin/specspire.mjs`. `init --lang es` equivale a init sin flag; para inglés usa --lang en en init y en cada feature.
+
+```bash
+specspire feature plan formulario-contacto
+specspire feature design formulario-contacto
+specspire feature tasks formulario-contacto
+specspire feature review formulario-contacto
+```
+
 ## 5. Verifica la entrega
 
 Pide al agente que ejecute los comandos **del proyecto real** (tests, lint, build, pruebas en navegador cuando aplique), revise el cumplimiento de requisitos y deje constancia de lo que no pudo ejecutar. El protocolo está en [Controles de calidad](QUALITY.md).
@@ -112,3 +123,5 @@ Pide al agente que ejecute los comandos **del proyecto real** (tests, lint, buil
 | Destino inseguro (symlink) | Usa una ruta física sin enlaces en sus ancestros; no desactives la protección |
 
 [Volver al README](../README.es.md) · [Referencia de la CLI](CLI.md) · [Flujo de desarrollo](WORKFLOW.md)
+
+Un router anterior puede ser estructuralmente válido sin documentar Fase 3. Doctor no detecta todas las diferencias entre revisiones documentales. Compara el router manualmente. Cambiar --lang conserva documentos existentes y puede dejar idiomas mezclados; integra traducciones deliberadamente después del respaldo.

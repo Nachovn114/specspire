@@ -20,7 +20,9 @@ Todos los comandos aceptan `--target RUTA` cuando corresponda. `slug` admite min
 
 ## Contrato bilingüe local (Unreleased)
 
-Una Skill pública y un `SKILL.md`; 15 referencias ES y 15 EN. `init` instala **34 archivos**: 3 documentos base, el router y 30 referencias. Las 5 plantillas progresivas se crean bajo demanda, no forman parte de esos 34 archivos. Todas las plantillas siguen en español; no existe `--lang` en Fase 2.
+Una Skill pública y un `SKILL.md`; 15 referencias ES y 15 EN. `init` instala **34 archivos**: 3 documentos base, el router y 30 referencias. Las 5 plantillas progresivas se crean bajo demanda, no forman parte de esos 34 archivos. Fase 3 implementada y validada localmente en `feat/english-project-templates`, sin fusionar en `main` ni publicar. GitHub Actions y la matriz Node 20.0.0/22/24 en Windows, Linux y macOS siguen pendientes para Fase 3. La versión histórica v0.9.0-beta.1 no incluye esta funcionalidad.
+
+Hay ocho plantillas originales ES y ocho contrapartes EN. `init` instala 34 archivos, no 42: tres documentos del idioma elegido, un router y 30 referencias. El tarball local de Fase 3 contiene 68 archivos; el de Fase 2 contenía 60. El idioma predeterminado es español. Usa `init --lang en` y repite `--lang en` en cada comando `feature`. No hay persistencia ni inferencia de idioma; los documentos existentes se conservan y no se traducen automáticamente.
 
 `validate-source` exige ambas colecciones y los 30 enlaces del router. `doctor` distingue:
 
@@ -50,3 +52,21 @@ node ..\Specspire\bin\specspire.mjs next
 Las escrituras son exclusivas: si otro proceso crea el archivo final primero, se conserva y se informa `EXISTE`. Init puede quedar parcialmente instalado ante un error posterior; revisa el error y usa doctor antes de reintentar. No elimina ni reemplaza archivos existentes.
 
 Ver [Inicio rápido](QUICKSTART.md).
+
+## Selección explícita de plantillas
+
+```bash
+specspire init --lang es
+specspire init --lang en
+specspire feature new login --lang en
+specspire feature plan login --lang en
+specspire feature design login --lang en
+specspire feature tasks login --lang en
+specspire feature review login --lang en
+```
+
+Completa y revisa cada documento antes del siguiente comando; design solo corresponde con UI. Valores válidos: `es` y `en`; predeterminado: `es`. Solo init y feature aceptan `--lang`; doctor, status, next y validate-source lo rechazan. Valores ausentes, inválidos o duplicados se rechazan antes de escribir. `--dry-run` simula init o feature sin crear archivos ni directorios y conserva sus validaciones.
+
+Tras `init --lang en`, `feature new login` sin flag genera español. Cambiar el flag solo selecciona fuentes para archivos nuevos: nunca traduce ni reemplaza documentos existentes. `next` reconoce `_Nombre_`, `_Qué problema resuelve_`, `_Name_` y `_What problem it solves_`, sin aceptar --lang. Los placeholders ingleses se reconocen en sus filas de tabla.
+
+El idioma no cambia los códigos 0/1/2 de doctor. Doctor no verifica calidad semántica ni la revisión exacta de documentos personalizados: un router antiguo estructuralmente válido puede no describir Fase 3 y aun pasar. Compara e integra manualmente las actualizaciones documentales.

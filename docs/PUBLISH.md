@@ -8,6 +8,10 @@ This guide documents the formal release process, quality gates, and verification
 
 For legacy installation updates, use the reviewed comparison, backup and manual merge procedure in [Quick Start](en/QUICKSTART.md#updating-an-existing-installation). `init` never replaces the router. `doctor` returns 0 for a complete bilingual install, 2 for a recognized legacy router requiring migration, and 1 for incomplete/invalid installs.
 
+Phase 3 is implemented and validated locally on `feat/english-project-templates`, not merged into `main` or published. GitHub Actions and the Node 20.0.0/22/24 matrix on Windows, Linux and macOS remain pending for Phase 3. Historical v0.9.0-beta.1 does not include this functionality.
+
+Phase 3 local distribution: 68 files, 16 ES/EN templates, one Skill, 30 references, 34 installed files, offline installation verified, zero runtime dependencies. Phase 2 historically packaged 60 files. Phase 3 CI remains pending; the matrix below is an acceptance gate, not completed evidence.
+
 ## 1. Release Philosophy & Quality Gates
 
 Specspire enforces disciplined, evidence-backed releases. Every release candidate must pass all quality gates across supported platforms before publication.
@@ -15,10 +19,10 @@ Specspire enforces disciplined, evidence-backed releases. Every release candidat
 | Gate | Verification Command | Acceptance Standard |
 |---|---|---|
 | **Unit & Integration Tests** | `npm test` (`npm.cmd test`) | All platform tests pass. Local Windows environments without elevated privileges report 3 native symlink fixtures as `SKIPPED`/`BLOCKED`; never record skipped tests as `PASS`. In CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` mandates running them, and any blocked check causes job failure. |
-| **Source Integrity** | `npm run check` | Exactly 1 Skill, 30 references (15 ES + 15 EN), 3 project templates, 5 feature templates. |
-| **Packaging Smoke Test** | `npm run test:package` | Exactly 60 reviewed files, 15 ES/15 EN with matching names, 30 router links and 14 EN links resolved; offline installation and CLI smoke produce 34 project files and preserve custom documents. |
+| **Source Integrity** | `npm run check` | Exactly 1 Skill, 30 references (15 ES + 15 EN), 3 project templates and 5 feature templates per language (16 total). |
+| **Packaging Smoke Test** | `npm run test:package` | Exactly 68 reviewed files, 15 ES/15 EN with matching names, 30 router links and 14 EN links resolved; offline installation and CLI smoke produce 34 project files and preserve custom documents. |
 | **Format & Hygiene** | `git diff --check` | No whitespace errors in the diff; inspect untracked files separately and check conflict markers and git status independently. |
-| **CI Matrix** | GitHub Actions `ci.yml` | 9/9 jobs pass on Linux, Windows, and macOS (Node 20, 22, 24) + `required` check. |
+| **CI Matrix** | GitHub Actions `ci.yml` | 9/9 jobs pass on Linux, Windows, and macOS (Node 20.0.0, 22, 24) + `required` check. |
 
 > [!NOTE]
 > **Native Symlink Testing Policy:** On local Windows development environments lacking elevated symlink privileges, 3 native symlink security fixtures report as `SKIPPED` (`BLOCKED` status). A skipped test must never be counted as a `PASS`. In GitHub Actions CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` is enforced across all platforms; if any mandatory security check remains blocked or fails in CI, the entire workflow job fails.
