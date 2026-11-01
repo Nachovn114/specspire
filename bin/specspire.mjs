@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 import { constants, copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const kit = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const VERSION = JSON.parse(readFileSync(join(kit, 'package.json'), 'utf8')).version;
 const refs = ['00-prepare', '01-specify', '02-plan-design', '02-ui-quality', '02-responsive-cross-platform', '03-tasks', '04-implement', '05-converge', '06-deliver', '07-maintain', '08-code-quality', '09-debugging', '10-security-operations', '11-agent-collaboration', '12-data-privacy-compliance'];
+const referencePaths = ['', 'en/'].flatMap(prefix => refs.map(n => `references/${prefix}${n}.md`));
+// Exact pre-bilingual router, normalized for LF/CRLF; missing EN links alone never imply legacy.
+const legacyRouterHash = 'b9bc684d95724378e52abbc28c2ad52e469ddccd920b3847fc46067708e55213';
+const isLegacyRouter = content => createHash('sha256').update(content.replaceAll('\r\n', '\n')).digest('hex') === legacyRouterHash;
 const stages = {
   new: { file: 'spec.md', template: 'spec.md', requires: [] },
   plan: { file: 'plan.md', template: 'plan.md', requires: [['spec.md', 'TODO_SPEC']] },
@@ -16,14 +21,15 @@ const stages = {
 const required = [
   'README-DESARROLLO.md', 'PROJECT.md', 'AGENTS.md',
   '.agents/skills/specspire/SKILL.md',
-  ...refs.map(n => `.agents/skills/specspire/references/${n}.md`)
+  ...referencePaths.map(n => `.agents/skills/specspire/${n}`)
 ];
 const tokenFor = file => `TODO_${file === 'spec.md' ? 'SPEC' : file === 'tasks.md' ? 'TASK' : file.replace('.md', '').toUpperCase()}`;
 function validateSkill(content) {
   const normalized = content.replaceAll('\r\n', '\n');
   if (!/^---\nname: specspire\ndescription: [^\n]*\S[^\n]*\n---(?:\n|$)/u.test(normalized)) throw new Error('SKILL.md: frontmatter inválido');
   if (!normalized.split('\n---')[1]?.trim()) throw new Error('SKILL.md: instrucciones vacías');
-  for (const ref of refs) if (!normalized.includes(`references/${ref}.md`)) throw new Error(`Referencia no enlazada: ${ref}`);
+  const links = new Set([...normalized.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)].map(m => m[1]));
+  for (const ref of referencePaths) if (!links.has(ref)) throw new Error(`Referencia no enlazada: ${ref}`);
 }
 
 function help() {
@@ -82,7 +88,7 @@ function sources() {
   return [
     ...['README-DESARROLLO.md', 'PROJECT.md', 'AGENTS.md'].map(n => ({ src: join(kit, 'templates', n), dest: n })),
     { src: join(kit, 'skills/specspire/SKILL.md'), dest: '.agents/skills/specspire/SKILL.md' },
-    ...refs.map(n => ({ src: join(kit, `skills/specspire/references/${n}.md`), dest: `.agents/skills/specspire/references/${n}.md` })),
+    ...referencePaths.map(n => ({ src: join(kit, `skills/specspire/${n}`), dest: `.agents/skills/specspire/${n}` })),
   ];
 }
 function installOne({ src, dest }, target, dryRun) {
@@ -105,30 +111,50 @@ function init({ target, dryRun, args }) {
   let count = 0;
   for (const file of sources()) if (installOne(file, target, dryRun)) count++;
   console.log(`\n${count} archivos ${dryRun ? 'previstos' : 'creados'}, ${required.length - count} existentes.`);
+  const router = join(target, '.agents/skills/specspire/SKILL.md');
+  secureDestination(target, router);
+  if (existsSync(router)) {
+    const content = readFileSync(router, 'utf8');
+    if (isLegacyRouter(content)) console.log('ACTUALIZACION: router heredado; requiere actualizacion manual y controlada. Agregar EN no completa el contrato bilingue.');
+    else {
+      try { validateSkill(content); }
+      catch (err) { console.error(`FAIL: router existente no actualizado ni reemplazado: ${err.message}`); process.exitCode = 1; }
+    }
+  }
   console.log('Siguiente: abre README-DESARROLLO.md, etapa 0 · Preparar.');
   if (existsSync(join(target, 'AGENTS.md')) && !readFileSync(join(target, 'AGENTS.md'),'utf8').includes('specspire'))
     console.log('AVISO: tu AGENTS.md existente no enlaza la Skill: añade esa referencia manualmente.');
 }
 function doctor({ target, args }) {
   if (args.length) throw new Error('Uso: doctor [--target RUTA]');
-  let missing = 0, corrupt = 0;
+  let missing = 0, corrupt = 0, legacy = false;
+  const enDir = join(target, '.agents/skills/specspire/references/en');
   for (const name of required) {
     const file = join(target, name);
     try {
+      if (legacy && name.includes('/references/en/') && !existsSync(enDir) && !isSymlink(enDir)) continue;
       secureDestination(target, file);
       const stat = lstatSync(file);
       if (!stat.isFile()) throw new Error('no es un archivo regular');
       const content = readFileSync(file, 'utf8');
       if (!content.trim()) throw new Error('contenido vacío');
-      if (name.endsWith('/SKILL.md')) validateSkill(content);
+      if (name.endsWith('/SKILL.md')) {
+        legacy = isLegacyRouter(content);
+        if (!legacy) validateSkill(content);
+      }
     } catch (err) {
       if (err.code === 'ENOENT') { missing++; console.error(`FALTA ${name}`); }
       else { corrupt++; console.error(`CORRUPTO ${name}: ${err.message}`); }
     }
   }
+  try { validateReferenceInventory(join(target, '.agents/skills/specspire'), legacy && !existsSync(enDir)); }
+  catch (err) { corrupt++; console.error(`ESTRUCTURA INVALIDA: ${err.message}`); }
   if (missing || corrupt) {
     console.error(`FAIL: instalación ${corrupt ? 'corrupta' : 'incompleta'} (${missing} faltantes, ${corrupt} inválidos).`);
     process.exitCode = 1;
+  } else if (legacy) {
+    console.error(`ACTUALIZACION: instalacion ${existsSync(enDir) ? 'parcialmente migrada' : 'heredada'}; router pendiente de actualizacion manual y controlada. Contrato bilingue no satisfecho.`);
+    process.exitCode = 2;
   } else {
     console.log(`PASS: ${required.length} archivos de la Skill y documentación instalados.`);
     if (!readFileSync(join(target, 'AGENTS.md'), 'utf8').includes('specspire')) console.log('AVISO: enlaza la Skill desde AGENTS.md.');
@@ -224,8 +250,24 @@ function next({ target, args }) {
   console.log(`${name}: documentación sin marcadores TODO. Revisa tests, criterios, CI y UX reales antes de declarar terminado.`);
   console.log('AVISO: este comando NO ejecuta ni certifica pruebas de software.');
 }
+function validateReferenceInventory(skillRoot, allowLegacy = false) {
+  for (const prefix of ['', 'en/']) {
+    const folder = join(skillRoot, 'references', prefix);
+    secureDestination(skillRoot, folder);
+    if (!existsSync(folder)) continue; // Required file checks report missing entries separately.
+    const allowed = new Set(refs.map(n => `${n}.md`));
+    if (!prefix) allowed.add('en');
+    for (const name of readdirSync(folder)) {
+      if (!allowed.has(name)) throw new Error(`Referencia inesperada: ${prefix}${name}`);
+    }
+    if (!prefix && allowLegacy) break;
+  }
+}
 function validateSource() {
+  validateReferenceInventory(join(kit, 'skills/specspire'));
   for (const {src, dest} of sources()) {
+    secureDestination(kit, src);
+    if (existsSync(src) && !lstatSync(src).isFile()) throw new Error(`Fuente no regular: ${dest}`);
     if (!existsSync(src) || !readFileSync(src,'utf8').trim()) throw new Error(`Fuente faltante o vacía: ${dest}`);
   }
   const skill = readFileSync(join(kit, 'skills/specspire/SKILL.md'), 'utf8');
@@ -236,7 +278,7 @@ function validateSource() {
     const file = join(kit, 'templates/feature', s.template);
     if (!existsSync(file) || !readFileSync(file,'utf8').includes('{{FEATURE}}')) throw new Error(`Plantilla inválida: ${s.template}`);
   }
-  console.log(`PASS: 1 Skill, ${refs.length} referencias, 3 plantillas de instalación y ${Object.keys(stages).length} plantillas progresivas.`);
+  console.log(`PASS: 1 Skill, ${referencePaths.length} referencias (15 es, 15 en), 3 plantillas de instalación y ${Object.keys(stages).length} plantillas progresivas.`);
 }
 try {
   const opts = parse(process.argv.slice(2));

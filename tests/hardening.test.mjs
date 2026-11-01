@@ -120,3 +120,23 @@ fs.${operation} = (...args) => {
   const x = spawnSync(process.execPath, ['--require', preload, cli, ...args, '--target', project], { encoding: 'utf8' });
   ok(x);assert.match(x.stdout, /EXISTE/);assert.equal(fs.readFileSync(dest, 'utf8'), 'concurrent creator');
 }));
+
+for (const part of ['references','references/en']) test(`init and doctor reject linked ${part}`,()=>temp(d=>{
+  const project=path.join(d,'project'), outside=path.join(d,'outside');
+  ok(run('init','--target',project)); fs.mkdirSync(outside); fs.writeFileSync(path.join(outside,'sentinel'),'unchanged');
+  const linked=path.join(project,'.agents/skills/specspire',part); fs.rmSync(linked,{recursive:true}); fs.symlinkSync(outside,linked,linkType);
+  rejected(run('init','--target',project));
+  const x=run('doctor','--target',project); assert.equal(x.status,1); assert.match(x.stderr,/symlink/);
+  assert.deepEqual(fs.readdirSync(outside),['sentinel']); assert.equal(fs.readFileSync(path.join(outside,'sentinel'),'utf8'),'unchanged');
+}));
+
+test('exclusive EN copy preserves a concurrent reference creator',()=>temp(d=>{
+  const project=path.join(d,'project');
+  const dest=path.join(project,'.agents/skills/specspire/references/en/00-prepare.md');
+  const preload=path.join(d,'en-race.cjs');
+  fs.writeFileSync(preload,`const fs=require('node:fs'); const {syncBuiltinESMExports}=require('node:module');
+const copy=fs.copyFileSync;
+fs.copyFileSync=(src,out,flags)=>{ if(out===${JSON.stringify(dest)}) fs.writeFileSync(out,'concurrent EN',{flag:'wx'}); return copy(src,out,flags); }; syncBuiltinESMExports();`);
+  const x=spawnSync(process.execPath,['--require',preload,cli,'init','--target',project],{encoding:'utf8'});
+  ok(x);assert.match(x.stdout,/EXISTE.*references\/en\/00-prepare/);assert.equal(fs.readFileSync(dest,'utf8'),'concurrent EN');
+}));

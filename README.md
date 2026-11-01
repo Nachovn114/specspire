@@ -15,7 +15,11 @@ npx skills add Nachovn114/specspire --skill specspire
 ```
 
 > [!IMPORTANT]
-> **Beta — 0.9.0-beta.1.** GitHub Actions CI passed all 9 matrix jobs on Linux, Windows and macOS with Node.js 20, 22 and 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). Remote Skill installation via `npx skills add` and Phase 0 activation in Google Antigravity are verified. Full remote kit bootstrap (`npm exec github:`), untested agents and full end-to-end production pilots remain **NOT VERIFIED**. Local npm packaging smoke tests verify tarball structure only and do not indicate publication to the npm registry.
+> **Beta — 0.9.0-beta.1.** GitHub Actions CI passed all 9 matrix jobs on Linux, Windows and macOS with Node.js 20, 22 and 24 (commit [`f599ebd`](https://github.com/Nachovn114/specspire/commit/f599ebdd29aabdf6f12e55b005714e11e142880e)). Remote Skill installation via `npx skills add` and Phase 0 activation in Google Antigravity are verified. Full remote kit bootstrap (`npm exec github:`), untested agents and full end-to-end production pilots remain **NOT VERIFIED**. Local npm packaging smoke tests verify tarball structure and offline CLI installation and do not indicate publication to the npm registry.
+
+**Unreleased bilingual branch:** Phase 1 documentation is complete; Phase 2 is implemented and tested locally, with branch CI and real-agent ES/EN pilots still pending. These changes are not part of historical v0.9.0-beta.1; the historical verification above does not validate this branch or imply npm publication.
+
+Language priority is explicit user preference → unambiguous request/project context → Spanish fallback. Technical English terms in Spanish requests do not change the language. Load only relevant references in that language; compare both only for explicitly requested translation, equivalence audits or bilingual maintenance. Project templates remain Spanish in Phase 2; `--lang` and English templates are future Phase 3 work.
 
 ## What it is
 
@@ -39,7 +43,7 @@ Context → Specify → Plan & design → Tasks → Build → Verify → Deliver
 
 ## Capabilities
 
-- **One public skill** with 15 focused references, loaded on demand.
+- **One public skill** with 30 references (15 Spanish + 15 English), loaded on demand.
 - **Privacy by Design:** Contextual gate (P01–P06) covering Chilean law (Ley 19.628 / 21.719), GDPR, LGPD, and CCPA.
 - **Spec before code:** Observable acceptance criteria, minimal plans, and justified stack choices.
 - **UI & Accessibility:** Visual direction, responsive standards, and cross-platform evidence matrices.
@@ -51,7 +55,7 @@ Context → Specify → Plan & design → Tasks → Build → Verify → Deliver
 
 **Remote Skill (recommended):** Run `npx skills add Nachovn114/specspire --skill specspire`. Point your agent to `.agents/skills/specspire/SKILL.md`.
 
-**Full kit (local):** Run `node ../Specspire/bin/specspire.mjs init` and `doctor`. Open `README-DESARROLLO.md` in your project and tell your agent:
+**Full kit (local, this branch):** `init` installs 34 files (3 project documents + 1 router + 30 references). Run `node ../Specspire/bin/specspire.mjs init` and `doctor`. Open `README-DESARROLLO.md` in your project and tell your agent:
 
 ```text
 Use the specspire skill. Read AGENTS.md, PROJECT.md and README-DESARROLLO.md.

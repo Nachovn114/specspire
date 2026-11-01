@@ -4,6 +4,10 @@
 
 This guide documents the formal release process, quality gates, and verification procedures for Specspire maintainers.
 
+**Current status (Unreleased):** Phase 2 is implemented and verified locally. Branch CI and real-agent ES/EN pilots remain pending. Historical v0.9.0-beta.1 evidence does not establish bilingual release availability. No npm publication is claimed. `skills/` already includes EN references in the package manifest; no additional files pattern is needed.
+
+For legacy installation updates, use the reviewed comparison, backup and manual merge procedure in [Quick Start](en/QUICKSTART.md#updating-an-existing-installation). `init` never replaces the router. `doctor` returns 0 for a complete bilingual install, 2 for a recognized legacy router requiring migration, and 1 for incomplete/invalid installs.
+
 ## 1. Release Philosophy & Quality Gates
 
 Specspire enforces disciplined, evidence-backed releases. Every release candidate must pass all quality gates across supported platforms before publication.
@@ -11,9 +15,9 @@ Specspire enforces disciplined, evidence-backed releases. Every release candidat
 | Gate | Verification Command | Acceptance Standard |
 |---|---|---|
 | **Unit & Integration Tests** | `npm test` (`npm.cmd test`) | All platform tests pass. Local Windows environments without elevated privileges report 3 native symlink fixtures as `SKIPPED`/`BLOCKED`; never record skipped tests as `PASS`. In CI, `SPECSPIRE_REQUIRE_NATIVE_LINKS=1` mandates running them, and any blocked check causes job failure. |
-| **Source Integrity** | `npm run check` | Exactly 1 Skill, 15 references, 3 project templates, 5 feature templates. |
-| **Packaging Smoke Test** | `npm run test:package` | Tarball contains only distribution files; all relative links resolve; CLI smoke passes. |
-| **Format & Hygiene** | `git diff --check` | Zero whitespace errors, zero conflict markers, clean working tree. |
+| **Source Integrity** | `npm run check` | Exactly 1 Skill, 30 references (15 ES + 15 EN), 3 project templates, 5 feature templates. |
+| **Packaging Smoke Test** | `npm run test:package` | Exactly 60 reviewed files, 15 ES/15 EN with matching names, 30 router links and 14 EN links resolved; offline installation and CLI smoke produce 34 project files and preserve custom documents. |
+| **Format & Hygiene** | `git diff --check` | No whitespace errors in the diff; inspect untracked files separately and check conflict markers and git status independently. |
 | **CI Matrix** | GitHub Actions `ci.yml` | 9/9 jobs pass on Linux, Windows, and macOS (Node 20, 22, 24) + `required` check. |
 
 > [!NOTE]
@@ -39,7 +43,7 @@ Before cutting a new release:
    ```
 4. **Distribution Boundary Check:**
    - Verify that `docs/audits/`, `tests/`, and temporary scripts are excluded from the package tarball.
-   - Confirm that exactly 1 public Skill (`skills/specspire/SKILL.md`) and 15 references are packed.
+   - Confirm that exactly 1 public Skill (`skills/specspire/SKILL.md`) and 30 references (15 ES + 15 EN) are packed.
 
 ## 3. GitHub Release Workflow
 
@@ -68,7 +72,7 @@ Once the release PR or commit is approved and merged into `main`:
    ```bash
    npx skills add Nachovn114/specspire --skill specspire
    ```
-   Confirm that `.agents/skills/specspire/` is installed with `SKILL.md` and all 15 references.
+   Confirm that `.agents/skills/specspire/` is installed with `SKILL.md` and all 30 references (15 ES + 15 EN).
 2. **Package Registry Policy:**
    - Local packaging smoke tests verify tarball structure and offline installation only.
    - Publication to the npm registry is reserved for post-beta, production-validated milestones and requires explicit maintainer authorization.
