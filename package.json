@@ -24,7 +24,7 @@
     "SECURITY.md"
   ],
   "scripts": {
-    "test": "node --test tests/cli.test.mjs tests/docs.test.mjs tests/identity.test.mjs tests/hardening.test.mjs tests/privacy.test.mjs",
+    "test": "node --test tests/cli.test.mjs tests/docs.test.mjs tests/identity.test.mjs tests/hardening.test.mjs tests/privacy.test.mjs tests/skills.test.mjs",
     "check": "node bin/specspire.mjs validate-source",
     "test:package": "node tests/package-smoke.mjs"
   },

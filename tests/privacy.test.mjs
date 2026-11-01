@@ -184,16 +184,19 @@ test('single public skill and 15 references preserved', () => {
 // 2. Pruebas reales de integración de CLI (ejecución real de bin/specspire.mjs)
 // ============================================================================
 
-test('CLI integration: init installs all 15 references and doctor validates them', () => withTemp(d => {
+test('CLI integration: init installs the bilingual kit and doctor validates 34 files', () => withTemp(d => {
   const initRes = runCli(['init', '--target', d]);
   assert.equal(initRes.status, 0, initRes.stderr);
 
   const privRef = path.join(d, '.agents/skills/specspire/references/12-data-privacy-compliance.md');
   assert.ok(existsSync(privRef), 'Reference 12 must be installed by init');
+  const enPrivRef = path.join(d, '.agents/skills/specspire/references/en/12-data-privacy-compliance.md');
+  assert.ok(existsSync(enPrivRef), 'English privacy reference must be installed by init');
+  assert.ok(readFileSync(enPrivRef, 'utf8').trim(), 'English privacy reference must not be empty');
 
   const docRes = runCli(['doctor', '--target', d]);
   assert.equal(docRes.status, 0, docRes.stderr);
-  assert.match(docRes.stdout, /PASS: 19 archivos/);
+  assert.match(docRes.stdout, /PASS: 34 archivos/);
 }));
 
 test('CLI integration: doctor detects missing 12-data-privacy-compliance reference', () => withTemp(d => {
@@ -232,3 +235,101 @@ test('CLI integration: workflow advances cleanly for feature with "No aplica" wi
   assert.equal(planRes.status, 0, planRes.stderr);
   assert.ok(existsSync(path.join(d, 'specs/suma-local/plan.md')));
 }));
+
+// English documentary integrity: scoped concepts and structure, not legal certification.
+const enPrivacy = readFileSync(path.join(root, 'skills/specspire/references/en/12-data-privacy-compliance.md'), 'utf8');
+const esPrivacy = readFileSync(path.join(root, 'skills/specspire/references/12-data-privacy-compliance.md'), 'utf8');
+const uniqueMatches = (text, pattern) => [...new Set(text.match(pattern) || [])].sort();
+const enBlock = pattern => {
+  const block = enPrivacy.split(/\r?\n\s*\r?\n/).find(p => pattern.test(p));
+  assert.ok(block, `Missing English section: ${pattern}`);
+  return block;
+};
+
+test('EN privacy preserves statutory identifiers, dates and the currency warning', () => {
+  assert.deepEqual(uniqueMatches(enPrivacy, /\b\d{2}-\d{2}-\d{4}\b/g), uniqueMatches(esPrivacy, /\b\d{2}-\d{2}-\d{4}\b/g));
+  for (const law of ['19.628', '21.719']) {
+    assert.ok(esPrivacy.includes(law)); assert.ok(enPrivacy.includes(law));
+  }
+  const framework = enBlock(/BCN/);
+  assert.match(framework, /mandatory.*verify/i);
+  assert.match(framework, /date.*amended.*subsequent/i);
+});
+
+test('EN privacy preserves territorial limits and separates ePrivacy applicability', () => {
+  const framework = enBlock(/BCN/);
+  for (const [law, territory] of [['GDPR','EU'],['LGPD','Brazil'],['CCPA','California']]) {
+    assert.match(framework, new RegExp(`${law}[^,)]*${territory}`));
+  }
+  assert.match(framework, /do not extrapolate.*Chilean/i);
+  const jurisdiction = enBlock(/Jurisdiction and territorial/);
+  assert.match(jurisdiction, /do not assume.*GDPR.*accessible/i);
+  assert.match(jurisdiction, /targeted.*monitoring/i);
+  assert.match(jurisdiction, /3\.2 GDPR/);
+  assert.match(jurisdiction, /do not impose.*ePrivacy.*Chile.*legal analysis/i);
+});
+
+test('EN privacy keeps distinct A/B/C scenarios and transient processing duties', () => {
+  const scenarios = [...enPrivacy.matchAll(/^- \*\*Scenario ([ABC])\b([^\n]+)/gm)];
+  assert.deepEqual(scenarios.map(m => m[1]), ['A','B','C']);
+  assert.match(scenarios[0][2], /fictitious|synthetic/i);
+  assert.match(scenarios[1][2], /real personal data.*memory/i);
+  for (const concept of [/transient processing/i, /do not transmit/i, /do not persist/i, /do not log PII/i, /do not assume.*exemption/i]) assert.match(scenarios[1][2], concept);
+  assert.match(scenarios[2][2], /persistence.*transmission.*third parties/i);
+  assert.match(scenarios[2][2], /P01.P06/);
+  assert.match(enBlock(/collection, use/), /constitutes data processing.*no permanent storage/i);
+});
+
+test('EN privacy preserves governance roles, pseudonymization limits and rights', () => {
+  const roles = enPrivacy.split(/\r?\n/).find(line => /^- \*\*Controller and processors/.test(line));
+  assert.ok(roles);
+  for (const concept of [/controller/i, /processor/i, /independent third parties/i, /not every.*automatically/i, /DPA/, /unconfirmed.*NOT VERIFIED or BLOCKED/, /N\/A.*justified/i]) assert.match(roles, concept);
+  const pseudo = enPrivacy.split(/\r?\n/).find(line => /Pseudonymization vs\./.test(line));
+  assert.ok(pseudo); assert.match(pseudo, /does not equate.*anonymization/i); assert.match(pseudo, /re-identification|correlation/i);
+  const rights = enPrivacy.split(/\r?\n/).find(line => /\(ARCOP/.test(line));
+  for (const term of ['Access','Rectification','Erasure','Opposition','Blocking','Portability']) assert.ok(rights?.includes(term), term);
+  const impact = enPrivacy.split(/\r?\n/).find(line => /DPIA \/ EIPD/.test(line));
+  assert.ok(impact); assert.match(impact, /high-risk/i); assert.match(impact, /without automatically.*mandatory/i);
+});
+
+test('EN privacy matrix preserves individual P01-P06 controls and evidence states', () => {
+  const rows = text => text.split(/\r?\n/).filter(line => /^\| P0[1-6] \|/.test(line)).map(line => line.split('|').slice(1,-1).map(cell => cell.trim()));
+  const enRows = rows(enPrivacy), esRows = rows(esPrivacy);
+  assert.equal(enRows.length, 6);
+  assert.deepEqual(enRows.map(r => r[0]), ['P01','P02','P03','P04','P05','P06']);
+  assert.deepEqual(enRows.map(r => r[0]), esRows.map(r => r[0]));
+  const states = ['PASS','FAIL','BLOCKED','NOT VERIFIED','N/A'];
+  const criteria = [/inventory/i,/lawful|consent/i,/security/i,/cookies.*trackers/i,/processors.*transfers/i,/legal.*implementation/i];
+  enRows.forEach((row,i) => {
+    assert.equal(row.length, 4); assert.match(row[1], criteria[i]); assert.ok(row[3].length > 0);
+    assert.deepEqual(row[2].split(' / '), states); assert.equal(row[2], esRows[i][2]);
+  });
+  assert.match(enBlock(/Individual evaluation/), /evaluated individually/i);
+  const na = enPrivacy.split(/\r?\n/).find(line => /^- \*\*N\/A:/.test(line));
+  assert.ok(na); assert.match(na, /documented justification/i); assert.match(na, /cannot be inferred.*absence of storage/i); assert.match(na, /transient.*constitutes.*processing/i);
+});
+
+test('EN privacy separates technical evidence from legal certification', () => {
+  const evidence = enBlock(/Strict evidence/);
+  assert.match(evidence, /Never mark.*PASS.*solely.*architecture/i);
+  assert.match(evidence, /technical verification.*does not.*legal certification/i);
+  const maturity = enBlock(/Maturity hierarchy/);
+  assert.equal((maturity.match(/^\d\. /gm) || []).length, 4);
+  for (const term of [/Specified/i,/Designed/i,/Implemented/i,/verified/i]) assert.match(maturity,term);
+  const formal = enBlock(/Formal states/);
+  for (const state of ['PASS','FAIL','BLOCKED','NOT VERIFIED','N/A']) assert.ok(formal.includes(`**${state}:**`));
+  assert.match(enBlock(/Notice of professional limitations/), /does not constitute.*legal advice/i);
+});
+
+
+test('EN privacy preserves consent safeguards and alternative lawful bases', () => {
+  const bases = enBlock(/Identify legal basis per purpose/);
+  assert.match(bases, /Arts\. 12 and 13 Ley 21\.719/);
+  assert.match(bases, /Art\. 6 GDPR/);
+  const consent = bases.split(/\r?\n/).find(line => /Consent \(Art\. 12\)/.test(line));
+  assert.ok(consent);
+  for (const safeguard of [/prior/i, /freely given/i, /informed/i, /specific/i, /unambiguous/i, /demonstrable/i, /never pre-ticked/i, /forced consent/i]) assert.match(consent, safeguard);
+  const alternatives = bases.split(/\r?\n/).find(line => /Other bases \(Art\. 13\)/.test(line));
+  assert.ok(alternatives);
+  for (const concept of [/contract/i, /legal obligation/i, /balanced legitimate interest/i, /right to object/i]) assert.match(alternatives, concept);
+});
