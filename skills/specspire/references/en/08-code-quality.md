@@ -4,7 +4,7 @@
 
 1. **Clear boundaries:** Each module has a concrete responsibility and a small interface. High cohesion and low coupling; do not invent generic layers or repositories without a proven need.
 2. **Shared language:** Code names, interface, tests and specification express the same domain. If repeated ambiguity exists, maintain a short `GLOSSARY.md`; for lasting structural decisions create an ADR **only if it truly helps**.
-3. **Change-based design:** Identify which functions change together; separate side effects from business rules where it simplifies testing and comprehension. Prefer clear code over trendy patterns.
+3. **Change-based design:** Identify which functions change together; separate side effects from business rules where it simplifies testing and comprehension. Prefer clear code over trendy patterns. To model ephemeral events or recurring notifications within immutable state (e.g., consecutive errors with identical messages in a decoupled store), a monotonic counter or signal (`seq`) is an optional pattern enabling new occurrence detection without coupling the presentation layer or introducing external libraries.
 4. **Pragmatic rigor:** Types or contracts where the stack supports them, agreed lint/format, explicit error handling, boundary validation, useful logs without sensitive data.
 5. **Scoped refactoring:** When tests are green, eliminate real duplication, dead code, superfluous branches or misleading names. Do not rewrite unrelated modules or alter behavior during a refactor.
 6. **Two-axis diff review:** (A) requirements and acceptance scenarios; (B) quality, complexity, tests, security and consistency. Distinct reviewers or separate passes with clean context when capacity exists.
