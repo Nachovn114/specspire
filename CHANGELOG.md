@@ -4,6 +4,13 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 
 ## [Unreleased]
 
+### English project templates and CLI (Phase 3)
+- Added eight English counterparts to the eight Spanish templates; explicit --lang es|en on init and feature, Spanish default, no persistence or automatic translation.
+- Preserved 34 installed files, custom documents, exclusive writes and doctor exit codes 0/1/2; next recognizes English PROJECT placeholders.
+- Hardened project document reads and validated both template inventories, markers and local links.
+- Local Windows validation: 146 PASS, 0 FAIL, 3 native symlink fixtures SKIPPED (EPERM); source check and offline package smoke pass with 68 files, 16 templates, 30 references and zero runtime dependencies. Phase 2 packaged 60 files.
+- Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed. Phase 2 pilots below are not evidence for Phase 3.
+
 ### Added
 - **Bilingual Developer Experience:** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).
 - **Bilingual Contribution Guidelines:** Added English `CONTRIBUTING.md` as primary GitHub guide and created `CONTRIBUTING.es.md` with semantic equivalence.
@@ -23,7 +30,7 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 - Updated the CLI contract to 34 installed files, with exclusive writes and no automatic router replacement. Doctor distinguishes complete (0), recognized legacy/partially migrated (2), and incomplete/invalid (1) installations.
 - Added privacy parity checks and real tarball assertions for 15 ES + 15 EN references, matching basenames, 30 router links, 14 EN links and offline installation with preservation checks.
 - Documented controlled legacy updates using backups, clean comparison and manual integration of router customizations.
-- Verification & Limitations: merged into `main` via PR #5 (commit `1ba9c54`) with all 9 CI matrix jobs passing on Ubuntu, Windows, and macOS (Node 20.0.0, 22, 24) and required check passing. Real-agent bilingual evaluations recorded 2 PASS / 5 BLOCKED (quota) on Codex and 6 PASS / 1 NOT VERIFIED on Gemini 3.8 Flash; Spanish fallback under completely ambiguous input remains NOT VERIFIED. Local native symlink fixtures can be blocked by permissions. Privacy checks do not certify legal compliance. Templates remain Spanish; English templates and `--lang` belong to future Phase 3. No npm publication or bilingual availability in historical v0.9.0-beta.1 is claimed.
+- Verification & Limitations: merged into `main` via PR #5 (commit `1ba9c54`) with all 9 CI matrix jobs passing on Ubuntu, Windows, and macOS (Node 20.0.0, 22, 24) and required check passing. Real-agent bilingual evaluations recorded 2 PASS / 5 BLOCKED (quota) on Codex and 6 PASS / 1 NOT VERIFIED on Gemini 3.8 Flash; Spanish fallback under completely ambiguous input remains NOT VERIFIED. Local native symlink fixtures can be blocked by permissions. Privacy checks do not certify legal compliance. At the Phase 2 milestone, templates were Spanish and English scaffolding was deferred to Phase 3. No npm publication or bilingual availability in historical v0.9.0-beta.1 is claimed.
 
 ## [0.9.0-beta.1] — 2026-10-31
 

@@ -19,7 +19,11 @@ npx skills add Nachovn114/specspire --skill specspire
 
 **Fase 2 bilingüe (integrada en `main` mediante PR #5, sin publicar):** Fase 1 documental completada; Fase 2 (una única Skill, 15 referencias ES y 15 EN, router bilingüe con fallback a español, CLI instalando 34 archivos y empaquetado de 60 archivos) está implementada, evaluada e integrada en `main` (commit [`1ba9c54`](https://github.com/Nachovn114/specspire/commit/1ba9c549142274b4151a025b0f8f8dd0dbf8c8f9)). El CI posterior al merge aprobó los 9 jobs de la matriz en Ubuntu, Windows y macOS con Node.js 20.0.0, 22 y 24, junto con el job required. Las evaluaciones bilingües con agentes reales registraron 2 PASS y 5 BLOCKED (por cuota) en Codex, y 6 PASS y 1 NOT VERIFIED (por aislamiento del harness) en Gemini 3.8 Flash; el fallback español ante entrada totalmente ambigua permanece NOT VERIFIED. Estos cambios no están publicados en npm ni forman parte de la versión histórica v0.9.0-beta.1; la integración en `main` no implica una nueva versión ni publicación en npm.
 
-Prioridad de idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Los términos técnicos ingleses en una petición española no cambian el idioma. Cargar solo referencias pertinentes en ese idioma; comparar ambas únicamente ante traducción, auditoría de equivalencia o mantenimiento bilingüe solicitados explícitamente. Las plantillas siguen en español en Fase 2; `--lang` y plantillas inglesas son futuros de Fase 3.
+Prioridad de idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Los términos técnicos ingleses en una petición española no cambian el idioma. Cargar solo referencias pertinentes en ese idioma; comparar ambas únicamente ante traducción, auditoría de equivalencia o mantenimiento bilingüe solicitados explícitamente.
+
+Fase 3 implementada en esta revisión del código. Para [PR #7](https://github.com/Nachovn114/specspire/pull/7), la ejecución [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (evento `pull_request`, commit evaluado `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completó los nueve jobs de matriz y `required` con SUCCESS: Node.js 20.0.0, 22 y 24 en Ubuntu, Windows y macOS. Esta evidencia corresponde a ese commit, no a revisiones posteriores ni a una futura ejecución post-merge en `main`. La versión histórica v0.9.0-beta.1 no incluye estas capacidades; no se afirma publicación npm.
+
+Hay ocho plantillas originales ES y ocho contrapartes EN. `init` instala 34 archivos, no 42: tres documentos del idioma elegido, un router y 30 referencias. El tarball local de Fase 3 contiene 68 archivos; el de Fase 2 contenía 60. El idioma predeterminado es español. Usa `init --lang en` y repite `--lang en` en cada comando `feature`. No hay persistencia ni inferencia de idioma; los documentos existentes se conservan y no se traducen automáticamente.
 
 ## Qué es
 
@@ -55,7 +59,7 @@ Contexto → Especificar → Plan y diseño → Tareas → Construir → Verific
 
 **Solo Skill remota (recomendado):** Ejecuta `npx skills add Nachovn114/specspire --skill specspire`. Indica a tu agente `.agents/skills/specspire/SKILL.md`.
 
-**Kit completo (local, esta rama):** `init` instala 34 archivos (3 documentos + 1 router + 30 referencias). Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
+**Kit completo (revisión local del código):** `init` instala 34 archivos (3 documentos + 1 router + 30 referencias). Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
 
 ```text
 Activa la Skill specspire. Lee AGENTS.md, PROJECT.md y README-DESARROLLO.md.

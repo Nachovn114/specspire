@@ -6,7 +6,9 @@
 
 **Prerequisites:** Git and Node.js 20+ if you use the CLI; an agent compatible with Agent Skills for AI assistance.
 
-**Bilingual contract (integrated in `main` via PR #5, unreleased):** one Skill, 15 ES + 15 EN references; `init` installs 34 files (3 project documents + router + 30 references). Templates remain Spanish; English templates and `--lang` are future Phase 3 capabilities. No npm publication or bilingual availability in historical v0.9.0-beta.1 is implied.
+Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
+
+Eight original ES templates and eight EN counterparts are available. `init` installs 34 files, not 42: three documents in the selected language, one router and 30 references. The local Phase 3 tarball contains 68 files; the historical Phase 2 tarball contained 60. Spanish is the default. Use `init --lang en` and repeat `--lang en` for every `feature` command. Language is not persisted or inferred; existing documents are preserved, never automatically translated.
 
 Language selection: explicit preference → unambiguous request/project context → Spanish fallback. Load only relevant references in the selected language; comparison is reserved for explicitly requested translation, equivalence auditing or bilingual maintenance.
 
@@ -24,7 +26,7 @@ code .
 
 | Mode | What you get | Verification status |
 |---|---|---|
-| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Integrated in `main` (PR #5); verified via tests, CI, and agent pilots (unreleased on npm) |
+| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Phase 2 merged; Phase 3 PR CI verified at 6be8bbd (see evidence above) |
 | **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Integrated in `main` (PR #5); evaluated with agents in Phase 2 (unreleased on npm) |
 | **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Historical v0.9.0-beta.1 evidence only (15 ES); current bilingual remote install unverified |
 | **Remote: Full kit** (`npm exec github:`) | Installs the complete kit from the GitHub repository | Unverified end-to-end |
@@ -32,7 +34,7 @@ code .
 **Full kit (local).** With Specspire downloaded in a sibling folder, run from your project directory:
 
 ```powershell
-node ../Specspire/bin/specspire.mjs init
+node ../Specspire/bin/specspire.mjs init --lang en
 node ../Specspire/bin/specspire.mjs doctor
 ```
 
@@ -79,10 +81,19 @@ node ../Specspire/bin/specspire.mjs next
 To scaffold a new feature **after establishing the project context**:
 
 ```powershell
-node ../Specspire/bin/specspire.mjs feature new contact-form
+node ../Specspire/bin/specspire.mjs feature new contact-form --lang en
 ```
 
 Open `specs/contact-form/spec.md`, complete it with the agent, and review it before planning.
+
+Complete and review each prerequisite before advancing; design is only for UI. Use the same local CLI source from this source revision, not the historical release. If the executable is not on PATH, replace `specspire` with `node ../Specspire/bin/specspire.mjs`.
+
+```bash
+specspire feature plan contact-form --lang en
+specspire feature design contact-form --lang en
+specspire feature tasks contact-form --lang en
+specspire feature review contact-form --lang en
+```
 
 ## 5. Verify the delivery
 
@@ -98,7 +109,7 @@ Instruct the agent to execute **real project commands** (tests, linter, build, b
 
    ```powershell
    $newCopy = Join-Path $env:TEMP ('specspire-review-' + [guid]::NewGuid().ToString())
-   node ../Specspire/bin/specspire.mjs init --target $newCopy
+   node ../Specspire/bin/specspire.mjs init --lang en --target $newCopy
    git diff --no-index .agents/skills/specspire "$newCopy/.agents/skills/specspire"
    ```
 
@@ -120,3 +131,5 @@ Instruct the agent to execute **real project commands** (tests, linter, build, b
 | Insecure destination (symlink detected) | Use a physical filesystem path without symbolic links in its ancestor tree |
 
 [Back to README](../../README.md) · [CLI reference (es)](../CLI.md) · [Workflow guide](WORKFLOW.md) · [Versión en español](../QUICKSTART.md)
+
+An older router may be structurally valid without documenting Phase 3. Doctor does not detect every documentary revision difference. Compare the router manually. Changing --lang preserves existing documents and can leave mixed languages; integrate translations deliberately after backup.
