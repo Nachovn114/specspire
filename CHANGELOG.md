@@ -4,12 +4,23 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 
 ## [Unreleased]
 
-### English project templates and CLI (Phase 3)
-- Added eight English counterparts to the eight Spanish templates; explicit --lang es|en on init and feature, Spanish default, no persistence or automatic translation.
+### Open Source Launch Readiness & Discoverability (Paso 20E.1)
+- **Visual Identity & Brand Assets:** Added scalable vector logo (`assets/logo.svg`) and high-resolution 1280×640 px GitHub Social Preview banner (`assets/social-preview.png`). Documented design tokens and palette.
+- **Redesigned Landing Pages:** Streamlined `README.md` and `README.es.md` into high-impact developer landing pages under 120 lines, highlighting value proposition ("From prompt to proof"), quick installation, verified compatibility, and live documentation.
+- **TaskFlow ES Showcase:** Published real-world case study (`docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`) detailing the 7-phase flow, responsive standards (R01–R06), privacy controls (P01–P06), TDD cycles, and framework evolutions.
+- **Community Templates:** Added structured GitHub issue forms (`bug_report.yml`, `feature_request.yml`, `config.yml`) and Pull Request template (`PULL_REQUEST_TEMPLATE.md`).
+- **Audit Traceability Migration:** Moved detailed CI run hashes and pull request audit paragraphs from the README hero into this Changelog to keep the public landing page focused on developer onboarding.
+
+### Pilot 1 TaskFlow ES Improvements (integrated in `main` via PR #8)
+- Integrated pilot 1 improvements M01–M04 and formalized R06 responsive verdict criteria into `02-responsive-cross-platform.md`, `04-implement.md`, and `08-code-quality.md` across both ES and EN references.
+- Commit `af40e53` merged into `main` (commit `19860cf`) with 10/10 CI jobs SUCCESS across Node.js 20, 22, and 24 on Linux, Windows, and macOS.
+
+### English project templates and CLI (Phase 3, integrated in `main` via PR #7)
+- Added eight English counterparts to the eight Spanish templates; explicit `--lang es|en` on init and feature, Spanish default, no persistence or automatic translation.
 - Preserved 34 installed files, custom documents, exclusive writes and doctor exit codes 0/1/2; next recognizes English PROJECT placeholders.
 - Hardened project document reads and validated both template inventories, markers and local links.
 - Local Windows validation: 146 PASS, 0 FAIL, 3 native symlink fixtures SKIPPED (EPERM); source check and offline package smoke pass with 68 files, 16 templates, 30 references and zero runtime dependencies. Phase 2 packaged 60 files.
-- Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed. Phase 2 pilots below are not evidence for Phase 3.
+- Evaluated for [PR #7](https://github.com/Nachovn114/specspire/pull/7), run 41364185917 completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
 ### Added
 - **Bilingual Developer Experience:** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).
@@ -19,9 +30,9 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 - **Clarification on N/A in Privacy Controls:** Added explicit guidance in `docs/QUALITY.md` and `docs/en/QUALITY.md` restricting `N/A` strictly to P01–P06 controls with documented justification and prohibiting automatic inferences.
 
 ### Changed
-- **Streamlined Repository Structure:** Removed unused hypothetical academic example (`examples/formulario-academico.md` and `examples/` directory) and cleaned up all internal documentation links across guides.
+- **Streamlined Repository Structure:** Removed unused hypothetical academic example and cleaned up all internal documentation links across guides.
 - **Portable Paths in CLI Examples:** Updated CLI invocation examples to use forward-slash paths for cross-platform portability.
-- **Packaging & Test Maintenance:** Updated `package.json` manifest (`"files"`) and `tests/docs.test.mjs` to track `CONTRIBUTING.es.md` and reflect removal of `examples/`.
+- **Packaging & Test Maintenance:** Updated `package.json` manifest (`"files"`) and `tests/docs.test.mjs` to track `CONTRIBUTING.es.md`.
 - **Packaging Smoke Test Clarification:** Clarified in `README.md` and `README.es.md` that local npm packaging smoke tests verify tarball structure and offline CLI installation and do not indicate publication to the npm registry.
 
 ### Bilingual Skill and installation (Phase 2, integrated in `main` via PR #5)

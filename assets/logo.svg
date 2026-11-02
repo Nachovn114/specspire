@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="spireGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="facetLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    <linearGradient id="facetRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Dark container squircle -->
+  <rect width="512" height="512" rx="108" fill="#0B0F19"/>
+  <rect width="510" height="510" x="1" y="1" rx="107" fill="none" stroke="#1E293B" stroke-width="2"/>
+
+  <!-- Subtle precision grid background -->
+  <g opacity="0.15" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="256" y1="64" x2="256" y2="448" />
+    <line x1="96" y1="256" x2="416" y2="256" />
+    <circle cx="256" cy="256" r="160" fill="none"/>
+  </g>
+
+  <!-- Ascending Spire geometry (Base, Mid, Apex) -->
+  <g transform="translate(0, 8)" filter="url(#glow)">
+    <!-- Base tier: Context & Spec -->
+    <path d="M 128 356 L 256 312 L 384 356 L 256 396 Z" fill="#312E81" opacity="0.9"/>
+    <path d="M 128 356 L 256 312 L 256 396 Z" fill="url(#facetLeft)" opacity="0.75"/>
+    <path d="M 256 312 L 384 356 L 256 396 Z" fill="url(#facetRight)" opacity="0.75"/>
+
+    <!-- Mid tier: Architecture & TDD -->
+    <path d="M 160 264 L 256 224 L 352 264 L 256 300 Z" fill="#1E3A8A" opacity="0.95"/>
+    <path d="M 160 264 L 256 224 L 256 300 Z" fill="url(#facetLeft)" opacity="0.9"/>
+    <path d="M 256 224 L 352 264 L 256 300 Z" fill="url(#facetRight)" opacity="0.9"/>
+
+    <!-- Apex tier: Verification & Delivery (The Spire peak) -->
+    <path d="M 256 104 L 320 188 L 256 216 L 192 188 Z" fill="#0F172A"/>
+    <path d="M 256 104 L 192 188 L 256 216 Z" fill="url(#facetLeft)"/>
+    <path d="M 256 104 L 320 188 L 256 216 Z" fill="url(#facetRight)"/>
+
+    <!-- Proof point spark -->
+    <circle cx="256" cy="104" r="6" fill="#F8FAFC"/>
+    <circle cx="256" cy="104" r="14" fill="#10B981" opacity="0.4"/>
+  </g>
+</svg>
