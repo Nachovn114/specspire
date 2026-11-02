@@ -4,7 +4,7 @@
 
 1. **Límites claros:** cada módulo tiene una responsabilidad concreta y una interfaz pequeña. Cohesión alta y acoplamiento bajo; no inventar capas ni repositorios genéricos sin una necesidad comprobada.
 2. **Lenguaje compartido:** nombres del código, interfaz, tests y especificación expresan el mismo dominio. Si hay ambigüedad repetida, mantener un `GLOSSARY.md` corto; para decisiones estructurales duraderas crear un ADR **solo si realmente ayuda**.
-3. **Diseño basado en cambio:** identificar qué funciones cambian juntas; separar efectos de reglas donde simplifique pruebas y comprensión. Preferir código claro a patrones de moda.
+3. **Diseño basado en cambio:** identificar qué funciones cambian juntas; separar efectos de reglas donde simplifique pruebas y comprensión. Preferir código claro a patrones de moda. Para modelar eventos efímeros o notificaciones recurrentes dentro de un estado inmutable (e.g. errores consecutivos con mensaje idéntico en un store desacoplado), un contador o señal monotónica (`seq`) es un patrón opcional que permite detectar nuevas ocurrencias sin acoplar la capa de presentación ni imponer librerías externas.
 4. **Rigurosidad pragmática:** tipos o contratos donde el stack los admite, lint/format acordado, manejo explícito de fallos, validación en fronteras, logs útiles sin datos sensibles.
 5. **Refactor acotado:** cuando los tests están verdes, eliminar duplicación real, código muerto, ramas superfluas o nombres engañosos. No rehacer módulos ajenos ni cambiar comportamiento durante un refactor.
 6. **Revisión de diff en dos ejes:** (A) requisitos y escenarios de aceptación; (B) calidad, complejidad, pruebas, seguridad y consistencia. Revisores distintos o pases separados con contexto limpio si existe capacidad.
