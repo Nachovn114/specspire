@@ -4,12 +4,12 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 
 ## [Unreleased]
 
-### English project templates and CLI (Phase 3, local branch only)
+### English project templates and CLI (Phase 3)
 - Added eight English counterparts to the eight Spanish templates; explicit --lang es|en on init and feature, Spanish default, no persistence or automatic translation.
 - Preserved 34 installed files, custom documents, exclusive writes and doctor exit codes 0/1/2; next recognizes English PROJECT placeholders.
 - Hardened project document reads and validated both template inventories, markers and local links.
 - Local Windows validation: 146 PASS, 0 FAIL, 3 native symlink fixtures SKIPPED (EPERM); source check and offline package smoke pass with 68 files, 16 templates, 30 references and zero runtime dependencies. Phase 2 packaged 60 files.
-- Not merged, released or published; Phase 3 GitHub Actions and multiplatform validation remain pending. Phase 2 pilots below are not evidence for Phase 3.
+- Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed. Phase 2 pilots below are not evidence for Phase 3.
 
 ### Added
 - **Bilingual Developer Experience:** Language selector in READMEs, English translations for core guides (`docs/en/QUICKSTART.md`, `docs/en/WORKFLOW.md`, `docs/en/QUALITY.md`), and comprehensive i18n architectural roadmap (`docs/I18N_PLAN.md`).

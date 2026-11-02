@@ -21,7 +21,7 @@ npx skills add Nachovn114/specspire --skill specspire
 
 Language priority is explicit user preference → unambiguous request/project context → Spanish fallback. Technical English terms in Spanish requests do not change the language. Load only relevant references in that language; compare both only for explicitly requested translation, equivalence audits or bilingual maintenance.
 
-Phase 3 is implemented and validated locally on `feat/english-project-templates`, not merged into `main` or published. GitHub Actions and the Node 20.0.0/22/24 matrix on Windows, Linux and macOS remain pending for Phase 3. Historical v0.9.0-beta.1 does not include this functionality.
+Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
 Eight original ES templates and eight EN counterparts are available. `init` installs 34 files, not 42: three documents in the selected language, one router and 30 references. The local Phase 3 tarball contains 68 files; the historical Phase 2 tarball contained 60. Spanish is the default. Use `init --lang en` and repeat `--lang en` for every `feature` command. Language is not persisted or inferred; existing documents are preserved, never automatically translated.
 
@@ -59,7 +59,7 @@ Context → Specify → Plan & design → Tasks → Build → Verify → Deliver
 
 **Remote Skill (recommended):** Run `npx skills add Nachovn114/specspire --skill specspire`. Point your agent to `.agents/skills/specspire/SKILL.md`.
 
-**Full kit (local, this branch):** `init` installs 34 files (3 project documents + 1 router + 30 references). Run `node ../Specspire/bin/specspire.mjs init --lang en` and `doctor`. Open `README-DESARROLLO.md` in your project and tell your agent:
+**Full kit (local source revision):** `init` installs 34 files (3 project documents + 1 router + 30 references). Run `node ../Specspire/bin/specspire.mjs init --lang en` and `doctor`. Open `README-DESARROLLO.md` in your project and tell your agent:
 
 ```text
 Use the specspire skill. Read AGENTS.md, PROJECT.md and README-DESARROLLO.md.

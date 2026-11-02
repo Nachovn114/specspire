@@ -6,7 +6,7 @@
 
 **Prerequisites:** Git and Node.js 20+ if you use the CLI; an agent compatible with Agent Skills for AI assistance.
 
-Phase 3 is implemented and validated locally on `feat/english-project-templates`, not merged into `main` or published. GitHub Actions and the Node 20.0.0/22/24 matrix on Windows, Linux and macOS remain pending for Phase 3. Historical v0.9.0-beta.1 does not include this functionality.
+Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
 Eight original ES templates and eight EN counterparts are available. `init` installs 34 files, not 42: three documents in the selected language, one router and 30 references. The local Phase 3 tarball contains 68 files; the historical Phase 2 tarball contained 60. Spanish is the default. Use `init --lang en` and repeat `--lang en` for every `feature` command. Language is not persisted or inferred; existing documents are preserved, never automatically translated.
 
@@ -26,7 +26,7 @@ code .
 
 | Mode | What you get | Verification status |
 |---|---|---|
-| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Phase 2 merged; Phase 3 locally verified on the working branch, CI pending |
+| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Phase 2 merged; Phase 3 PR CI verified at 6be8bbd (see evidence above) |
 | **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Integrated in `main` (PR #5); evaluated with agents in Phase 2 (unreleased on npm) |
 | **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Historical v0.9.0-beta.1 evidence only (15 ES); current bilingual remote install unverified |
 | **Remote: Full kit** (`npm exec github:`) | Installs the complete kit from the GitHub repository | Unverified end-to-end |
@@ -86,7 +86,7 @@ node ../Specspire/bin/specspire.mjs feature new contact-form --lang en
 
 Open `specs/contact-form/spec.md`, complete it with the agent, and review it before planning.
 
-Complete and review each prerequisite before advancing; design is only for UI. Use the same local CLI source from this branch, not the historical release. If the executable is not on PATH, replace `specspire` with `node ../Specspire/bin/specspire.mjs`.
+Complete and review each prerequisite before advancing; design is only for UI. Use the same local CLI source from this source revision, not the historical release. If the executable is not on PATH, replace `specspire` with `node ../Specspire/bin/specspire.mjs`.
 
 ```bash
 specspire feature plan contact-form --lang en

@@ -21,7 +21,7 @@ npx skills add Nachovn114/specspire --skill specspire
 
 Prioridad de idioma: preferencia explícita → petición/contexto inequívocos → español por defecto. Los términos técnicos ingleses en una petición española no cambian el idioma. Cargar solo referencias pertinentes en ese idioma; comparar ambas únicamente ante traducción, auditoría de equivalencia o mantenimiento bilingüe solicitados explícitamente.
 
-Fase 3 implementada y validada localmente en `feat/english-project-templates`, sin fusionar en `main` ni publicar. GitHub Actions y la matriz Node 20.0.0/22/24 en Windows, Linux y macOS siguen pendientes para Fase 3. La versión histórica v0.9.0-beta.1 no incluye esta funcionalidad.
+Fase 3 implementada en esta revisión del código. Para [PR #7](https://github.com/Nachovn114/specspire/pull/7), la ejecución [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (evento `pull_request`, commit evaluado `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completó los nueve jobs de matriz y `required` con SUCCESS: Node.js 20.0.0, 22 y 24 en Ubuntu, Windows y macOS. Esta evidencia corresponde a ese commit, no a revisiones posteriores ni a una futura ejecución post-merge en `main`. La versión histórica v0.9.0-beta.1 no incluye estas capacidades; no se afirma publicación npm.
 
 Hay ocho plantillas originales ES y ocho contrapartes EN. `init` instala 34 archivos, no 42: tres documentos del idioma elegido, un router y 30 referencias. El tarball local de Fase 3 contiene 68 archivos; el de Fase 2 contenía 60. El idioma predeterminado es español. Usa `init --lang en` y repite `--lang en` en cada comando `feature`. No hay persistencia ni inferencia de idioma; los documentos existentes se conservan y no se traducen automáticamente.
 
@@ -59,7 +59,7 @@ Contexto → Especificar → Plan y diseño → Tareas → Construir → Verific
 
 **Solo Skill remota (recomendado):** Ejecuta `npx skills add Nachovn114/specspire --skill specspire`. Indica a tu agente `.agents/skills/specspire/SKILL.md`.
 
-**Kit completo (local, esta rama):** `init` instala 34 archivos (3 documentos + 1 router + 30 referencias). Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
+**Kit completo (revisión local del código):** `init` instala 34 archivos (3 documentos + 1 router + 30 referencias). Ejecuta `node ../Specspire/bin/specspire.mjs init` y `doctor`. Abre `README-DESARROLLO.md` y pide al agente:
 
 ```text
 Activa la Skill specspire. Lee AGENTS.md, PROJECT.md y README-DESARROLLO.md.

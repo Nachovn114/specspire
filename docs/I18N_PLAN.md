@@ -10,7 +10,7 @@ Phase 1 documentation is complete. Phase 2 is implemented, evaluated, and merged
 |---|---|---|
 | 1 | Bilingual READMEs, core guides and contribution guidance | COMPLETED |
 | 2 | 15 EN operational references, bilingual router, CLI integrity and distribution tests | COMPLETED & MERGED (PR #5) |
-| 3 | English project templates and optional `specspire init --lang en` | IMPLEMENTED LOCALLY / PRE-MERGE VALIDATION PENDING |
+| 3 | English project templates and optional `specspire init --lang en` | IMPLEMENTED / PR CI VERIFIED (6be8bbd) |
 
 ## One Skill, progressive loading
 
@@ -24,7 +24,7 @@ Language priority:
 
 Load only references relevant to the phase and applicable disciplines, in the selected language. Do not automatically load both translations. ES/EN comparison is allowed for explicitly requested translation, equivalence audits or bilingual maintenance. This is an operational priority, not a guarantee of deterministic LLM behavior.
 
-Use the negotiated language for explanations and appropriate artifacts while preserving filenames, identifiers and technical contracts. Phase 3 is implemented and validated locally on `feat/english-project-templates`, not merged into `main` or published. GitHub Actions and the Node 20.0.0/22/24 matrix on Windows, Linux and macOS remain pending for Phase 3. Historical v0.9.0-beta.1 does not include this functionality.
+Use the negotiated language for explanations and appropriate artifacts while preserving filenames, identifiers and technical contracts. Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
 Eight original ES templates and eight EN counterparts are available. `init` installs 34 files, not 42: three documents in the selected language, one router and 30 references. The local Phase 3 tarball contains 68 files; the historical Phase 2 tarball contained 60. Spanish is the default. Use `init --lang en` and repeat `--lang en` for every `feature` command. Language is not persisted or inferred; existing documents are preserved, never automatically translated. CLI selection accepts only `--lang es|en` on init and feature; it is independent of agent language negotiation.
 

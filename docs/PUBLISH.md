@@ -8,9 +8,9 @@ This guide documents the formal release process, quality gates, and verification
 
 For legacy installation updates, use the reviewed comparison, backup and manual merge procedure in [Quick Start](en/QUICKSTART.md#updating-an-existing-installation). `init` never replaces the router. `doctor` returns 0 for a complete bilingual install, 2 for a recognized legacy router requiring migration, and 1 for incomplete/invalid installs.
 
-Phase 3 is implemented and validated locally on `feat/english-project-templates`, not merged into `main` or published. GitHub Actions and the Node 20.0.0/22/24 matrix on Windows, Linux and macOS remain pending for Phase 3. Historical v0.9.0-beta.1 does not include this functionality.
+Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
-Phase 3 local distribution: 68 files, 16 ES/EN templates, one Skill, 30 references, 34 installed files, offline installation verified, zero runtime dependencies. Phase 2 historically packaged 60 files. Phase 3 CI remains pending; the matrix below is an acceptance gate, not completed evidence.
+Phase 3 local distribution: 68 files, 16 ES/EN templates, one Skill, 30 references, 34 installed files, offline installation verified, zero runtime dependencies. Phase 2 historically packaged 60 files. The matrix below remains an acceptance gate for each candidate; the recorded PR run above is evidence for its evaluated commit only.
 
 ## 1. Release Philosophy & Quality Gates
 
