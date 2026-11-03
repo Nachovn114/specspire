@@ -69,7 +69,7 @@ I want to build [feature]. Identify the current phase, propose the next action, 
 | **CI Matrix (Linux / Windows / macOS)** | PASS | Automated test matrix on Node.js 20, 22, and 24. |
 | **Codex / Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; formal pilot pending. |
 
-Explore our real-world pilot: <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a> demonstrates verified multi-viewport layouts (375px–1280px, fluid to 320px), client-side persistence, and TDD evidence receipts.
+Explore our real-world pilot: <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a> demonstrates verified multi-viewport layouts (320px–1440px), client-side persistence, and test-first evidence receipts.
 
 ## Documentation
 

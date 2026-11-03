@@ -69,7 +69,7 @@ Quiero desarrollar [funcionalidad]. Identifica la fase actual, propón la siguie
 | **Matriz CI (Linux / Windows / macOS)** | PASS | Pruebas automáticas en Node.js 20, 22 y 24. |
 | **Codex / Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Skill compatible; pilotos formales pendientes. |
 
-Descubre nuestro piloto real: el <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a> demuestra diseño responsive multidispositivo (375px–1280px, fluido hasta 320px), persistencia local y evidencias TDD.
+Descubre nuestro piloto real: el <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a> demuestra diseño responsive multidispositivo (320px–1440px), persistencia local y evidencias de desarrollo guiado por pruebas.
 
 ## Documentación
 

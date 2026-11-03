@@ -1,24 +1,24 @@
 # Case Study: TaskFlow ES
 
 > **Evidence-Based Engineering in Practice with Specspire**  
-> *How a single bilingual Agent Skill guided an exploratory web pilot from specification to proof without hallucinations or skipping quality gates.*
+> *How a single bilingual Agent Skill guided an exploratory web pilot from specification to proof, reducing agent drift and enforcing verifiable quality gates.*
 
 ---
 
 ## 1. Executive Summary
 
-AI coding agents excel at generating syntax, but left unconstrained they routinely jump directly to implementation, make unverified architectural assumptions, produce desktop-only layouts, and claim tests passed that were never executed.
+AI coding agents excel at generating syntax, but left unconstrained they routinely jump directly to implementation, make unverified architectural assumptions, produce desktop-only layouts, and report tests that were never executed.
 
-**TaskFlow ES** was developed as an exploratory pilot project (built with React, Vite, Tailwind CSS, Vitest, and Playwright) to validate the Specspire workflow in a realistic development lifecycle. The mission: build an accessible, responsive, privacy-conscious task management client in Spanish with bilingual technical documentation, using strict test-first development and verifiable quality gates.
+**TaskFlow ES** was developed as an independent exploratory pilot project (built with TypeScript, Vite Vanilla, native CSS tokens, Vitest, and Playwright) to evaluate the Specspire workflow in a real development lifecycle. The mission: build an accessible, responsive, privacy-conscious task management web client in Spanish with bilingual technical documentation, using a test-first workflow and verifiable quality gates.
 
 ### Key Metrics & Verified Results
 
 | Dimension | Result | Verification Method |
 |---|---|---|
 | **Workflow Adherence** | 7 of 7 phases completed in sequence | Progressive feature scaffolding (`spec`, `plan`, `design`, `tasks`, `review`) |
-| **Test-First Discipline** | 100% TDD (RED → GREEN → REFACTOR) | 125 unit/component tests in Vitest |
-| **End-to-End Validation** | 23 unique user scenarios verified | Playwright automated browser test suite (41 cross-platform runs) |
-| **Responsive Standards** | Verified at 375×667, 390×844, 768×1024, and 1280×800 px (fluid down to 320 px) | Automated headless viewport matrix (R01–R05 `PASS`; R06 `NOT VERIFIED`) |
+| **Test-First Discipline** | RED → GREEN → REFACTOR cycle | 125 unit/component assertions in Vitest |
+| **End-to-End Validation** | 23 unique scenarios (41 browser runs) | Playwright automated test suite across simulated device profiles in local test environment |
+| **Responsive Standards** | Verified at 320, 360, 390, 430, 768, 1024, and 1440 CSS px | Automated headless viewport matrix (R01–R05 `PASS`; R06 `NOT VERIFIED` for physical devices) |
 | **Data Privacy** | Client-side `localStorage` with in-memory contingency; zero telemetry | P01–P06 data privacy audit gate |
 | **Downstream Impact** | 4 framework improvements (M01–M04) + R06 verdict standard | Merged upstream into Specspire `main` (PR #8) |
 
@@ -27,9 +27,9 @@ AI coding agents excel at generating syntax, but left unconstrained they routine
 ## 2. The Problem: AI Coding Without Architecture
 
 When an agent is prompted with *"Build a task management application with a responsive dashboard,"* common failure modes emerge:
-1. **Scope explosion:** The agent immediately creates dozens of boilerplate files, Docker setups, or databases before defining user flows.
-2. **Missing acceptance criteria:** Edge cases (empty states, oversized task names, rapid toggles) remain undocumented.
-3. **Desktop-only design:** CSS layouts break on mobile viewports (horizontal overflow, clipped buttons, ignored safe areas).
+1. **Scope explosion:** The agent immediately creates boilerplate files, external dependencies, or unneeded abstractions before defining user flows.
+2. **Missing acceptance criteria:** Edge cases (empty submissions, whitespace trimming, filter transitions) remain undocumented.
+3. **Desktop-only design:** CSS layouts break on mobile viewports (horizontal overflow, clipped tap targets, unpadded screen edges).
 4. **Phantom test suites:** The agent writes optimistic assertions or claims "all tests pass" without evidence receipts.
 
 Specspire enforces a disciplined constraint system: the agent receives one single `SKILL.md` entrypoint that routes dynamically to phase-specific references on demand.
@@ -45,42 +45,43 @@ Phase 0 (Context) ➔ Phase 1 (Specify) ➔ Phase 2 (Plan & Design) ➔ Phase 3 
 
 ### Phase 0 — Context & Boundaries (`PROJECT.md`)
 The project boundaries were fixed before writing application code:
-- **Core scope:** Task creation, completion toggles, state filtering (*Todas*, *Pendientes*, *Completadas*), and responsive layout.
-- **Data boundaries:** Pure client-side persistence using browser `localStorage` (key `taskflow_es_tasks`) with graceful fallback to in-memory state if `localStorage` throws or is disabled; zero external network requests; zero third-party telemetry.
+- **Core scope:** Task creation, completion toggles, status filtering (*Todas*, *Pendientes*, *Completadas*), and responsive layout.
+- **Tech stack:** TypeScript, Vite (Vanilla), native CSS design tokens; zero heavy UI frameworks.
+- **Data boundaries:** Pure client-side persistence using browser `localStorage` (key `taskflow_es_tasks`) with graceful fallback to in-memory state if `localStorage` throws or is unavailable; zero external network calls; zero third-party telemetry.
 - **Languages:** Spanish user interface with bilingual technical documentation.
 
 ### Phase 1 — Specification (`spec.md`)
 Observable behaviors and edge cases were defined as strict requirements:
 - **REQ-01:** Adding a task with a trimmed non-empty title immediately renders it in the list.
-- **REQ-02:** Empty or whitespace-only submissions are rejected with an accessible error state.
+- **REQ-02:** Empty or whitespace-only submissions are rejected with an accessible error message.
 - **REQ-03:** Status filtering (*Todas*, *Pendientes*, *Completadas*) updates the visible list and count deterministically.
-- **REQ-04:** Mobile viewport (minimum 320px width) maintains touch targets ≥ 44×44px without horizontal scrolling.
+- **REQ-04:** Mobile viewport (minimum 320 CSS px) maintains touch targets ≥ 44×44px without horizontal scrolling.
 
 ### Phase 2 — Architecture & Responsive Design (`plan.md`, `design.md`)
-Instead of generic UI mockups, the agent prepared an explicit design specification:
+Instead of unconstrained mockups, the agent prepared an explicit design specification:
 - **Layout tokens:** CSS variables for spacing (`--space-xs` to `--space-xl`), typography, and contrast-compliant colors.
-- **Responsive matrix:** Breakpoints verified in browser simulation at:
-  - Mobile: 375×667 px (compact / iPhone SE profile), 390×844 px (standard mobile). Fluid layout reflow verified down to 320 px without horizontal overflow.
-  - Tablet: 768×1024 px (iPad / tablet portrait).
-  - Desktop: 1280×800 px (standard desktop viewport).
-  - *Note:* 1920 px (ultra-wide desktop) was not evaluated during this pilot.
-- **Safe area insets:** Integration of `viewport-fit=cover` and `env(safe-area-inset-*)` variables.
+- **Responsive matrix:** Breakpoints verified in browser simulation across 7 distinct viewport widths:
+  - Mobile compact: 320 px and 360 px (fluid reflow without horizontal overflow).
+  - Mobile standard: 390 px and 430 px.
+  - Tablet: 768 px.
+  - Desktop: 1024 px and 1440 CSS px.
+- **Safe area insets:** Integration of `viewport-fit=cover` and container padding with `env(safe-area-inset-*)`.
 
 ### Phase 3 — Verifiable Tasks (`tasks.md`)
 The feature was partitioned into vertical, testable slices:
 1. Task state machine & pure reducer logic.
 2. DOM rendering & accessibility attributes (WAI-ARIA).
-3. Status filter toggles (*Todas*, *Pendientes*, *Completadas*).
+3. Status filter interactions (*Todas*, *Pendientes*, *Completadas*).
 4. Responsive reflow & touch target validation.
 
 ### Phase 4 — Test-First Development (TDD)
-Every component was built following strict **RED → GREEN → REFACTOR**:
-- **Step 1 (RED):** Write failing unit tests for state transitions (`createTask`, `toggleTask`, `filterByStatus`). Run test suite; confirm failure.
-- **Step 2 (GREEN):** Implement minimal pure JavaScript/React logic satisfying the assertions. Run test suite; confirm green.
-- **Step 3 (REFACTOR):** Optimize modularity and readability without breaking tests.
+Components were built following the **RED → GREEN → REFACTOR** cycle:
+- **Step 1 (RED):** Write failing unit tests for state transitions (`createTask`, `toggleTask`, `filterByStatus`). Run test runner; confirm failure.
+- **Step 2 (GREEN):** Implement minimal pure TypeScript logic satisfying the assertions. Run runner; confirm green.
+- **Step 3 (REFACTOR):** Optimize modularity and maintainability without breaking tests.
 
 ```javascript
-// Illustrative conceptual example of the test-first reducer pattern
+// Pseudocódigo conceptual ilustrativo del patrón de pruebas test-first para gestión de estado
 test('adding a valid task updates task list and persists to state', () => {
   const initialState = { tasks: [], filter: 'todas' };
   const state = taskReducer(initialState, {
@@ -96,7 +97,7 @@ test('adding a valid task updates task list and persists to state', () => {
 
 ### Phase 5 — Verification & Review (`review.md`)
 The agent reconciled the final implementation against initial requirements:
-- All acceptance criteria verified against automated tests (125 Vitest tests and 23 unique E2E scenarios).
+- Acceptance criteria verified against 125 Vitest unit assertions and 23 unique Playwright E2E scenarios.
 - Git diff reviewed for unintentional files or security regressions.
 - Responsive Quality Gate evaluated against R01–R06.
 - Privacy Gate evaluated against P01–P06.
@@ -116,11 +117,11 @@ Specspire rejects vanity claims. Every quality check must record an unambiguous 
 
 ### Responsive Quality Gate (R01–R06)
 - **R01 (Viewport Meta):** `width=device-width, initial-scale=1.0, viewport-fit=cover` verified (`PASS`).
-- **R02 (Fluid Layout):** No horizontal overflow at 320px minimum width (`PASS`).
+- **R02 (Fluid Layout):** No horizontal overflow across 320 px to 1440 CSS px (`PASS`).
 - **R03 (Touch Targets):** Interactive buttons meet minimum 44×44px hit areas (`PASS`).
 - **R04 (Typography Scale):** Base font readable at 16px without zooming (`PASS`).
-- **R05 (Safe Areas):** Bottom navigation pads against home indicator via CSS env variables (`PASS`).
-- **R06 (Physical Hardware Inspection):** Native mobile physical hardware rendering (`NOT VERIFIED` in automated CI; documented truthfully).
+- **R05 (Safe Areas):** Main container pads against notch and home indicators via CSS `env(safe-area-inset-*)` (`PASS`).
+- **R06 (Physical Hardware Inspection):** Native mobile physical hardware rendering (`NOT VERIFIED` in headless test runners; documented truthfully).
 
 ---
 
@@ -140,6 +141,7 @@ Real-world usage uncovers edge cases that simulated tests cannot foresee. The pi
 
 In keeping with Specspire's reporting integrity principles:
 - **Pilot Scope:** TaskFlow ES was developed as an exploratory pilot to stress-test the Agent Skill workflow, not as certified production SaaS software.
+- **E2E Test Environment:** The 23 unique E2E scenarios (41 total Playwright runs across simulated device profiles) were executed locally during the pilot audit; they were not part of Specspire's repository CI workflow.
 - **Hardware Verification:** Automated tests simulated mobile and tablet viewports in headless Chromium and WebKit; native iOS/Android physical hardware testing remains `NOT VERIFIED`.
 - **Accessibility Scope:** Automated scans with `axe-core` detected zero automated contrast or structure violations; this does not constitute full manual WCAG 2.1 AAA certification.
 - **Privacy Scope:** Privacy gates confirm pure client-side `localStorage` operation and data minimization; they do not constitute formal legal certification.
