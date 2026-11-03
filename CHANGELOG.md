@@ -7,7 +7,7 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 ## [0.10.0-beta.1] — 2026-11-03
 
 ### Open Source Launch & Brand Identity V2 (integrated in `main` via PR #9)
-- **Visual Identity & Brand Assets:** Added Brand Kit V2 with adaptive SVG logos (`assets/logo-horizontal-dark.svg`, `assets/logo-horizontal-light.svg`), SVG mark variants (`assets/brand/`), high-resolution 1280×640 px GitHub Social Preview card (`assets/social-preview.png`), and brand manual (`docs/BRAND.md`).
+- **Visual Identity & Brand Assets:** Added Brand Kit V2 with adaptive SVG logos (`assets/brand/logo-with-tagline-dark.svg`, `assets/brand/logo-with-tagline-light.svg`, `assets/brand/logo-dark.svg`, `assets/brand/logo-light.svg`), SVG mark variants (`assets/brand/mark-*.svg`, `assets/logo.svg`), high-resolution 1280×640 px GitHub Social Preview card (`assets/social-preview.png`), and brand manual (`docs/BRAND.md`).
 - **Redesigned Landing Pages:** Streamlined `README.md` and `README.es.md` into high-impact developer landing pages under 120 lines with adaptive `<picture>` header, value proposition ("From prompt to proof"), quick installation, verified compatibility, and live documentation.
 - **TaskFlow ES Showcase:** Published real-world case study (`docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`) detailing the 7-phase flow, responsive standards (R01–R06), privacy controls (P01–P06), TDD cycles, and verified framework evolutions (TypeScript, Vite, Vitest, Playwright).
 - **Community Templates:** Added structured GitHub issue forms (`bug_report.yml`, `feature_request.yml`, `config.yml`), Pull Request template (`PULL_REQUEST_TEMPLATE.md`), and community guidelines (`CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`).
