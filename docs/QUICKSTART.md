@@ -2,7 +2,7 @@
 
 **Objetivo:** que una carpeta vacía termine con una guía clara de desarrollo. No se instala un framework por adelantado.
 
-**Necesitas:** Git y Node.js 20+ si vas a usar la CLI; un agente compatible con Skills si quieres asistencia de IA.
+**Necesitas:** Git y Node.js 20+ si vas a usar la CLI (Node.js 22.20+ si usas `npx skills`); un agente compatible con Skills si quieres asistencia de IA.
 
 Fase 3 implementada en esta revisión del código. Para [PR #7](https://github.com/Nachovn114/specspire/pull/7), la ejecución [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (evento `pull_request`, commit evaluado `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completó los nueve jobs de matriz y `required` con SUCCESS: Node.js 20.0.0, 22 y 24 en Ubuntu, Windows y macOS. Esta evidencia corresponde a ese commit, no a revisiones posteriores ni a una futura ejecución post-merge en `main`. La versión histórica v0.9.0-beta.1 no incluye estas capacidades; no se afirma publicación npm.
 
@@ -26,7 +26,7 @@ code .
 |---|---|---|
 | **Kit completo, copia local** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` y la Skill en `.agents/skills/specspire/` | Fase 2 integrada; CI del PR de Fase 3 verificada en 6be8bbd (evidencia arriba) |
 | **Solo Skill (local o manual)** | Solo `SKILL.md` y sus 30 referencias (15 ES + 15 EN), sin CLI ni documentos de proyecto | Integrado en `main` (PR #5); evaluado con agentes en Fase 2 (sin publicar en npm) |
-| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Evidencia histórica v0.9.0-beta.1 (15 ES); instalación remota bilingüe sin verificar |
+| **Remoto: Solo Skill** (`npx skills add`) | Instala la Skill en `.agents/skills/specspire/` desde GitHub | Verificado v0.10.0-beta.1 (1 Skill + 30 referencias ES/EN; requiere Node.js >= 22.20.0) |
 | **Remoto: Kit completo** (`npm exec github:`) | Instala el kit completo desde el repositorio de GitHub | Sin verificar de extremo a extremo |
 
 **Kit completo.** Con Specspire descargado en una carpeta hermana:

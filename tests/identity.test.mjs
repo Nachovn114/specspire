@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 test('public naming matches package, CLI and Skill', () => {
   const pkg=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8'));
   assert.equal(pkg.name,'specspire');
-  assert.equal(pkg.version,'0.9.0-beta.1');
+  assert.equal(pkg.version,'0.10.0-beta.1');
   assert.equal(pkg.bin.specspire,'./bin/specspire.mjs');
   assert.ok(existsSync(path.join(root,'skills/specspire/SKILL.md')));
   assert.match(readFileSync(path.join(root,'skills/specspire/SKILL.md'),'utf8'), /^---\r?\nname: specspire\r?\n/);

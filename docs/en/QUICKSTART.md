@@ -4,7 +4,7 @@
 
 **Goal:** Turn an empty directory into a disciplined, guided project without preinstalling an unneeded framework or backend.
 
-**Prerequisites:** Git and Node.js 20+ if you use the CLI; an agent compatible with Agent Skills for AI assistance.
+**Prerequisites:** Git and Node.js 20+ if you use the CLI (Node.js 22.20+ if using `npx skills`); an agent compatible with Agent Skills for AI assistance.
 
 Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
 
@@ -28,7 +28,7 @@ code .
 |---|---|---|
 | **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Phase 2 merged; Phase 3 PR CI verified at 6be8bbd (see evidence above) |
 | **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Integrated in `main` (PR #5); evaluated with agents in Phase 2 (unreleased on npm) |
-| **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Historical v0.9.0-beta.1 evidence only (15 ES); current bilingual remote install unverified |
+| **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Verified v0.10.0-beta.1 (1 Skill + 30 ES/EN references; requires Node.js >= 22.20.0) |
 | **Remote: Full kit** (`npm exec github:`) | Installs the complete kit from the GitHub repository | Unverified end-to-end |
 
 **Full kit (local).** With Specspire downloaded in a sibling folder, run from your project directory:

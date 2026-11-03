@@ -4,13 +4,14 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 
 ## [Unreleased]
 
-### Open Source Launch Readiness & Discoverability (Paso 20E.1)
-- **Visual Identity & Brand Assets:** Added scalable vector logo (`assets/logo.svg`) and high-resolution 1280×640 px GitHub Social Preview banner (`assets/social-preview.png`). Documented design tokens and palette.
-- **Redesigned Landing Pages:** Streamlined `README.md` and `README.es.md` into high-impact developer landing pages under 120 lines, highlighting value proposition ("From prompt to proof"), quick installation, verified compatibility, and live documentation.
-- **TaskFlow ES Showcase:** Published real-world case study (`docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`) detailing the 7-phase flow, responsive standards (R01–R06), privacy controls (P01–P06), TDD cycles, and framework evolutions.
-- **Community Templates:** Added structured GitHub issue forms (`bug_report.yml`, `feature_request.yml`, `config.yml`) and Pull Request template (`PULL_REQUEST_TEMPLATE.md`).
-- **Audit Traceability Migration:** Moved detailed CI run hashes and pull request audit paragraphs from the README hero into this Changelog to keep the public landing page focused on developer onboarding.
+## [0.10.0-beta.1] — 2026-11-03
 
+### Open Source Launch & Brand Identity V2 (integrated in `main` via PR #9)
+- **Visual Identity & Brand Assets:** Added Brand Kit V2 with adaptive SVG logos (`assets/brand/logo-with-tagline-dark.svg`, `assets/brand/logo-with-tagline-light.svg`, `assets/brand/logo-dark.svg`, `assets/brand/logo-light.svg`), SVG mark variants (`assets/brand/mark-*.svg`, `assets/logo.svg`), high-resolution 1280×640 px GitHub Social Preview card (`assets/social-preview.png`), and brand manual (`docs/BRAND.md`).
+- **Redesigned Landing Pages:** Streamlined `README.md` and `README.es.md` into high-impact developer landing pages under 120 lines with adaptive `<picture>` header, value proposition ("From prompt to proof"), quick installation, verified compatibility, and live documentation.
+- **TaskFlow ES Showcase:** Published real-world case study (`docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`) detailing the 7-phase flow, responsive standards (R01–R06), privacy controls (P01–P06), TDD cycles, and verified framework evolutions (TypeScript, Vite, Vitest, Playwright).
+- **Community Templates:** Added structured GitHub issue forms (`bug_report.yml`, `feature_request.yml`, `config.yml`), Pull Request template (`PULL_REQUEST_TEMPLATE.md`), and community guidelines (`CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`).
+- **Merge Integrity & CI:** PR #9 merged into `main` (commit `fb3e9b1`) with all 10 GitHub Actions CI jobs passing across Linux, macOS, and Windows on Node.js 20, 22, and 24.
 ### Pilot 1 TaskFlow ES Improvements (integrated in `main` via PR #8)
 - Integrated pilot 1 improvements M01–M04 and formalized R06 responsive verdict criteria into `02-responsive-cross-platform.md`, `04-implement.md`, and `08-code-quality.md` across both ES and EN references.
 - Commit `af40e53` merged into `main` (commit `19860cf`) with 10/10 CI jobs SUCCESS across Node.js 20, 22, and 24 on Linux, Windows, and macOS.
