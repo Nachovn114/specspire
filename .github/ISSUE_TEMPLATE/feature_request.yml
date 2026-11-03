@@ -1,0 +1,54 @@
+name: Feature Request / Skill Evolution
+description: Propose an improvement to Specspire's workflow, references, CLI, or agent ergonomics
+title: "[FEAT]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping evolve Specspire! We favor disciplined, minimal, evidence-backed improvements over feature creep.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Target Workflow Area
+      description: Which phase or standard does this proposal target?
+      options:
+        - "Phase 0: Context & Boundaries (PROJECT.md)"
+        - "Phase 1: Observable Specifications (spec.md)"
+        - "Phase 2: Minimal Architecture & UI Design (plan.md, design.md)"
+        - "Phase 3: Measurable Vertical Tasks (tasks.md)"
+        - "Phase 4: Test-First Development (TDD / RED-GREEN-REFACTOR)"
+        - "Phase 5: Requirement Verification & Code Review (review.md)"
+        - "Phase 6: Verifiable Handover & Evidence Delivery"
+        - "Privacy by Design Gate (P01-P06)"
+        - "Responsive & UI Standards (R01-R06)"
+        - "CLI & Scaffolding Tooling"
+        - "Bilingual Documentation / i18n Parity"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Friction
+      description: What agent behavior, missing standard, or developer friction does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: How should the Skill reference, template, or CLI command behave?
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: How should this be verified?
+      description: Describe the automated test or agent pilot scenario that would prove this improvement.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches were considered, and why is this proposal preferable?

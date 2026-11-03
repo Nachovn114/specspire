@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Specspire identity"><defs><linearGradient id="brand" x1="0" y1="0" x2="0.65" y2="1"><stop offset="0" stop-color="#FF8A00"/><stop offset="0.41" stop-color="#FF9208"/><stop offset="0.56" stop-color="#F5F7FA"/><stop offset="1" stop-color="#F5F7FA"/></linearGradient></defs><g transform="translate(100 100) scale(0.800000)"><path d="M 405 20
+C 285 20 213 59 144 121
+C 66 190 30 266 30 344
+C 30 439 90 493 198 530
+C 256 550 330 567 414 591
+L 642 654
+C 672 663 696 674 714 689
+C 675 725 627 742 559 751
+C 530 755 500 755 467 755
+L 238 755
+C 226 755 218 760 209 770
+L 31 970
+C 23 979 29 989 41 989
+L 620 989
+C 728 989 826 944 894 876
+C 961 808 984 732 984 662
+C 984 567 950 519 878 481
+C 836 459 787 445 734 430
+L 354 326
+C 411 289 481 269 551 267
+L 740 267
+C 775 267 796 258 814 238
+L 976 42
+C 985 31 977 20 962 20
+Z" fill="url(#brand)"/></g></svg>

@@ -1,0 +1,81 @@
+name: Bug Report
+description: Report a reproducible problem in Specspire (Skill or CLI)
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue in Specspire! Please provide clear, reproducible details.
+        **Do not include private personal paths, credentials, or confidential data.**
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component affected
+      description: Which part of Specspire encountered the problem?
+      options:
+        - "Agent Skill (SKILL.md or references)"
+        - "CLI (bin/specspire.mjs)"
+        - "Project templates (templates/)"
+        - "Documentation or bilingual parity"
+        - "Cross-platform installation (npx skills add / local kit)"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Linux (Ubuntu / Debian / other)
+        - macOS (Apple Silicon / Intel)
+        - Windows 11 / 10
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Node.js & Agent Harness
+      description: e.g., Node 20.18.0 / Google Antigravity, Claude Code, Cursor, Codex, CLI
+      placeholder: Node.js version and agent environment
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the bug
+      description: Clear and concise explanation of what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands, prompts, or scenario to reproduce the issue.
+      placeholder: |
+        1. Run `...`
+        2. Give agent prompt `...`
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened according to Specspire specifications or documentation?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal output / Evidence logs
+      description: Paste relevant command output or error logs (sanitized).
+      render: shell
+  - type: checkboxes
+    id: sanitization
+    attributes:
+      label: Privacy and Verification Confirmation
+      options:
+        - label: I confirmed that no personal file paths, tokens, or private secrets are present in this report.
+          required: true
+        - label: I verified that the problem is reproducible in a clean project or session.
+          required: true
