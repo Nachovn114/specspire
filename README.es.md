@@ -1,13 +1,31 @@
-# Specspire
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-with-tagline-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/logo-with-tagline-light.svg">
+    <img alt="Specspire — From prompt to proof" src="assets/brand/logo-with-tagline-light.svg" width="560">
+  </picture>
+</p>
 
-**From prompt to proof.** Una Skill bilingüe para agentes de IA: especificación, desarrollo guiado por pruebas (TDD), revisión de código y entrega basada en evidencias.
+<p align="center">
+  <strong>From prompt to proof.</strong><br>
+  Una Skill bilingüe para agentes de IA: especificación, desarrollo guiado por pruebas (TDD), revisión de código y entrega basada en evidencias.
+</p>
 
-[English](README.md) • [Inicio rápido](docs/QUICKSTART.md) ([en](docs/en/QUICKSTART.md)) • [Flujo](docs/WORKFLOW.md) ([en](docs/en/WORKFLOW.md)) • [Calidad](docs/QUALITY.md) ([en](docs/en/QUALITY.md)) • [Caso de estudio](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md)
+<p align="center">
+  <a href="README.md">English</a> •
+  <a href="docs/QUICKSTART.md">Inicio rápido</a> (<a href="docs/en/QUICKSTART.md">en</a>) •
+  <a href="docs/WORKFLOW.md">Flujo</a> (<a href="docs/en/WORKFLOW.md">en</a>) •
+  <a href="docs/QUALITY.md">Calidad</a> (<a href="docs/en/QUALITY.md">en</a>) •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Marca</a> •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio</a>
+</p>
 
-[![CI](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg)](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml)
-[![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
-![Node.js 20+](https://img.shields.io/badge/node-%3E%3D20-339933)
-![Estado: beta](https://img.shields.io/badge/estado-beta-orange)
+<p align="center">
+  <a href="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml"><img src="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licencia-MIT-blue.svg" alt="Licencia MIT"></a>
+  <img src="https://img.shields.io/badge/node-%3E%3D20-339933" alt="Node.js 20+">
+  <img src="https://img.shields.io/badge/estado-beta-orange" alt="Estado: beta">
+</p>
 
 ```bash
 # Instala la Skill verificada directamente desde GitHub en cualquier proyecto:
@@ -63,5 +81,6 @@ Descubre nuestro piloto real: el [Caso de estudio TaskFlow ES](https://github.co
 | Controles de calidad | [docs/QUALITY.md](docs/QUALITY.md) | [docs/en/QUALITY.md](docs/en/QUALITY.md) |
 | Estándares UI y responsive | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | Referencia de la CLI | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
+| Manual de marca visual | [Manual de marca](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) | [docs/BRAND.md](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) |
 
-[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • [Licencia MIT](LICENSE)
+[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • [Manual de marca](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) • [Licencia MIT](LICENSE)

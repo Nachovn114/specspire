@@ -1,13 +1,31 @@
-# Specspire
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-with-tagline-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/logo-with-tagline-light.svg">
+    <img alt="Specspire — From prompt to proof" src="assets/brand/logo-with-tagline-light.svg" width="560">
+  </picture>
+</p>
 
-**From prompt to proof.** One bilingual Agent Skill for spec-driven planning, test-first development, code review, and evidence-based software delivery.
+<p align="center">
+  <strong>From prompt to proof.</strong><br>
+  One Agent Skill for verifiable software engineering.
+</p>
 
-[Español](README.es.md) • [Quick start](docs/en/QUICKSTART.md) ([es](docs/QUICKSTART.md)) • [Workflow](docs/en/WORKFLOW.md) ([es](docs/WORKFLOW.md)) • [Quality](docs/en/QUALITY.md) ([es](docs/QUALITY.md)) • [Case Study](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md)
+<p align="center">
+  <a href="README.es.md">Español</a> •
+  <a href="docs/en/QUICKSTART.md">Quick Start</a> (<a href="docs/QUICKSTART.md">es</a>) •
+  <a href="docs/en/WORKFLOW.md">Workflow</a> (<a href="docs/WORKFLOW.md">es</a>) •
+  <a href="docs/en/QUALITY.md">Quality</a> (<a href="docs/QUALITY.md">es</a>) •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Brand</a> •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Study</a>
+</p>
 
-[![CI](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg)](https://github.com/Nachovn114/specspire/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Node.js 20+](https://img.shields.io/badge/node-%3E%3D20-339933)
-![Status: beta](https://img.shields.io/badge/status-beta-orange)
+<p align="center">
+  <a href="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml"><img src="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/node-%3E%3D20-339933" alt="Node.js 20+">
+  <img src="https://img.shields.io/badge/status-beta-orange" alt="Status: beta">
+</p>
 
 ```bash
 # Add the verified Agent Skill to your project:
@@ -63,5 +81,6 @@ Explore our real-world pilot: [TaskFlow ES Case Study](https://github.com/Nachov
 | Quality Gates & Evidence | [docs/en/QUALITY.md](docs/en/QUALITY.md) | [docs/QUALITY.md](docs/QUALITY.md) |
 | Responsive UI Standards | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
+| Brand Identity Manual | [Brand Manual](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) | [docs/BRAND.md](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) |
 
-[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • [MIT License](LICENSE)
+[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • [Brand Guidelines](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) • [MIT License](LICENSE)
