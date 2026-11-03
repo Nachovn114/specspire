@@ -7,8 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>From prompt to proof.</strong><br>
-  Una Skill bilingüe para agentes de IA: especificación, desarrollo guiado por pruebas (TDD), revisión de código y entrega basada en evidencias.
+  <strong>Una Skill bilingüe para agentes de IA: especificación, TDD estricto y entrega basada en evidencias.</strong>
 </p>
 
 <p align="center">
@@ -16,8 +15,8 @@
   <a href="docs/QUICKSTART.md">Inicio rápido</a> (<a href="docs/en/QUICKSTART.md">en</a>) •
   <a href="docs/WORKFLOW.md">Flujo</a> (<a href="docs/en/WORKFLOW.md">en</a>) •
   <a href="docs/QUALITY.md">Calidad</a> (<a href="docs/en/QUALITY.md">en</a>) •
-  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Marca</a> •
-  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio</a>
+  <a href="docs/BRAND.md">Marca</a> •
+  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio</a>
 </p>
 
 <p align="center">
@@ -70,7 +69,7 @@ Quiero desarrollar [funcionalidad]. Identifica la fase actual, propón la siguie
 | **Matriz CI (Linux / Windows / macOS)** | PASS | Pruebas automáticas en Node.js 20, 22 y 24. |
 | **Codex / Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Skill compatible; pilotos formales pendientes. |
 
-Descubre nuestro piloto real: el [Caso de estudio TaskFlow ES](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md) demuestra diseño responsive (320px–1920px), controles de privacidad y evidencias TDD.
+Descubre nuestro piloto real: el <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a> demuestra diseño responsive multidispositivo (375px–1280px, fluido hasta 320px), persistencia local y evidencias TDD.
 
 ## Documentación
 
@@ -81,6 +80,6 @@ Descubre nuestro piloto real: el [Caso de estudio TaskFlow ES](https://github.co
 | Controles de calidad | [docs/QUALITY.md](docs/QUALITY.md) | [docs/en/QUALITY.md](docs/en/QUALITY.md) |
 | Estándares UI y responsive | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | Referencia de la CLI | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
-| Manual de marca visual | [Manual de marca](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) | [docs/BRAND.md](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) |
+| Manual de marca visual | <a href="docs/BRAND.md">docs/BRAND.md</a> | <a href="docs/BRAND.md">docs/BRAND.md</a> |
 
-[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • [Manual de marca](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) • [Licencia MIT](LICENSE)
+[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="docs/BRAND.md">Manual de marca</a> • [Licencia MIT](LICENSE)

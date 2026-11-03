@@ -7,8 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>From prompt to proof.</strong><br>
-  One Agent Skill for verifiable software engineering.
+  <strong>One Agent Skill for verifiable software engineering.</strong>
 </p>
 
 <p align="center">
@@ -16,8 +15,8 @@
   <a href="docs/en/QUICKSTART.md">Quick Start</a> (<a href="docs/QUICKSTART.md">es</a>) •
   <a href="docs/en/WORKFLOW.md">Workflow</a> (<a href="docs/WORKFLOW.md">es</a>) •
   <a href="docs/en/QUALITY.md">Quality</a> (<a href="docs/QUALITY.md">es</a>) •
-  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Brand</a> •
-  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Study</a>
+  <a href="docs/BRAND.md">Brand</a> •
+  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Study</a>
 </p>
 
 <p align="center">
@@ -70,7 +69,7 @@ I want to build [feature]. Identify the current phase, propose the next action, 
 | **CI Matrix (Linux / Windows / macOS)** | PASS | Automated test matrix on Node.js 20, 22, and 24. |
 | **Codex / Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; formal pilot pending. |
 
-Explore our real-world pilot: [TaskFlow ES Case Study](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md) demonstrates responsive UI (320px–1920px), privacy controls, and TDD evidence receipts.
+Explore our real-world pilot: <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a> demonstrates verified multi-viewport layouts (375px–1280px, fluid to 320px), client-side persistence, and TDD evidence receipts.
 
 ## Documentation
 
@@ -81,6 +80,6 @@ Explore our real-world pilot: [TaskFlow ES Case Study](https://github.com/Nachov
 | Quality Gates & Evidence | [docs/en/QUALITY.md](docs/en/QUALITY.md) | [docs/QUALITY.md](docs/QUALITY.md) |
 | Responsive UI Standards | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
-| Brand Identity Manual | [Brand Manual](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) | [docs/BRAND.md](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) |
+| Brand Identity Manual | <a href="docs/BRAND.md">docs/BRAND.md</a> | <a href="docs/BRAND.md">docs/BRAND.md</a> |
 
-[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • [Brand Guidelines](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md) • [MIT License](LICENSE)
+[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="docs/BRAND.md">Brand Guidelines</a> • [MIT License](LICENSE)
