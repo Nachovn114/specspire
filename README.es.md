@@ -15,8 +15,8 @@
   <a href="docs/QUICKSTART.md">Inicio rápido</a> (<a href="docs/en/QUICKSTART.md">en</a>) •
   <a href="docs/WORKFLOW.md">Flujo</a> (<a href="docs/en/WORKFLOW.md">en</a>) •
   <a href="docs/QUALITY.md">Calidad</a> (<a href="docs/en/QUALITY.md">en</a>) •
-  <a href="docs/BRAND.md">Marca</a> •
-  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Casos de estudio</a>
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Marca</a> •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Casos de estudio</a>
 </p>
 
 <p align="center">
@@ -72,8 +72,8 @@ Quiero desarrollar [funcionalidad]. Identifica la fase actual, propón la siguie
 | **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Skill compatible; sin evidencia de ejecución directa en el entorno. |
 
 Descubre nuestros pilotos reales:
-- <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a>: Cliente web responsive (320px–1440px), privacidad local y aserciones Playwright/Vitest.
-- <a href="docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">Caso de estudio LogLens CLI</a>: Analizador de logs en streaming con cero dependencias runtime, CLI POSIX y 40 aserciones nativas de Node.js.
+- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a>: Cliente web responsive (320px–1440px), privacidad local y aserciones Playwright/Vitest.
+- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">Caso de estudio LogLens CLI</a>: Analizador de logs en streaming con cero dependencias runtime, CLI POSIX y 40 aserciones nativas de Node.js.
 
 ## Documentación
 
@@ -84,6 +84,6 @@ Descubre nuestros pilotos reales:
 | Controles de calidad | [docs/QUALITY.md](docs/QUALITY.md) | [docs/en/QUALITY.md](docs/en/QUALITY.md) |
 | Estándares UI y responsive | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | Referencia de la CLI | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
-| Manual de marca visual | <a href="docs/BRAND.md">docs/BRAND.md</a> | <a href="docs/BRAND.md">docs/BRAND.md</a> |
+| Manual de marca visual | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> |
 
-[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="docs/BRAND.md">Manual de marca</a> • [Licencia MIT](LICENSE)
+[Contribuir](CONTRIBUTING.es.md) • [Seguridad](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Manual de marca</a> • [Licencia MIT](LICENSE)

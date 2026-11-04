@@ -1,59 +1,100 @@
-# SPECSPIRE — PASO 20H.1
-## Publication Readiness & Evidence-Backed Documentation Report
+# SPECSPIRE — PASO 20H.1 & 20H.1.1
+## Publication Readiness & Pre-PR Distribution Integrity Report
 
 **Document ID:** `SPECSPIRE_20H_1_PUBLICATION_READINESS.md`  
-**Milestone:** Paso 20H.1 — Evidence-Backed Case Studies & Public Documentation Readiness  
-**Roles:** Principal Open Source Maintainer, Staff Developer Experience Engineer, Technical Documentation Architect, Software Quality Auditor y Specspire Maintainer  
+**Milestones:** Paso 20H.1 (Evidence-Backed Case Studies) & Paso 20H.1.1 (Pre-PR Distribution Integrity & Documentation Link Gate)  
+**Roles:** Principal Open Source Maintainer, npm Package Release Engineer, Documentation QA Auditor y Specspire Maintainer  
 **Published Baseline (Immutable):** `v0.10.0-beta.1` (`5389683e45c3f8ec60f5bfaa11ef8ba0944bd393`)  
 **Active Documentation Branch:** `docs/20h-public-case-studies`  
-**Evaluation Archive:** `C:/Users/Nacho/Documents/dev/Specspire-Evals`  
+**Evaluation Archive:** `Specspire-Evals` (evaluation repository)  
 **Date:** 2026-11-04  
+**Verdict:** **READY TO OPEN PR**
 
 ---
 
-## 1. Executive Summary & Verdict
+## 1. Executive Summary & Final Verdict
 
-Specspire `v0.10.0-beta.1` has been enriched with full, evidence-backed public documentation showcasing its real-world performance across two independent pilot projects without modifying the immutable core methodology, Skill files, or CLI binary.
+Specspire `v0.10.0-beta.1` has undergone a comprehensive documentation enhancement and pre-PR distribution integrity audit. In Step 20H.1, real-world evidence from two pilot projects (**TaskFlow ES** and **LogLens CLI**) and host compatibility findings from Step 20G.4 were incorporated into the public documentation.
 
-The documentation state is certified **READY FOR HUMAN REVIEW & STAGED PUBLICATION**.
+In Step 20H.1.1, a rigorous dual-context link audit identified a distribution boundary issue: `README.md` and `README.es.md` contained relative links to `docs/BRAND.md` and `docs/case-studies/*.md`, files that are intentionally excluded from the distributed npm package manifest (`package.json`). Under an npm installation context, these relative links would fail.
 
-### Key Deliverables Completed
+A minimal, zero-risk correction was implemented: all links to assets excluded from the npm tarball were upgraded to canonical absolute GitHub URLs (`https://github.com/Nachovn114/specspire/blob/main/...`).
 
-| Artifact | Purpose | Status |
-|---|---|:---:|
-| [`docs/case-studies/LOGLENS_CLI_CASE_STUDY.md`](../case-studies/LOGLENS_CLI_CASE_STUDY.md) | High-throughput streaming log parser pilot (Node.js ESM, zero runtime dependencies, POSIX CLI, independent audit, 40 PASS / 0 FAIL assertions, honest TDD accounting). | **NEW** |
-| [`docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`](../case-studies/TASKFLOW_ES_CASE_STUDY.md) | Exploratory web client pilot (TypeScript, Vite, native CSS, Vitest, Playwright, responsive standards R01–R06, client privacy P01–P06). | **PRESERVED** |
-| [`README.md`](../../README.md) & [`README.es.md`](../../README.es.md) | Concise (< 120 lines) developer landing pages updated with bilingual pilot showcases and calibrated host compatibility matrix. | **UPDATED** |
-| [`CHANGELOG.md`](../../CHANGELOG.md) | Tracked documentation updates under `## [Unreleased]`. | **UPDATED** |
+### Final Classification
+**READY TO OPEN PR** — All links resolve across both GitHub repository browsing and installed npm package tarballs; all 146 tests pass; source validation passes; tarball smoke test passes; and the core engine remains 100% untouched.
 
 ---
 
-## 2. File Inventory & Scoped Diffs
+## 2. Step 20H.1.1 Link Gate Audit & Root Cause Analysis
 
-All changes are strictly limited to documentation presentation. No code, templates, or operational references have been modified.
-
-```text
-Branch: docs/20h-public-case-studies (branched from 5389683)
-
-Changes staged / unstaged:
-  docs/case-studies/LOGLENS_CLI_CASE_STUDY.md   (Created: 245 lines, 13.4 KB)
-  docs/audits/SPECSPIRE_20H_1_PUBLICATION_READINESS.md (Created: this report)
-  README.md                                    (Updated: added LogLens showcase, calibrated agent matrix)
-  README.es.md                                 (Updated: added LogLens showcase, calibrated agent matrix)
-  CHANGELOG.md                                 (Updated: added [Unreleased] documentation section)
-
-Zero modifications to:
-  skills/specspire/SKILL.md                    (UNTOUCHED)
-  skills/specspire/references/*.md (15 files)  (UNTOUCHED)
-  skills/specspire/references/en/*.md (15 files) (UNTOUCHED)
-  bin/specspire.mjs                            (UNTOUCHED)
-  templates/ (16 templates)                   (UNTOUCHED)
-  package.json (version & dependencies)        (UNTOUCHED)
+### 2.1. The Finding
+In `package.json`, the `"files"` whitelist includes:
+```json
+"files": [
+  "bin/",
+  "skills/",
+  "templates/",
+  "docs/*.md",
+  "!docs/BRAND.md",
+  "docs/en/*.md",
+  "README.md",
+  "CONTRIBUTING.md",
+  "CONTRIBUTING.es.md",
+  "CHANGELOG.md",
+  "LICENSE",
+  "README.es.md",
+  "SECURITY.md"
+]
 ```
+- `docs/BRAND.md` is explicitly excluded (`!docs/BRAND.md`).
+- `docs/case-studies/` is omitted because `"docs/*.md"` only matches files directly in `docs/` and not nested subdirectories.
+- `docs/audits/` is omitted to keep internal audit reports out of the public npm package.
+
+### 2.2. Dual-Context Link Evaluation
+When evaluated across both execution contexts:
+1. **Context A (GitHub Repository Tree):** Relative links (`docs/case-studies/...`, `docs/BRAND.md`) resolved correctly on GitHub.
+2. **Context B (Installed npm Tarball):** When unpacked into `node_modules/specspire`, `docs/case-studies/` and `docs/BRAND.md` do not exist. Relative links in `node_modules/specspire/README.md` and on `npmjs.com/package/specspire` resulted in broken local references (404).
+
+### 2.3. Minimal Solution Applied
+Rather than enlarging the distributed npm package with case studies or modifying package distribution policies:
+- All references in `README.md` and `README.es.md` pointing to `docs/BRAND.md` were updated to:  
+  `https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md`
+- All references pointing to `docs/case-studies/TASKFLOW_ES_CASE_STUDY.md` were updated to:  
+  `https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`
+- All references pointing to `docs/case-studies/LOGLENS_CLI_CASE_STUDY.md` were updated to:  
+  `https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md`
+
+### 2.4. Audit Results Post-Fix
+Automated dual-context link audit across all 34 links in `README.md` and `README.es.md`:
+- **Markdown Local Links (19 in each):** 100% `OK_BOTH` (exist in repository AND exist in packed tarball).
+- **HTML Local Links (7 in each):** 100% `OK_BOTH` (language selectors, core guides, license badge).
+- **External Canonical Links (8 in each):** Point to canonical GitHub endpoints on `main`, resolving without 404s in both web and npm contexts.
+- **Broken / Missing Links:** **0 (Zero)**.
 
 ---
 
-## 3. Empirical Evidence Incorporated
+## 3. Real npm Tarball Inspection
+
+Execution of `npm pack --dry-run --json` confirmed the exact packaged inventory:
+- **Total files packed:** Exactly 68 files.
+- **Unpacked size:** ~259 KB.
+- **Excluded assets verified absent:**
+  - `docs/BRAND.md`: ABSENT (verified excluded).
+  - `docs/case-studies/TASKFLOW_ES_CASE_STUDY.md`: ABSENT (verified excluded).
+  - `docs/case-studies/LOGLENS_CLI_CASE_STUDY.md`: ABSENT (verified excluded).
+  - `docs/audits/*`: ABSENT (verified excluded).
+  - Scratch scripts and temporary files: ABSENT (verified excluded).
+- **Included assets verified present:**
+  - `bin/specspire.mjs` (CLI entrypoint).
+  - `skills/specspire/SKILL.md` (single public skill entrypoint).
+  - 30 operational references (15 ES in `references/`, 15 EN in `references/en/`).
+  - 16 project and feature templates (8 ES, 8 EN).
+  - Core guides (`QUICKSTART`, `WORKFLOW`, `QUALITY`, `CLI`, `ARCHITECTURE`, `DESIGN`, `PUBLISH`, `I18N_PLAN`).
+  - Legal, security, and community files (`LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CONTRIBUTING.es.md`, `CHANGELOG.md`).
+
+---
+
+## 4. Empirical Evidence Incorporated from Pilots
 
 1. **LogLens CLI Pilot (Step 20G.1–20G.3.1):**
    - Ingestion and streaming architecture with 0 runtime dependencies (`dependencies: {}`).
@@ -63,8 +104,14 @@ Zero modifications to:
    - Transparent memory profiling: constant $O(1)$ stream filtering (< 12 MB heap delta on 100k lines), proportional $O(U)$ stats aggregation, linear $O(N)$ JSON buffering, and grouped $O(G+E)$ trace sorting.
    - Transparent TDD reality: documented that T01–T05 began with module-loading errors (`ERR_MODULE_NOT_FOUND`) before achieving pure assertion TDD in T06, T07, F-01, and F-02.
 
-2. **Agent Compatibility Matrix Calibration (Step 20G.4):**
-   - **T3 Code (Antigravity ACP):** Full 7-phase lifecycle verified across Pilot 1 (TaskFlow ES) and Pilot 2 (LogLens CLI) through all quality gates.
+2. **TaskFlow ES Pilot (Step 20E.1–20E.8):**
+   - Web application pilot (TypeScript, Vite, native CSS tokens).
+   - 125 Vitest unit assertions and 23 Playwright E2E browser scenarios.
+   - Multi-viewport responsive verification (320px–1440px) under standards R01–R06.
+   - Client-side data privacy controls P01–P06.
+
+3. **Agent Compatibility Matrix Calibration (Step 20G.4):**
+   - **T3 Code / Antigravity ACP:** Full 7-phase lifecycle verified across Pilot 1 and Pilot 2 through all quality gates.
    - **Google Antigravity:** Verified interactive discovery and multi-scenario phase routing in Phase 0 evaluations.
    - **OpenAI Codex:** CLI 0.166.0 & Skill structure discovery verified; live inference blocked by upstream account quota during Step 20G.4.
    - **Claude Code & Cursor:** Skill format compatible; no live execution evidence collected (marked `NOT VERIFIED`).
@@ -72,20 +119,14 @@ Zero modifications to:
 
 ---
 
-## 4. Verification Commands & Test Results
+## 5. Automated Verification Results
 
-The entire local verification harness was executed on Windows 11 with Node.js v24.19.0:
+All tests and validation checks pass with zero regressions:
 
-### 4.1. Unit & Integration Test Suite (`npm test`)
+### 5.1. Unit & Integration Test Suite (`npm test`)
 ```text
 node --test tests/cli.test.mjs tests/docs.test.mjs tests/identity.test.mjs tests/hardening.test.mjs tests/privacy.test.mjs tests/skills.test.mjs
 
-✔ all referenced local Markdown documents exist
-✔ main README offers quickstart, workflow, design, quality and CLI
-✔ single public skill name matches CLI and package
-✔ skill-only onboarding does not presume CLI or project documents
-✔ responsive standard is wired through UI lifecycle and evidence templates
-...
 ℹ tests 149
 ℹ suites 0
 ℹ pass 146
@@ -93,39 +134,57 @@ node --test tests/cli.test.mjs tests/docs.test.mjs tests/identity.test.mjs tests
 ℹ cancelled 0
 ℹ skipped 3 (native symlink fixtures EPERM on unprivileged Windows)
 ℹ todo 0
-ℹ duration_ms 12489ms
+ℹ duration_ms 13597ms
 ```
 
-### 4.2. Source & Template Consistency (`npm run check`)
+### 5.2. Source & Template Consistency (`npm run check`)
 ```text
 node bin/specspire.mjs validate-source
 
 PASS: 1 Skill, 30 referencias (15 es, 15 en), 3 plantillas de instalación y 5 plantillas progresivas por idioma (16 plantillas ES/EN).
 ```
 
-### 4.3. Offline Packaging & Tarball Smoke Test (`npm run test:package`)
+### 5.3. Offline Packaging & Tarball Smoke Test (`npm run test:package`)
 ```text
 node tests/package-smoke.mjs
 
-Package smoke artifacts: .../specspire-package-CyesHR
+Package smoke artifacts: .../specspire-package-1UuMOB
 PASS: packed 68 files; one Skill, 30 references (15 es, 15 en), exact basename parity, 30 router links and 14 EN links resolved; no audit artifacts or temporary scripts; offline tarball install twice, validate-source, 34 installed project files, init twice, doctor, next, feature and preservation verified; zero runtime dependencies.
 PASS: bilingual templates generated from the offline tarball.
 ```
 
 ---
 
-## 5. Transparent Known Limitations
+## 6. Modified Files & Git State
 
-To maintain open-source technical integrity, all public documents explicitly disclose:
-1. **Pilot Nature:** Both TaskFlow ES and LogLens CLI are educational reference pilots engineered to stress-test the methodology, not production-certified platforms.
-2. **Zero In-Flight Log Masking:** LogLens CLI operates directly on input files without sanitizing or redacting sensitive credentials or personal data (PII).
-3. **Trace Memory Bounds:** Full JSON serialization (`--json`) and trace grouping (`group-traces`) retain event objects in memory and are not recommended for multi-gigabyte log streams without chunked piping.
-4. **Agent Execution Status:** Full end-to-end autonomous engineering has been verified on T3 Code; OpenAI Codex remains quota-blocked and other agents remain unverified.
+All changes remain on the dedicated local branch:
+- **Branch:** `docs/20h-public-case-studies`
+- **Candidate Commit:** `6ef917a` (plus the link gate refinement commit)
+- **Files Modified / Created:**
+  1. `docs/case-studies/LOGLENS_CLI_CASE_STUDY.md` (New case study)
+  2. `README.md` (Updated showcases & canonical GitHub links)
+  3. `README.es.md` (Updated showcases & canonical GitHub links)
+  4. `CHANGELOG.md` (Documented under `[Unreleased]`)
+  5. `docs/audits/SPECSPIRE_20H_1_PUBLICATION_READINESS.md` (Audit report)
+- **Zero Modifications To:**
+  - `skills/specspire/SKILL.md` (Untouched)
+  - `skills/specspire/references/*.md` (All 30 references untouched)
+  - `bin/specspire.mjs` (CLI binary untouched)
+  - `templates/` (All 16 templates untouched)
+  - `package.json` (Version `0.10.0-beta.1` untouched, dependencies untouched)
 
 ---
 
-## 6. Recommendations & Next Steps
+## 7. Transparent Known Limitations
 
-1. **Stage and Commit:** Stage the documentation changes on the dedicated branch `docs/20h-public-case-studies`.
-2. **Pull Request Preparation:** Open a descriptive Pull Request targeting `main` without changing the package version (`v0.10.0-beta.1`).
-3. **No Automatic Actions:** Do not push, merge, publish to npm, or modify Git tags until approved by maintainers.
+1. **Reference Pilot Status:** Neither TaskFlow ES nor LogLens CLI are enterprise-certified production platforms; both are educational reference implementations built to test agent compliance under constraints.
+2. **Zero In-Flight Log Masking:** LogLens CLI does not sanitize or redact credentials or PII in input logs.
+3. **Trace Memory Bounds:** Full JSON serialization (`--json`) and multi-trace grouping (`group-traces`) retain event collections in memory ($O(N)$ and $O(G+E)$).
+4. **Agent Inference Limits:** OpenAI Codex live testing was stopped due to upstream API quota exhaustion; Claude Code and Cursor have not been tested with live executions.
+
+---
+
+## 8. Final Recommendation
+
+**PROCEED TO OPEN PULL REQUEST.**  
+The documentation branch `docs/20h-public-case-studies` is technically sound, verified, and ready for human review and merge into `main` without creating a new release or publishing to npm.

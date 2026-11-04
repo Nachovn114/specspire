@@ -15,8 +15,8 @@
   <a href="docs/en/QUICKSTART.md">Quick Start</a> (<a href="docs/QUICKSTART.md">es</a>) •
   <a href="docs/en/WORKFLOW.md">Workflow</a> (<a href="docs/WORKFLOW.md">es</a>) •
   <a href="docs/en/QUALITY.md">Quality</a> (<a href="docs/QUALITY.md">es</a>) •
-  <a href="docs/BRAND.md">Brand</a> •
-  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Studies</a>
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Brand</a> •
+  <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Studies</a>
 </p>
 
 <p align="center">
@@ -72,8 +72,8 @@ I want to build [feature]. Identify the current phase, propose the next action, 
 | **Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; no live execution evidence collected. |
 
 Explore our real-world pilots:
-- <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a>: Responsive web client (320px–1440px), client-side privacy, and Playwright/Vitest assertions.
-- <a href="docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">LogLens CLI Case Study</a>: High-throughput streaming log parser with zero runtime dependencies, POSIX CLI, and 40 Node.js test runner assertions.
+- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a>: Responsive web client (320px–1440px), client-side privacy, and Playwright/Vitest assertions.
+- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">LogLens CLI Case Study</a>: High-throughput streaming log parser with zero runtime dependencies, POSIX CLI, and 40 Node.js test runner assertions.
 
 ## Documentation
 
@@ -84,6 +84,6 @@ Explore our real-world pilots:
 | Quality Gates & Evidence | [docs/en/QUALITY.md](docs/en/QUALITY.md) | [docs/QUALITY.md](docs/QUALITY.md) |
 | Responsive UI Standards | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
 | CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
-| Brand Identity Manual | <a href="docs/BRAND.md">docs/BRAND.md</a> | <a href="docs/BRAND.md">docs/BRAND.md</a> |
+| Brand Identity Manual | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> |
 
-[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="docs/BRAND.md">Brand Guidelines</a> • [MIT License](LICENSE)
+[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Brand Guidelines</a> • [MIT License](LICENSE)

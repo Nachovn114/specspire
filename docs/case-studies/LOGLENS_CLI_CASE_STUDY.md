@@ -156,8 +156,8 @@ LogLens CLI was built as a rigorous, real-world reference pilot to stress-test t
 Verify the complete test suite and CLI behaviors locally using Node.js `>= 20.0.0`:
 
 ```bash
-# 1. Navigate to the pilot repository
-cd C:/Users/Nacho/Documents/dev/Specspire-Pilots/loglens-cli
+# 1. Navigate to the pilot repository (or clone)
+cd path/to/loglens-cli
 
 # 2. Run the full native test suite (40 tests, 0 dependencies)
 npm test
