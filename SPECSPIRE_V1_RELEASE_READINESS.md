@@ -1,7 +1,7 @@
 # SPECSPIRE — V1.0.0 STABLE RELEASE READINESS REVIEW
 **Document ID:** `SPECSPIRE_V1_RELEASE_READINESS.md`<br>
 **Milestone:** Step 21.2 — Final Stable Release Polish & Pull Request Preparation<br>
-**Repository:** `C:/Users/Nacho/Documents/dev/Specspire`<br>
+**Repository:** `Nachovn114/specspire`<br>
 **Branch:** `release/v1.0.0-readiness`<br>
 **Target Version:** `1.0.0`<br>
 **Baseline Evaluated:** Specspire `v0.10.0-beta.1` (`5389683e45c3f8ec60f5bfaa11ef8ba0944bd393`)<br>
