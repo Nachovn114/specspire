@@ -16,7 +16,7 @@
   <a href="docs/WORKFLOW.md">Flujo</a> (<a href="docs/en/WORKFLOW.md">en</a>) •
   <a href="docs/QUALITY.md">Calidad</a> (<a href="docs/en/QUALITY.md">en</a>) •
   <a href="docs/BRAND.md">Marca</a> •
-  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio</a>
+  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Casos de estudio</a>
 </p>
 
 <p align="center">
@@ -38,14 +38,14 @@ npx skills add Nachovn114/specspire --skill specspire
 Los agentes de IA suelen saltar directo al código, agregar infraestructura innecesaria y reportar pruebas que nunca ejecutaron. Specspire les proporciona un único punto de entrada `SKILL.md` que carga bajo demanda 30 referencias técnicas (15 en español + 15 en inglés) a través de siete fases disciplinadas.
 
 ```text
-Contexto ➔ Especificar ➔ Plan y diseño ➔ Tareas ➔ Construir (TDD) ➔ Verificar ➔ Entregar
+Contexto → Especificar → Plan y diseño → Tareas → Construir (TDD) → Verificar → Entregar
 ```
 
 1. **Contexto (`PROJECT.md`):** Problema, usuarios, límites y alcance.
 2. **Especificar (`spec.md`):** Criterios de aceptación observables y casos borde.
 3. **Plan y diseño (`plan.md`, `design.md`):** Arquitectura mínima y [diseño UI responsive](docs/DESIGN.md).
 4. **Tareas (`tasks.md`):** Incrementos verticales con comprobación verificable.
-5. **Construir (TDD):** Ciclos estrictos RED ➔ GREEN ➔ REFACTOR con pruebas reales.
+5. **Construir (TDD):** Ciclos estrictos RED → GREEN → REFACTOR con pruebas reales.
 6. **Verificar (`review.md`):** Reconciliación de requisitos vs realidad; [gates de calidad](docs/QUALITY.md).
 7. **Entregar:** Comandos reproducibles, evidencias de ejecución y cierre limpio.
 
@@ -61,15 +61,19 @@ Instrucción para el agente:
 Quiero desarrollar [funcionalidad]. Identifica la fase actual, propón la siguiente tarea y cómo verificarla."
 ```
 
-## Compatibilidad verificada y Caso de estudio
+## Compatibilidad verificada y Casos de estudio
 
 | Plataforma / Agente | Estado | Notas |
 |---|---|---|
+| **T3 Code / Antigravity ACP** | PASS | Ciclo completo de 7 fases verificado en Piloto 1 (TaskFlow ES) y Piloto 2 (LogLens CLI). |
 | **Google Antigravity** | PASS | Descubrimiento interactivo y ruteo multiescenario verificados. |
 | **Matriz CI (Linux / Windows / macOS)** | PASS | Pruebas automáticas en Node.js 20, 22 y 24. |
-| **Codex / Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Skill compatible; pilotos formales pendientes. |
+| **OpenAI Codex** | BLOCKED | CLI 0.166.0 y estructura de Skill verificadas; inferencia bloqueada por cuota de cuenta en Paso 20G.4. |
+| **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Skill compatible; sin evidencia de ejecución directa en el entorno. |
 
-Descubre nuestro piloto real: el <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a> demuestra diseño responsive multidispositivo (320px–1440px), persistencia local y evidencias de desarrollo guiado por pruebas.
+Descubre nuestros pilotos reales:
+- <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Caso de estudio TaskFlow ES</a>: Cliente web responsive (320px–1440px), privacidad local y aserciones Playwright/Vitest.
+- <a href="docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">Caso de estudio LogLens CLI</a>: Analizador de logs en streaming con cero dependencias runtime, CLI POSIX y 40 aserciones nativas de Node.js.
 
 ## Documentación
 

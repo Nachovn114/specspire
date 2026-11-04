@@ -4,6 +4,10 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 
 ## [Unreleased]
 
+### Documentation
+- **LogLens CLI Case Study:** Published comprehensive case study (`docs/case-studies/LOGLENS_CLI_CASE_STUDY.md`) evaluating Specspire on a high-throughput, zero-dependency Node.js streaming log parser with independent audit, controlled remediation, and 40 PASS / 0 FAIL assertions.
+- **Agent Compatibility Calibration:** Updated compatibility matrix in `README.md` and `README.es.md` reflecting Step 20G.4 findings (T3 Code / Antigravity ACP verified; Google Antigravity verified in Phase 0; OpenAI Codex CLI verified but blocked by upstream quota; Claude Code and Cursor unverified).
+
 ## [0.10.0-beta.1] — 2026-11-03
 
 ### Open Source Launch & Brand Identity V2 (integrated in `main` via PR #9)

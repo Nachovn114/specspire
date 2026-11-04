@@ -16,7 +16,7 @@
   <a href="docs/en/WORKFLOW.md">Workflow</a> (<a href="docs/WORKFLOW.md">es</a>) •
   <a href="docs/en/QUALITY.md">Quality</a> (<a href="docs/QUALITY.md">es</a>) •
   <a href="docs/BRAND.md">Brand</a> •
-  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Study</a>
+  <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">Case Studies</a>
 </p>
 
 <p align="center">
@@ -38,14 +38,14 @@ npx skills add Nachovn114/specspire --skill specspire
 AI coding agents tend to jump straight to code, invent unrequested architecture, and claim tests passed that never ran. Specspire gives agents a single `SKILL.md` entrypoint that routes dynamically to 30 on-demand references (15 English + 15 Spanish) across seven disciplined phases.
 
 ```text
-Context ➔ Specify ➔ Plan & Design ➔ Tasks ➔ Build (TDD) ➔ Verify ➔ Deliver
+Context → Specify → Plan & Design → Tasks → Build (TDD) → Verify → Deliver
 ```
 
 1. **Context (`PROJECT.md`):** Problem boundaries, users, and non-goals.
 2. **Specify (`spec.md`):** Observable acceptance criteria and edge cases.
 3. **Plan & Design (`plan.md`, `design.md`):** Minimal architecture and [responsive UI tokens](docs/DESIGN.md).
 4. **Tasks (`tasks.md`):** Vertical, verifiable slices with testable gates.
-5. **Build (TDD):** Strict RED ➔ GREEN ➔ REFACTOR cycles; real assertions only.
+5. **Build (TDD):** Strict RED → GREEN → REFACTOR cycles; real assertions only.
 6. **Verify (`review.md`):** Reconcile requirements against reality; [quality gates](docs/QUALITY.md).
 7. **Deliver:** Reproducible commands, audit receipts, and clean handover.
 
@@ -65,11 +65,15 @@ I want to build [feature]. Identify the current phase, propose the next action, 
 
 | Platform / Agent | Status | Notes |
 |---|---|---|
+| **T3 Code / Antigravity ACP** | PASS | Full 7-phase lifecycle verified across Pilot 1 (TaskFlow ES) and Pilot 2 (LogLens CLI). |
 | **Google Antigravity** | PASS | Verified interactive discovery and multi-scenario phase routing. |
 | **CI Matrix (Linux / Windows / macOS)** | PASS | Automated test matrix on Node.js 20, 22, and 24. |
-| **Codex / Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; formal pilot pending. |
+| **OpenAI Codex** | BLOCKED | CLI 0.166.0 & Skill structure verified; inference blocked by account quota in Step 20G.4. |
+| **Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; no live execution evidence collected. |
 
-Explore our real-world pilot: <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a> demonstrates verified multi-viewport layouts (320px–1440px), client-side persistence, and test-first evidence receipts.
+Explore our real-world pilots:
+- <a href="docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a>: Responsive web client (320px–1440px), client-side privacy, and Playwright/Vitest assertions.
+- <a href="docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">LogLens CLI Case Study</a>: High-throughput streaming log parser with zero runtime dependencies, POSIX CLI, and 40 Node.js test runner assertions.
 
 ## Documentation
 
