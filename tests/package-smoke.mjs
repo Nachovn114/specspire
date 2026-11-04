@@ -55,8 +55,10 @@ for (const [folder, expected] of [['references', refs], ['references/en', enRefs
   for (const ref of expected) assert.ok(readFileSync(join(installedPkg, ref), 'utf8').trim(), `Empty packaged reference: ${ref}`);
 }
 function localLinks(doc) {
-  return [...readFileSync(join(installedPkg, doc), 'utf8').matchAll(/\[[^\]]*\]\(([^)]+)\)/g)]
-    .map(m => m[1]).filter(target => !/^(https?:|mailto:|#)/.test(target));
+  const content = readFileSync(join(installedPkg, doc), 'utf8');
+  const mdLinks = [...content.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)].map(m => m[1]);
+  const htmlLinks = [...content.matchAll(/<(?:img|source|a)[^>]+(?:src|srcset|href)=["']([^"']+)["']/gi)].map(m => m[1]);
+  return [...mdLinks, ...htmlLinks].filter(target => !/^(https?:|mailto:|#|data:)/.test(target));
 }
 const routerLinks = localLinks('skills/specspire/SKILL.md');
 assert.equal(routerLinks.length, 30, 'Bilingual router must have exactly 30 local reference links');

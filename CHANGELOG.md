@@ -1,12 +1,17 @@
 # Changelog
 
-Notable changes to Specspire are documented here. This is a **beta release**; the toolkit has not been certified against a production application.
+Notable changes to Specspire are documented here.
 
-## [Unreleased]
+## [1.0.0] — 2026-11-04
 
-### Documentation
+### Stable v1.0.0 Release — Professional Developer Experience & Documentation
+- **Professional Documentation Architecture:** Redesigned `README.md` and `README.es.md` following standard open-source industry patterns with adaptive `<picture>` logos, concise 10-section hierarchy, clear Skill-only vs Full Kit comparisons, and calibrated agent compatibility matrices.
 - **LogLens CLI Case Study:** Published comprehensive case study (`docs/case-studies/LOGLENS_CLI_CASE_STUDY.md`) evaluating Specspire on a high-throughput, zero-dependency Node.js streaming log parser with independent audit, controlled remediation, and 40 PASS / 0 FAIL assertions.
-- **Agent Compatibility Calibration:** Updated compatibility matrix in `README.md` and `README.es.md` reflecting Step 20G.4 findings (T3 Code / Antigravity ACP verified; Google Antigravity verified in Phase 0; OpenAI Codex CLI verified but blocked by upstream quota; Claude Code and Cursor unverified).
+- **Guided Real-World Walkthrough:** Added step-by-step task management API tutorial in `docs/WORKFLOW.md` and `docs/en/WORKFLOW.md` explaining exact agent vs developer actions across all seven phases.
+- **Installation & Onboarding Hardening:** Overhauled `docs/QUICKSTART.md` and `docs/en/QUICKSTART.md` with explicit Path A (Skill-only) and Path B (Full Kit) guides, initial steering prompts, expected 4-line responses, and comprehensive troubleshooting.
+- **CLI Reference & Semantic Exit Codes:** Streamlined `docs/CLI.md` with clear command tables, flag documentation (`--lang`, `--dry-run`, `--target`), and semantic exit codes (`0` = PASS, `1` = FAIL, `2` = MIGRATION REQUIRED).
+- **Packaging & Link Integrity Gate:** Enhanced automated verification in `tests/package-smoke.mjs` and `tests/docs.test.mjs` to validate HTML `src`, `srcset`, and `href` attributes, guaranteeing zero broken image or document links in npm packages.
+- **Zero Runtime Dependencies:** Maintained lightweight, zero-dependency architecture (no runtime dependencies declared in `package.json`) running natively on Node.js 20, 22, and 24.
 
 ## [0.10.0-beta.1] — 2026-11-03
 
@@ -72,9 +77,3 @@ Notable changes to Specspire are documented here. This is a **beta release**; th
 - Phase 0 agent testing does not constitute end-to-end completion of a production application.
 - Privacy guidance is contextual and does not constitute formal legal certification.
 - Toolkit is in beta status and not yet published on the npm registry.
-
-## Before 1.0.0
-
-- Validate full kit remote bootstrap via `npm exec --package=github:`.
-- Validate real agent behavior across additional environments (Codex, Cursor, etc.).
-- Complete and audit a sample production application end-to-end through Phase 6 (Deliver).

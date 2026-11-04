@@ -93,9 +93,9 @@ El repositorio GitHub implementa la cabecera adaptable mediante la etiqueta est�
 ```html
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-with-tagline-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/brand/logo-with-tagline-light.svg">
-    <img alt="Specspire — From prompt to proof" src="assets/brand/logo-with-tagline-light.svg" width="560">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-light.svg">
+    <img alt="Specspire — From prompt to proof" src="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-light.svg" width="560">
   </picture>
 </p>
 ```

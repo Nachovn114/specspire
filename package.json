@@ -1,6 +1,6 @@
 {
   "name": "specspire",
-  "version": "0.10.0-beta.1",
+  "version": "1.0.0",
   "description": "One AI agent skill for spec-driven planning, thoughtful UI/UX, TDD, code review and verified software delivery.",
   "type": "module",
   "bin": {

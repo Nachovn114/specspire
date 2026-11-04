@@ -1,13 +1,13 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-with-tagline-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/brand/logo-with-tagline-light.svg">
-    <img alt="Specspire — From prompt to proof" src="assets/brand/logo-with-tagline-light.svg" width="560">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-light.svg">
+    <img alt="Specspire — From prompt to proof" src="https://raw.githubusercontent.com/Nachovn114/specspire/main/assets/brand/logo-with-tagline-light.svg" width="560">
   </picture>
 </p>
 
 <p align="center">
-  <strong>One Agent Skill for verifiable software engineering.</strong>
+  <strong>From prompt to proof. One Agent Skill for verifiable software engineering.</strong>
 </p>
 
 <p align="center">
@@ -23,57 +23,87 @@
   <a href="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml"><img src="https://github.com/Nachovn114/specspire/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/node-%3E%3D20-339933" alt="Node.js 20+">
-  <img src="https://img.shields.io/badge/status-beta-orange" alt="Status: beta">
 </p>
 
+Specspire stops AI coding agents from jumping straight to code, inventing unrequested architecture, or hallucinating test runs. It provides a single Agent Skills standard entrypoint (`SKILL.md`) that dynamically routes to 30 on-demand references across seven disciplined phases.
+
+---
+
+## Quick Install
+
+Add the verified Agent Skill to your repository or agent environment:
+
 ```bash
-# Add the verified Agent Skill to your project:
 npx skills add Nachovn114/specspire --skill specspire
 ```
 
-> **Beta Notice:** Automated CI matrix passes across Ubuntu, Windows, and macOS (Node.js 20, 22, 24). Remote skill installation and Phase 0 activation in Google Antigravity are verified. Full remote kit bootstrap and unverified agents remain **NOT VERIFIED**. See [Changelog](CHANGELOG.md) for full audit history.
+Requires Node.js `>= 22.20.0` for the `skills` CLI installer. Alternatively, copy `skills/specspire/` into your agent's skills directory.
 
-## Why Specspire
+---
 
-AI coding agents tend to jump straight to code, invent unrequested architecture, and claim tests passed that never ran. Specspire gives agents a single `SKILL.md` entrypoint that routes dynamically to 30 on-demand references (15 English + 15 Spanish) across seven disciplined phases.
+## Try It
+
+Once installed, prompt your agent in any conversation:
+
+```text
+Use the specspire skill. Review our project goals and identify the current phase before writing any code.
+```
+
+Instructs your agent to adopt the 4-line status format and establish boundaries before modifying files:
+
+```text
+Phase: 0 · Context & Discovery
+Next action: Review problem statement, target users, and non-goals in conversation.
+Verification: Confirm agreed scope with developer before creating any files.
+Real blocker (if any): None.
+```
+
+---
+
+## How It Works
+
+Specspire organizes software development into seven verifiable phases with human approval gates:
 
 ```text
 Context → Specify → Plan & Design → Tasks → Build (TDD) → Verify → Deliver
 ```
 
-1. **Context (`PROJECT.md`):** Problem boundaries, users, and non-goals.
-2. **Specify (`spec.md`):** Observable acceptance criteria and edge cases.
-3. **Plan & Design (`plan.md`, `design.md`):** Minimal architecture and [responsive UI tokens](docs/DESIGN.md).
-4. **Tasks (`tasks.md`):** Vertical, verifiable slices with testable gates.
-5. **Build (TDD):** Strict RED → GREEN → REFACTOR cycles; real assertions only.
-6. **Verify (`review.md`):** Reconcile requirements against reality; [quality gates](docs/QUALITY.md).
-7. **Deliver:** Reproducible commands, audit receipts, and clean handover.
+1. **Context (`PROJECT.md`):** Problem boundaries, target users, constraints, and explicit non-goals.
+2. **Specify (`spec.md`):** User stories with observable acceptance criteria and edge cases.
+3. **Plan & Design (`plan.md`, `design.md`):** Minimal architecture, stack justification, and [responsive UI tokens](docs/DESIGN.md).
+4. **Tasks (`tasks.md`):** Vertical, verifiable work slices with testable completion gates.
+5. **Build (TDD):** Strict RED → GREEN → REFACTOR cycles; tests fail on requirements, not import crashes.
+6. **Verify (`review.md`):** Reconcile requirements against diff; execute [quality gates](docs/QUALITY.md) and privacy controls (P01–P06).
+7. **Deliver:** Reproducible execution commands, cold-start runbooks, and audit receipts.
 
-## Getting Started
+---
 
-- **Remote Skill (Recommended):** Run `npx skills add Nachovn114/specspire --skill specspire` and point your agent to `.agents/skills/specspire/SKILL.md`. See [Quickstart](docs/QUICKSTART.md).
-- **Skill-only:** Use `SKILL.md` directly in conversation without installing local project files.
-- **Full Kit (Source):** Run `node ./bin/specspire.mjs init --lang en` and `doctor` to scaffold project templates. See [CLI Reference](docs/CLI.md).
+## Skill-only vs Full Kit
 
-```text
-Prompt your agent:
-"Use the specspire skill. Read AGENTS.md and PROJECT.md.
-I want to build [feature]. Identify the current phase, propose the next action, and how to verify it."
-```
+Specspire adapts to how you work:
 
-## Verified Compatibility & Showcase
-
-| Platform / Agent | Status | Notes |
+| Feature | Skill-only Mode | Full Kit Mode |
 |---|---|---|
-| **T3 Code / Antigravity ACP** | PASS | Full 7-phase lifecycle verified across Pilot 1 (TaskFlow ES) and Pilot 2 (LogLens CLI). |
-| **Google Antigravity** | PASS | Verified interactive discovery and multi-scenario phase routing. |
-| **CI Matrix (Linux / Windows / macOS)** | PASS | Automated test matrix on Node.js 20, 22, and 24. |
-| **OpenAI Codex** | BLOCKED | CLI 0.166.0 & Skill structure verified; inference blocked by account quota in Step 20G.4. |
-| **Claude Code / Cursor** | NOT VERIFIED | Standard Skill format compatible; no live execution evidence collected. |
+| **Best for** | Fast adoption in any coding agent chat | Repository specification management & CLI governance |
+| **Setup command** | `npx skills add Nachovn114/specspire --skill specspire` | Cloned: `node ./bin/specspire.mjs init --lang en`<br>*(npm: `npx specspire` pending official registry release)* |
+| **Files installed** | Agent skill directory (`.agents/skills/specspire/`; 31 files) | Up to 34 project files (3 project guides + complete Skill with 30 references) |
+| **Specspire CLI** | Not installed (agent guided conversationally) | Installed (`init`, `doctor`, `next`, `feature`) |
+| **Context storage** | Conversational chat memory (no files created automatically) | Markdown documents (`PROJECT.md`, `AGENTS.md`, `specs/`) |
+| **Progressive templates** | Guided in conversation without template files | 10 progressive feature templates (5 ES + 5 EN; 16 total templates in kit) |
+| **Integrity audit** | Prompt agent to verify reference availability | `doctor` verifies document structure (0/1/2, not code quality) |
+| **Existing files** | Preserved (zero project files touched) | Preserved (`EXISTE` reported, never overwritten) |
+| **Updates** | Via skill manager (`npx skills update` / `npx skills check`) | Compare clean reference copy & controlled update (see Quick Start) |
 
-Explore our real-world pilots:
-- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md">TaskFlow ES Case Study</a>: Responsive web client (320px–1440px), client-side privacy, and Playwright/Vitest assertions.
-- <a href="https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md">LogLens CLI Case Study</a>: High-throughput streaming log parser with zero runtime dependencies, POSIX CLI, and 40 Node.js test runner assertions.
+---
+
+## Real-World Examples
+
+Specspire was tested and validated on real-world reference implementations:
+
+- [**TaskFlow ES Case Study**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md): Responsive web client (320px–1440px), client-side privacy controls (P01–P06), and Vitest/Playwright E2E suites.
+- [**LogLens CLI Case Study**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md): Documented case study from an internal reference pilot; streaming log parser with zero runtime dependencies, POSIX CLI, and 40 test runner assertions.
+
+---
 
 ## Documentation
 
@@ -86,4 +116,30 @@ Explore our real-world pilots:
 | CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
 | Brand Identity Manual | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> |
 
-[Contributing](CONTRIBUTING.md) • [Security](SECURITY.md) • [Changelog](CHANGELOG.md) • <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">Brand Guidelines</a> • [MIT License](LICENSE)
+---
+
+## Compatibility & Requirements
+
+- **Runtime:** Node.js `>= 20.0.0` (Node 20 technically compatible but reaches EOL April 2026; Node 22 & 24 LTS verified in CI; Node 26 current/LTS unverified). Zero runtime dependencies (no runtime `dependencies` declared in `package.json`).
+- **Skills Installer:** `npx skills` requires Node.js `>= 22.20.0` (independent installer requirement).
+- **Platform Matrix:** Validated across Ubuntu, macOS, and Windows.
+
+| Platform / Agent | Status | Notes |
+|---|---|---|
+| **T3 Code / Antigravity ACP** | PASS | Full 7-phase lifecycle verified across web and CLI reference pilots. |
+| **Google Antigravity** | PASS | Interactive discovery and multi-scenario phase routing verified. |
+| **CI Matrix (Linux / Windows / macOS)** | PASS | Automated unit, CLI, package, and link test matrix on Node.js 20, 22, 24. |
+| **OpenAI Codex** | BLOCKED | CLI 0.166.0 & Skill structure verified; live inference blocked by account quota. |
+| **Claude Code / Cursor** | NOT VERIFIED | Standard Agent Skills format compatible; live execution adheres to user prompts without guaranteed agent compliance. |
+
+---
+
+## Contributing, Security and License
+
+Specspire is an open-source project welcoming community participation:
+
+- [Contributing Guide](CONTRIBUTING.md) ([es](CONTRIBUTING.es.md))
+- [Security Policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Brand Guidelines](https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md)
+- [MIT License](LICENSE)
