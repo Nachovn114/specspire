@@ -85,14 +85,14 @@ Specspire se adapta a tu flujo de trabajo:
 | Característica | Modo Skill-only | Modo Kit completo |
 |---|---|---|
 | **Ideal para** | Adopción rápida en el chat de cualquier agente de código | Gestión completa de especificaciones a nivel de repositorio y gobernanza CLI |
-| **Comando de instalación** | `npx skills add Nachovn114/specspire --skill specspire` | Clonado: `node ./bin/specspire.mjs init --lang es`<br>npm: `npx specspire init --lang es` |
-| **Archivos instalados** | Directorio de skills del agente (`.agents/skills/specspire/`; 31 archivos) | Hasta 34 archivos del proyecto (3 guías del proyecto + Skill completa) |
+| **Comando de instalación** | `npx skills add Nachovn114/specspire --skill specspire` | Clonado: `node ./bin/specspire.mjs init --lang es`<br>*(npm: `npx specspire` pendiente de publicación oficial)* |
+| **Archivos instalados** | Directorio de skills del agente (`.agents/skills/specspire/`; 31 archivos) | Hasta 34 archivos del proyecto (3 guías del proyecto + Skill completa con 30 referencias) |
 | **CLI de Specspire** | No se instala (guía conversacionalmente al agente) | Instalada (`init`, `doctor`, `next`, `feature`) |
 | **Almacenamiento de contexto** | Memoria conversacional en el chat (sin crear archivos automáticamente) | Documentos Markdown (`PROJECT.md`, `AGENTS.md`, `specs/`) |
-| **Plantillas progresivas** | Guiadas en conversación sin archivos de plantilla | 16 plantillas bilingües para comandos `feature` |
+| **Plantillas progresivas** | Guiadas en conversación sin archivos de plantilla | 10 plantillas progresivas de feature (5 ES + 5 EN; 16 plantillas totales en el kit) |
 | **Auditoría de integridad** | Indicación en chat para verificar referencias | `doctor` comprueba estructura documental (0/1/2, no calidad de código) |
 | **Archivos existentes** | Intactos (sin tocar archivos del proyecto) | Preservados (`EXISTE` informado, nunca sobrescribe) |
-| **Actualizaciones** | Mediante el gestor de skills (`npx skills update` / `npx skills check`) | Reejecutar `init` o actualizar el paquete |
+| **Actualizaciones** | Mediante el gestor de skills (`npx skills update` / `npx skills check`) | Comparar copia limpia de referencia y actualización controlada (ver Inicio rápido) |
 
 ---
 

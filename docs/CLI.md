@@ -10,7 +10,7 @@ Specspire cuenta con **una única Skill de IA**, pero proporciona una CLI comple
 
 | Comando | Descripción | Flags admitidos |
 |---|---|---|
-| `specspire init` | Instala guías de proyecto, reglas y la Skill bilingüe de 34 archivos. | `--lang es\|en`, `--dry-run`, `--target <dir>` |
+| `specspire init` | Instala guías de proyecto y la Skill bilingüe de 34 archivos (3 base + 31 Skill). Deja disponibles 10 plantillas de feature (16 en total). | `--lang es\|en`, `--dry-run`, `--target <dir>` |
 | `specspire doctor` | Audita la integridad física y documental de la Skill y del proyecto. | `--target <dir>` |
 | `specspire next [slug]` | Analiza el estado de los documentos e indica la siguiente acción. | `--target <dir>` |
 | `specspire status` | Resume el estado de especificaciones y funcionalidades activas. | `--target <dir>` |
@@ -30,16 +30,19 @@ El parámetro `<slug>` admite letras minúsculas, números y guiones (por ejempl
 No es necesario instalar Specspire de forma global en tu sistema. Desde la carpeta de tu proyecto puedes ejecutarlo de dos formas:
 
 ```bash
-# Opción 1: Si agregaste specspire como dependencia (npm install -D specspire)
-npx specspire init --lang es
-npx specspire doctor
-npx specspire next
-
-# Opción 2: Si estás utilizando un repositorio clonado de Specspire
+# Opción 1 (Recomendada y reproducible): Desde repositorio clonado de GitHub
 node path/to/specspire/bin/specspire.mjs init --lang es
 node path/to/specspire/bin/specspire.mjs doctor
 node path/to/specspire/bin/specspire.mjs next
+
+# Opción 2: Si el paquete se enlaza localmente o tras futura publicación oficial en npm
+npx specspire init --lang es
+npx specspire doctor
+npx specspire next
 ```
+
+> [!NOTE]
+> **Disponibilidad en npm:** El paquete `specspire` no ha sido publicado aún en el registro público de npm (estado 404 confirmado; nombre disponible para publicación oficial por el titular). La vía principal y reproducible es ejecutar la CLI clonando el repositorio de GitHub o enlazando el paquete localmente.
 
 ---
 

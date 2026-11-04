@@ -85,14 +85,14 @@ Specspire adapts to how you work:
 | Feature | Skill-only Mode | Full Kit Mode |
 |---|---|---|
 | **Best for** | Fast adoption in any coding agent chat | Repository specification management & CLI governance |
-| **Setup command** | `npx skills add Nachovn114/specspire --skill specspire` | Cloned: `node ./bin/specspire.mjs init --lang en`<br>npm: `npx specspire init --lang en` |
-| **Files installed** | Agent skill directory (`.agents/skills/specspire/`; 31 files) | Up to 34 project files (3 project guides + complete Skill) |
+| **Setup command** | `npx skills add Nachovn114/specspire --skill specspire` | Cloned: `node ./bin/specspire.mjs init --lang en`<br>*(npm: `npx specspire` pending official registry release)* |
+| **Files installed** | Agent skill directory (`.agents/skills/specspire/`; 31 files) | Up to 34 project files (3 project guides + complete Skill with 30 references) |
 | **Specspire CLI** | Not installed (agent guided conversationally) | Installed (`init`, `doctor`, `next`, `feature`) |
 | **Context storage** | Conversational chat memory (no files created automatically) | Markdown documents (`PROJECT.md`, `AGENTS.md`, `specs/`) |
-| **Progressive templates** | Guided in conversation without template files | 16 bilingual templates for `feature` commands |
+| **Progressive templates** | Guided in conversation without template files | 10 progressive feature templates (5 ES + 5 EN; 16 total templates in kit) |
 | **Integrity audit** | Prompt agent to verify reference availability | `doctor` verifies document structure (0/1/2, not code quality) |
 | **Existing files** | Preserved (zero project files touched) | Preserved (`EXISTE` reported, never overwritten) |
-| **Updates** | Via skill manager (`npx skills update` / `npx skills check`) | Re-run `init` or update package |
+| **Updates** | Via skill manager (`npx skills update` / `npx skills check`) | Compare clean reference copy & controlled update (see Quick Start) |
 
 ---
 
