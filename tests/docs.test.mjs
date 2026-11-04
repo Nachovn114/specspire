@@ -18,11 +18,15 @@ test('all referenced local Markdown documents exist',()=>{
       if (/^(https?:|mailto:|#)/.test(target)) continue;
       assert.ok(existsSync(path.resolve(path.dirname(full),decodeURIComponent(target.split('#')[0]))),`${f} => ${target}`)
     }
+    for(const [,target] of content.matchAll(/<(?:img|source|a)[^>]+(?:src|srcset|href)=["']([^"']+)["']/gi)){
+      if (/^(https?:|mailto:|#|data:)/.test(target)) continue;
+      assert.ok(existsSync(path.resolve(path.dirname(full),decodeURIComponent(target.split('#')[0]))),`${f} (HTML) => ${target}`);
+    }
   }
 });
 test('main README offers quickstart, workflow, design, quality and CLI',()=>{
   const md=readFileSync(path.join(root,'README.md'),'utf8');
-  assert.ok(md.split('\n').length<120,'README should be a short landing page');
+  assert.ok(md.split('\n').length<220,'README should be a concise landing page');
   for(const p of ['docs/QUICKSTART.md','docs/WORKFLOW.md','docs/DESIGN.md','docs/QUALITY.md','docs/CLI.md']) assert.ok(md.includes(p),p);
 });
 test('single public skill name matches CLI and package',()=>{

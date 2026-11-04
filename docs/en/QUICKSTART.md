@@ -1,135 +1,178 @@
-# Quick Start — VS Code
+# Quick Start — Installation & First Use Guide
 
-[Español](../QUICKSTART.md) · [Workflow](WORKFLOW.md) · [Quality gates](QUALITY.md) · [CLI (es)](../CLI.md) · [Back to README](../../README.md)
+[Español](../QUICKSTART.md) · [Development Workflow](WORKFLOW.md) · [Quality Gates](QUALITY.md) · [CLI Reference (es)](../CLI.md) · [Back to README](../../README.md)
 
-**Goal:** Turn an empty directory into a disciplined, guided project without preinstalling an unneeded framework or backend.
+**Goal:** Guide an AI agent from an empty directory or existing project to disciplined, verifiable software delivery without speculative overengineering.
 
-**Prerequisites:** Git and Node.js 20+ if you use the CLI (Node.js 22.20+ if using `npx skills`); an agent compatible with Agent Skills for AI assistance.
+**Prerequisites:**
+- **Node.js:** Version `>= 20.0.0` (LTS 20, 22, or 24) for the Specspire CLI and verification scripts.
+- **Skills Installer:** Node.js `>= 22.20.0` if using `npx skills add` (requirement of the official `skills` CLI).
+- **Git:** Installed and available in PATH.
+- **AI Coding Agent:** Any environment supporting the Agent Skills standard (T3 Code, Antigravity, Claude Code, Cursor, Codex, Windsurf, Cline, etc.).
 
-Phase 3 is implemented in this source revision. For [PR #7](https://github.com/Nachovn114/specspire/pull/7), run [41364185917](https://github.com/Nachovn114/specspire/actions/runs/41364185917) (event `pull_request`, evaluated commit `6be8bbdca6677c3121a1268f23f63105de54b5d0`) completed all nine matrix jobs and `required` with SUCCESS: Node.js 20.0.0, 22 and 24 on Ubuntu, Windows and macOS. This evidence applies to that commit, not to later revisions or a future post-merge run on `main`. Historical v0.9.0-beta.1 does not include these capabilities; no npm publication is claimed.
+---
 
-Eight original ES templates and eight EN counterparts are available. `init` installs 34 files, not 42: three documents in the selected language, one router and 30 references. The local Phase 3 tarball contains 68 files; the historical Phase 2 tarball contained 60. Spanish is the default. Use `init --lang en` and repeat `--lang en` for every `feature` command. Language is not persisted or inferred; existing documents are preserved, never automatically translated.
+## Choose Your Installation Path
 
-Language selection: explicit preference → unambiguous request/project context → Spanish fallback. Load only relevant references in the selected language; comparison is reserved for explicitly requested translation, equivalence auditing or bilingual maintenance.
+Specspire provides two complementary adoption paths:
 
-## 1. Open the project
-
-In VS Code, open a new or existing folder. On Windows PowerShell:
-
-```powershell
-mkdir MyProject
-cd MyProject
-code .
-```
-
-## 2. Choose how to install Specspire
-
-| Mode | What you get | Verification status |
+| Mode | What You Get | Who It Is For |
 |---|---|---|
-| **Full kit, local copy** | `AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md` and the Skill in `.agents/skills/specspire/` | Phase 2 merged; Phase 3 PR CI verified at 6be8bbd (see evidence above) |
-| **Skill only (local or manual)** | Only `SKILL.md` and its 30 references (15 ES + 15 EN), without CLI or project docs | Integrated in `main` (PR #5); evaluated with agents in Phase 2 (unreleased on npm) |
-| **Remote: Skill only** (`npx skills add`) | Installs the Skill into `.agents/skills/specspire/` directly from GitHub | Verified v0.10.0-beta.1 (1 Skill + 30 ES/EN references; requires Node.js >= 22.20.0) |
-| **Remote: Full kit** (`npm exec github:`) | Installs the complete kit from the GitHub repository | Unverified end-to-end |
+| **Path A: Skill-only** (`npx skills add`) | Installs `SKILL.md` and 30 technical references (15 ES + 15 EN) in `.agents/skills/specspire/`. | Developers who want disciplined agent guidance in chat without adding CLI tools or Markdown templates to their repository. |
+| **Path B: Full Kit** (local `init`) | Installs the Skill + Specspire CLI (`init`, `doctor`, `next`, `feature`) + 16 bilingual templates. | Teams seeking persistent repository specification management (`PROJECT.md`, `AGENTS.md`, `specs/`). |
 
-**Full kit (local).** With Specspire downloaded in a sibling folder, run from your project directory:
+---
 
-```powershell
-node ../Specspire/bin/specspire.mjs init --lang en
-node ../Specspire/bin/specspire.mjs doctor
-```
+## Path A — Skill-only (Recommended for Agent Chat)
 
-`init` copies three project guide documents and the Skill without touching existing code. Running it again only adds missing files; it never overwrites existing ones. `doctor` inspects installed documents; it does not run application tests.
+### 1. Installation via Skills CLI
 
-**Remote Skill-only.** Install the Skill directly from GitHub into your project:
+Run in your project root or development workspace:
 
 ```bash
 npx skills add Nachovn114/specspire --skill specspire
 ```
 
-Or copy the `skills/specspire/` folder (including `references/`) into your agent's skills location. You do not need to run the CLI commands in this guide unless you also decide to scaffold the project guides.
+The installer detects your active agent or prompts to confirm the destination directory (defaulting to `.agents/skills/specspire/`).
 
-## 3. Activate the Skill and describe what you are building
+> [!NOTE]
+> Skill-only mode installs the procedural guidance and technical references for your AI agent. It does not automatically install the local Specspire CLI binary or initialize project Markdown templates in your root folder.
 
-With the full kit, briefly fill in `PROJECT.md` or instruct the agent to do so with your initial requirements:
+### 2. Verify Installation
 
-```text
-Activate the specspire skill. Read AGENTS.md, PROJECT.md and README-DESARROLLO.md.
-Here is the project goal or rubric: [paste requirements or project description].
-Propose a minimal scope and flag any ambiguous requirements.
-Give me only the first task and explain how to verify it.
-```
-
-**If context documents are missing** (skill-only install or existing codebase without the kit), provide the path to `SKILL.md`:
-
-```text
-Use the specspire skill located at [path to SKILL.md].
-My goal is: [description]. Constraints: [stack, deadlines, rubric].
-Maintain context within this conversation and propose only the next action.
-Do not create files without explicit permission.
-```
-
-The agent maintains context in the conversation and only proposes writing a context file if you authorize it.
-
-## 4. Follow the workflow without skipping stages
-
-Open `README-DESARROLLO.md` and check off each step after verifying real evidence. To check the next documented step:
-
-```powershell
-node ../Specspire/bin/specspire.mjs next
-```
-
-To scaffold a new feature **after establishing the project context**:
-
-```powershell
-node ../Specspire/bin/specspire.mjs feature new contact-form --lang en
-```
-
-Open `specs/contact-form/spec.md`, complete it with the agent, and review it before planning.
-
-Complete and review each prerequisite before advancing; design is only for UI. Use the same local CLI source from this source revision, not the historical release. If the executable is not on PATH, replace `specspire` with `node ../Specspire/bin/specspire.mjs`.
+Confirm that the skill files are present:
 
 ```bash
-specspire feature plan contact-form --lang en
-specspire feature design contact-form --lang en
-specspire feature tasks contact-form --lang en
-specspire feature review contact-form --lang en
+# Verify main SKILL.md entrypoint and references
+ls -la .agents/skills/specspire/SKILL.md
+ls -la .agents/skills/specspire/references/
 ```
 
-## 5. Verify the delivery
+You should see `SKILL.md`, 15 Spanish references in `references/`, and 15 English references in `references/en/`.
 
-Instruct the agent to execute **real project commands** (tests, linter, build, browser audits where applicable), verify requirements against observable output, and record anything that could not be run. Follow the protocol in [Quality gates](QUALITY.md).
+### 3. Refresh or Restart the Agent
 
-## Updating an existing installation
+If your editor or agent session was open during installation:
+- In **T3 Code / Antigravity**: Skills are dynamically reloaded or detected upon starting a new turn.
+- In **Cursor / Claude Code**: Restart the window or terminal session to ensure the `.agents/skills/` directory is indexed.
 
-`init` never replaces `SKILL.md`, existing references or project documents. A recognized legacy router yields `doctor` exit code 2 both before and after adding EN references; only a valid bilingual installation yields 0. Missing/invalid files yield 1. A customized legacy router may not match the known legacy fingerprint: inspect it manually rather than assuming it is a valid old release.
+### 4. Initial Steering Prompt (First Prompt)
 
-1. Review the [Changelog](../../CHANGELOG.md) and select the intended local source revision. Stop agent edits during migration. Use physical paths; inspect source, destination and ancestors for symlinks/junctions. Do not bypass protections or use traversal paths.
-2. Before changing installed files, make a complete backup of `.agents/skills/specspire/` (including hidden directories) and the three project documents to a new, separate physical directory. Verify the backup contents and record its location; do not reuse an existing backup destination.
-3. Create a clean comparison installation:
+Start a conversation with your agent by pasting:
 
-   ```powershell
-   $newCopy = Join-Path $env:TEMP ('specspire-review-' + [guid]::NewGuid().ToString())
-   node ../Specspire/bin/specspire.mjs init --lang en --target $newCopy
-   git diff --no-index .agents/skills/specspire "$newCopy/.agents/skills/specspire"
-   ```
+```text
+Use the specspire skill. Review our project goals and identify the current phase before writing any code.
+```
 
-   Inspect command results; `git diff --no-index` exit 1 means differences, not a failed installation. Stop on actual command errors.
-4. Run the selected local CLI's `init` on the project to add missing files only. Compare every existing reference and the router against the clean copy. Merge accepted changes file by file, preserving intentional customizations. Integrate the bilingual protocol and all 30 links into a personalized old router; do not replace the directory wholesale. Keep project-specific `AGENTS.md`, `PROJECT.md` and `README-DESARROLLO.md` content.
-5. Run `node ../Specspire/bin/specspire.mjs doctor` and inspect `$LASTEXITCODE`: 0 means the bilingual document contract passes; 2 means router migration remains; 1 requires correcting the reported missing/invalid files. Inspect the final diff and retain the backup. If rollback is needed, restore only reviewed files from that backup and rerun diagnostics; do not claim bilingual completion after restoring a legacy router.
+### 5. Expected Agent Response
 
-## Common issues
+Your agent reads `SKILL.md`, adopts the disciplined 4-line protocol, and stops any premature code generation:
 
-| Situation | Recommended action |
-|---|---|
-| `node` is not available | Install Node.js 20+ or use a containerized environment |
-| PowerShell blocks `npm.ps1` or `npx.ps1` | Use `npm.cmd` or `npx.cmd` (e.g. `npx.cmd skills ...`) without changing global system execution policies |
-| `AGENTS.md` already exists | Specspire preserves it; manually add the link to `.agents/skills/specspire/SKILL.md` |
-| Agent does not recognize the Skill | Explicitly provide the absolute or relative path to `SKILL.md`; check agent capability |
-| Existing Spec Kit in project | Reuse its artifacts (`.specify/`); Specspire will not create a parallel spec tree |
-| CLI command reports `TODO` | Complete and review that stage before advancing to the next |
-| `doctor` reports incomplete or corrupted install | Inspect missing files; `init` restores missing files while preserving existing ones |
-| Insecure destination (symlink detected) | Use a physical filesystem path without symbolic links in its ancestor tree |
+```text
+Phase: 0 · Context & Discovery
+Next action: Review problem statement, target users, and non-goals in conversation.
+Verification: Confirm agreed scope with developer before creating any files.
+Blockers: None.
+```
 
-[Back to README](../../README.md) · [CLI reference (es)](../CLI.md) · [Workflow guide](WORKFLOW.md) · [Versión en español](../QUICKSTART.md)
+### 6. Updating the Installed Skill
 
-An older router may be structurally valid without documenting Phase 3. Doctor does not detect every documentary revision difference. Compare the router manually. Changing --lang preserves existing documents and can leave mixed languages; integrate translations deliberately after backup.
+To update the installed Skill to the latest release:
+
+```bash
+npx skills add Nachovn114/specspire --skill specspire --force
+```
+
+---
+
+## Path B — Full Kit (Repository Scaffolding & CLI Governance)
+
+Use the Full Kit when you want to persist specifications, plans, and task breakdowns in version-controlled Markdown documents.
+
+### 1. Initialize the Project
+
+With Specspire cloned or available in your workspace:
+
+```powershell
+# On Windows PowerShell (using node directly)
+node path/to/specspire/bin/specspire.mjs init --lang en
+
+# On Linux / macOS
+node path/to/specspire/bin/specspire.mjs init --lang en
+```
+
+`init` installs 34 files:
+- 3 core project guide documents (`AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md`).
+- The complete Skill (`SKILL.md` + 30 technical references).
+
+> [!IMPORTANT]
+> **Safe, Idempotent Behavior:** `init` never overwrites existing project files. If you already have a customized `PROJECT.md` or `AGENTS.md`, Specspire preserves it intact and reports `EXISTE`.
+
+### 2. Diagnose Environment (`doctor`)
+
+Run the document integrity checker:
+
+```bash
+node path/to/specspire/bin/specspire.mjs doctor
+```
+
+Exit codes returned by `doctor`:
+- `0`: PASS — Complete installation and verified bilingual contract (34 files).
+- `1`: FAIL — Missing, empty, or corrupted files, or disallowed symlinks.
+- `2`: MIGRATION REQUIRED — Recognized legacy router; manual update required.
+
+### 3. Check Next Action (`next`)
+
+To determine the next documented step based on your current file states:
+
+```bash
+node path/to/specspire/bin/specspire.mjs next
+```
+
+### 4. Progressive Feature Lifecycle (`feature`)
+
+Once `PROJECT.md` context is defined and approved, scaffold and advance features incrementally:
+
+```bash
+# 1. Create requirements specification
+node path/to/specspire/bin/specspire.mjs feature new auth-login --lang en
+
+# 2. Plan architecture (after reviewing and approving spec.md)
+node path/to/specspire/bin/specspire.mjs feature plan auth-login --lang en
+
+# 3. UI design (only if the feature includes a user interface)
+node path/to/specspire/bin/specspire.mjs feature design auth-login --lang en
+
+# 4. Break down into testable tasks (after reviewing plan.md)
+node path/to/specspire/bin/specspire.mjs feature tasks auth-login --lang en
+
+# 5. Record review and execution receipts
+node path/to/specspire/bin/specspire.mjs feature review auth-login --lang en
+```
+
+---
+
+## Updating an Existing Installation
+
+1. **Create a Backup:** Back up `.agents/skills/specspire/` and your project context files (`PROJECT.md`, `AGENTS.md`, `README-DESARROLLO.md`).
+2. **Run `init`:** Run `init` to install newly added references without overwriting existing customized documents.
+3. **Verify with `doctor`:** Run `doctor` and confirm it returns exit code `0`.
+
+---
+
+## Troubleshooting
+
+| Issue | Root Cause | Resolution |
+|---|---|---|
+| **Skill not discovered by agent** | Agent searches in a different skills directory. | Explicitly pass the path in your prompt: `"Use the specspire skill located at .agents/skills/specspire/SKILL.md"`. |
+| **Node.js version mismatch** | Node.js version is older than 20.0.0 (or older than 22.20.0 for `npx skills`). | Upgrade Node.js to an active LTS release (`nvm use 22` or install from nodejs.org). |
+| **PowerShell script execution blocked** | Windows execution policy blocks `.ps1` scripts. | Execute with `node path/to/specspire/bin/specspire.mjs` directly or use `npm.cmd` / `npx.cmd`. |
+| **Wrong installation directory** | `npx skills` placed the skill in a global or unintended folder. | Pass `--target .agents/skills/specspire` or move the folder to your agent's expected skills path. |
+| **Symlink or junction rejected** | Specspire defensively blocks symlinks to prevent path traversal vulnerabilities. | Always install on real physical disk paths without symbolic links in ancestor directories. |
+| **`doctor` reports exit code 1** | Missing references or corrupted template files. | Re-run `init` to restore missing files without overwriting existing files. |
+| **`doctor` reports exit code 2** | An older beta `SKILL.md` was detected. | Review the diff against a clean installation and merge the bilingual router links. |
+| **Skill-only vs Full Kit difference** | Skill-only mode does not provide the `specspire` terminal command. | By design: Skill-only governs agent chat; Full Kit adds CLI binary and local project templates. |
+
+---
+
+Next steps: [Development Workflow](WORKFLOW.md) · [Quality Gates](QUALITY.md) · [CLI Reference (es)](../CLI.md) · [Back to README](../../README.md)
