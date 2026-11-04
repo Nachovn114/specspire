@@ -19,7 +19,7 @@ Specspire provides two complementary adoption paths:
 | Mode | What You Get | Who It Is For |
 |---|---|---|
 | **Path A: Skill-only** (`npx skills add`) | Installs `SKILL.md` and 30 technical references (15 ES + 15 EN) in your agent's skills directory. Does not install the CLI or create `PROJECT.md`/`AGENTS.md`. | Developers who want disciplined agent guidance in chat without adding CLI tools or Markdown templates to their repository. |
-| **Path B: Full Kit** (local `init`) | Installs the Skill + Specspire CLI (`init`, `doctor`, `next`, `feature`) + up to 34 project files (3 base guides + 31 Skill files). Provides 10 progressive feature templates (16 total templates in kit). Preserves existing files. | Teams seeking persistent repository specification management (`PROJECT.md`, `AGENTS.md`, `specs/`). |
+| **Path B: Full Kit** (local `init`) | Copies the Skill (`SKILL.md` + 30 references) and core project guides (`PROJECT.md`, `AGENTS.md`, `README-DESARROLLO.md`). Does not install the CLI into the project; the CLI runs from the cloned repository or as an external tool. Provides 10 progressive feature templates (16 total). Preserves existing files. | Teams seeking persistent repository specification management (`PROJECT.md`, `AGENTS.md`, `specs/`). |
 
 ---
 
@@ -134,7 +134,7 @@ node ..\specspire\bin\specspire.mjs init --lang en
 > [!NOTE]
 > **Tag checkout and detached HEAD state:** Cloning with `--branch v1.0.0` places the cloned repository in a *detached HEAD* state. This ensures exact, reproducible checkout of release `1.0.0`. To upgrade to a subsequent release in the future (e.g. `v1.0.1`), run `git fetch --tags` and check out the new tag with `git checkout <new-tag>`.
 >
-> **npm Registry Availability:** The `specspire` package is not published to the public npm registry (name held by the maintainer; not released externally in this version). The official, reproducible method to run the CLI is cloning the GitHub repository. Do not use `npm install specspire` or `npx specspire` until an official registry release is announced.
+> **npm Registry Availability:** The `specspire` package is not published to the public npm registry. Therefore, the official, reproducible method to run the CLI is cloning the GitHub repository. Do not use `npm install specspire` or `npx specspire` while the package is not officially published to the registry.
 
 `init` installs **up to 34 files** into your project:
 - 3 core project guide documents (`AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md`) selected in the chosen language (`--lang en` or `--lang es`) from the 6 base project templates available (3 ES + 3 EN).
@@ -146,14 +146,16 @@ node ..\specspire\bin\specspire.mjs init --lang en
 
 ### 2. Diagnose Environment (`doctor`)
 
-Run the document integrity checker:
+Run the document integrity checker from your project directory:
 
+**On Bash / macOS / Linux:**
 ```bash
-# With cloned repository (recommended)
-node path/to/specspire/bin/specspire.mjs doctor
+node ../specspire/bin/specspire.mjs doctor
+```
 
-# Or with locally linked package / npx
-npx specspire doctor
+**On Windows PowerShell:**
+```powershell
+node ..\specspire\bin\specspire.mjs doctor
 ```
 
 > [!NOTE]
@@ -169,7 +171,7 @@ Exit codes returned by `doctor`:
 To determine the next documented step based on your current file states:
 
 ```bash
-node path/to/specspire/bin/specspire.mjs next
+node ../specspire/bin/specspire.mjs next
 ```
 
 ### 4. Progressive Feature Lifecycle (`feature`)
@@ -178,19 +180,19 @@ Once `PROJECT.md` context is defined and approved, scaffold and advance features
 
 ```bash
 # 1. Create requirements specification
-node path/to/specspire/bin/specspire.mjs feature new auth-login --lang en
+node ../specspire/bin/specspire.mjs feature new auth-login --lang en
 
 # 2. Plan architecture (after reviewing and approving spec.md)
-node path/to/specspire/bin/specspire.mjs feature plan auth-login --lang en
+node ../specspire/bin/specspire.mjs feature plan auth-login --lang en
 
 # 3. UI design (only if the feature includes a user interface)
-node path/to/specspire/bin/specspire.mjs feature design auth-login --lang en
+node ../specspire/bin/specspire.mjs feature design auth-login --lang en
 
 # 4. Break down into testable tasks (after reviewing plan.md)
-node path/to/specspire/bin/specspire.mjs feature tasks auth-login --lang en
+node ../specspire/bin/specspire.mjs feature tasks auth-login --lang en
 
 # 5. Record review and execution receipts
-node path/to/specspire/bin/specspire.mjs feature review auth-login --lang en
+node ../specspire/bin/specspire.mjs feature review auth-login --lang en
 ```
 
 ---
@@ -204,7 +206,7 @@ node path/to/specspire/bin/specspire.mjs feature review auth-login --lang en
 ### If using Full Kit:
 `init` restores missing files safely but never overwrites existing files (`EXISTE`). To update an installation when references or router links have changed:
 1. **Create a Backup:** Back up your project context files (`PROJECT.md`, `AGENTS.md`, `README-DESARROLLO.md`) and `.agents/skills/specspire/`.
-2. **Generate a Clean Reference Copy for Comparison:** Run `init` into a temporary directory to inspect changes (`node path/to/specspire/bin/specspire.mjs init --target temp-compare`).
+2. **Generate a Clean Reference Copy for Comparison:** Run `init` into a temporary directory to inspect changes (`node ../specspire/bin/specspire.mjs init --target temp-compare`).
 3. **Inspect Differences:** Compare updates in `SKILL.md` and reference documents under `references/` and `references/en/` using `git diff`.
 4. **Controlled Reference Updates:** Selectively update modified technical references and `SKILL.md` router links without performing blanket directory overwrites that could destroy local customizations. If newly introduced references were added upstream, running `init` will safely install them while preserving existing files.
 5. **Verify with `doctor`:** Run `doctor` and confirm it returns exit code `0` (PASS).

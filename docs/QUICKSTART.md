@@ -19,7 +19,7 @@ Specspire ofrece dos vías de adopción complementarias:
 | Modalidad | Qué obtienes | Para quién es |
 |---|---|---|
 | **Vía A: Solo Skill** (`npx skills add`) | Instala `SKILL.md` y 30 referencias técnicas (15 ES + 15 EN) en el directorio de skills del agente. No instala la CLI propia ni crea `PROJECT.md`/`AGENTS.md`. | Desarrolladores que desean asistencia guiada en el chat sin añadir CLI ni plantillas Markdown a su repositorio. |
-| **Vía B: Kit completo** (`init` local) | Instala la Skill + CLI de Specspire (`init`, `doctor`, `next`, `feature`) + hasta 34 archivos de proyecto (3 documentos base + 31 archivos de Skill). Dispone de 10 plantillas progresivas de funcionalidades (16 plantillas en total en el kit). Preserva archivos existentes. | Equipos que buscan gobernanza documental persistente (`PROJECT.md`, `AGENTS.md`, `specs/`). |
+| **Vía B: Kit completo** (`init` local) | Copia la Skill (`SKILL.md` + 30 referencias) y los documentos base del proyecto (`PROJECT.md`, `AGENTS.md`, `README-DESARROLLO.md`). No instala la CLI dentro del proyecto; la CLI se ejecuta desde el repositorio clonado o como herramienta externa. Dispone de 10 plantillas progresivas de funcionalidades (16 en total). Preserva archivos existentes. | Equipos que buscan gobernanza documental persistente (`PROJECT.md`, `AGENTS.md`, `specs/`). |
 
 ---
 
@@ -134,7 +134,7 @@ node ..\specspire\bin\specspire.mjs init --lang es
 > [!NOTE]
 > **Clonación desde tag y estado detached HEAD:** Al clonar con `--branch v1.0.0`, Git sitúa el repositorio clonado en estado *detached HEAD*. Esto garantiza la reproducibilidad exacta del código en la versión `1.0.0`. Para actualizar en el futuro a una versión posterior (ej. `v1.0.1`), ejecuta `git fetch --tags` y selecciona la nueva etiqueta mediante `git checkout <nuevo-tag>`.
 >
-> **Disponibilidad en npm:** El paquete `specspire` no se encuentra publicado en el registro de npm (nombre reservado por el mantenedor; sin publicación externa en esta versión). Por ello, el método oficial y reproducible para utilizar la CLI es clonar el repositorio de GitHub. No utilices comandos `npm install specspire` o `npx specspire` hasta que el proyecto anuncie formalmente su publicación en dicho registro.
+> **Disponibilidad en npm:** El paquete `specspire` no se encuentra publicado en el registro público de npm. Por ello, el método oficial y reproducible para utilizar la CLI es clonar el repositorio de GitHub. No utilices comandos `npm install specspire` o `npx specspire` mientras el paquete no esté publicado oficialmente en dicho registro.
 
 `init` crea **hasta 34 archivos** en el proyecto:
 - 3 documentos base del proyecto (`AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md`) seleccionados del idioma elegido (`--lang es` o `--lang en`) a partir de las 6 plantillas base disponibles (3 ES + 3 EN).
@@ -146,14 +146,16 @@ node ..\specspire\bin\specspire.mjs init --lang es
 
 ### 2. Diagnosticar el entorno (`doctor`)
 
-Ejecuta el verificador de integridad documental:
+Ejecuta el verificador de integridad documental desde el directorio de tu proyecto:
 
+**En Bash / macOS / Linux:**
 ```bash
-# Con repositorio clonado (recomendado)
-node path/to/specspire/bin/specspire.mjs doctor
+node ../specspire/bin/specspire.mjs doctor
+```
 
-# O con paquete enlazado localmente / npx
-npx specspire doctor
+**En Windows PowerShell:**
+```powershell
+node ..\specspire\bin\specspire.mjs doctor
 ```
 
 > [!NOTE]
@@ -169,7 +171,7 @@ Códigos de salida de `doctor`:
 Para saber qué paso documental corresponde según el estado de tus archivos:
 
 ```bash
-node path/to/specspire/bin/specspire.mjs next
+node ../specspire/bin/specspire.mjs next
 ```
 
 ### 4. Ciclo de funcionalidades (`feature`)
@@ -178,19 +180,19 @@ Cuando el contexto de `PROJECT.md` esté acordado, crea y avanza funcionalidades
 
 ```bash
 # 1. Crear especificación de requisitos
-node path/to/specspire/bin/specspire.mjs feature new auth-login --lang es
+node ../specspire/bin/specspire.mjs feature new auth-login --lang es
 
 # 2. Planificar arquitectura (tras completar y revisar spec.md)
-node path/to/specspire/bin/specspire.mjs feature plan auth-login --lang es
+node ../specspire/bin/specspire.mjs feature plan auth-login --lang es
 
 # 3. Diseño UI (solo si la funcionalidad tiene interfaz)
-node path/to/specspire/bin/specspire.mjs feature design auth-login --lang es
+node ../specspire/bin/specspire.mjs feature design auth-login --lang es
 
 # 4. Desglose en tareas verificables (tras revisar el plan)
-node path/to/specspire/bin/specspire.mjs feature tasks auth-login --lang es
+node ../specspire/bin/specspire.mjs feature tasks auth-login --lang es
 
 # 5. Registro de revisión y evidencias
-node path/to/specspire/bin/specspire.mjs feature review auth-login --lang es
+node ../specspire/bin/specspire.mjs feature review auth-login --lang es
 ```
 
 ---
@@ -204,7 +206,7 @@ node path/to/specspire/bin/specspire.mjs feature review auth-login --lang es
 ### Si usas Kit completo:
 `init` añade archivos ausentes pero nunca sobrescribe archivos existentes (`EXISTE`). Para actualizar una instalación donde las referencias o el router han cambiado:
 1. **Haz una copia de seguridad:** Respalda los documentos de tu proyecto (`PROJECT.md`, `AGENTS.md`, `README-DESARROLLO.md`) y la carpeta de la Skill (`.agents/skills/specspire/`).
-2. **Genera una copia limpia de comparación:** Inicializa la nueva versión en una carpeta temporal para comparar cambios (`node path/to/specspire/bin/specspire.mjs init --target temp-compare`).
+2. **Genera una copia limpia de comparación:** Inicializa la nueva versión en una carpeta temporal para comparar cambios (`node ../specspire/bin/specspire.mjs init --target temp-compare`).
 3. **Revisa las diferencias:** Inspecciona con `git diff` las diferencias en `SKILL.md` y en las referencias técnicas de `references/` y `references/en/`.
 4. **Actualización controlada de referencias:** Actualiza de forma selectiva las referencias técnicas y los enlaces del router `SKILL.md`. No realices reemplazos masivos de carpetas personalizadas ni toques los documentos del proyecto. Si únicamente se añadieron referencias nuevas que no existían, ejecutar `init` las incorporará de forma segura.
 5. **Verifica con `doctor`:** Ejecuta `doctor` y confirma que devuelva código `0` (PASS).
