@@ -25,7 +25,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20-339933" alt="Node.js 20+">
 </p>
 
-Specspire evita que los agentes de IA salten de inmediato al código, inventen arquitectura no solicitada o alucinen ejecuciones de pruebas. Proporciona un único punto de entrada bajo el estándar Agent Skills (`SKILL.md`) que enruta dinámicamente a 30 referencias técnicas a lo largo de siete fases disciplinadas.
+Specspire ayuda a los agentes de IA a evitar saltar de inmediato al código, inventar arquitectura no solicitada o alucinar ejecuciones de pruebas. Proporciona un único punto de entrada bajo el estándar Agent Skills (`SKILL.md`) que enruta dinámicamente a 30 referencias técnicas a lo largo de siete fases disciplinadas.
 
 ---
 
@@ -129,8 +129,8 @@ Specspire ha sido evaluado y validado en implementaciones de referencia del mund
 | **T3 Code / Antigravity ACP** | PASS | Ciclo completo de 7 fases verificado en pilotos web y CLI. |
 | **Google Antigravity** | PASS | Descubrimiento interactivo y ruteo multiescenario verificados. |
 | **Matriz CI (Linux / Windows / macOS)** | PASS | Matriz automatizada de pruebas unitarias, CLI, empaquetado y enlaces en Node.js 20, 22, 24. |
-| **OpenAI Codex** | BLOCKED | CLI 0.166.0 y estructura de Skill verificadas; inferencia bloqueada por cuota de cuenta. |
-| **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Agent Skills compatible; la ejecución se apega a las indicaciones del usuario sin garantizar cumplimiento autónomo absoluto. |
+| **OpenAI Codex** | SIN VERIFICAR | Evaluaciones beta históricas bloqueadas por cuota de entorno; sin verificar en v1.0.0. |
+| **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Agent Skills compatible; el seguimiento efectivo depende del modelo del agente. |
 
 ---
 
