@@ -48,10 +48,16 @@ npx skills add Nachovn114/specspire --skill specspire --global
 
 Confirma que los archivos existen en tu directorio de skills:
 
+**En Bash / macOS / Linux:**
 ```bash
-# Verificar archivo principal de la Skill y referencias (ajustar según carpeta del agente)
 ls -la .agents/skills/specspire/SKILL.md
 ls -la .agents/skills/specspire/references/
+```
+
+**En Windows PowerShell:**
+```powershell
+Get-ChildItem .agents\skills\specspire\SKILL.md
+Get-ChildItem .agents\skills\specspire\references
 ```
 
 Deben figurar `SKILL.md`, 15 referencias en español en `references/` y 15 referencias en inglés en `references/en/`.
@@ -107,19 +113,28 @@ Utiliza el kit completo cuando desees persistir especificaciones, planes y tarea
 
 ### 1. Inicializar el proyecto
 
-La ruta principal y verificable para ejecutar la CLI es clonar el repositorio de GitHub:
+La ruta principal y reproducible para ejecutar la CLI es clonar el repositorio de GitHub:
 
+**En Bash / macOS / Linux:**
 ```bash
-# Opción 1 (Recomendada y reproducible): Desde repositorio clonado de GitHub
-git clone https://github.com/Nachovn114/specspire.git
-node path/to/specspire/bin/specspire.mjs init --lang es
+# Opción estable fijada en v1.0.0
+git clone --branch v1.0.0 --depth 1 https://github.com/Nachovn114/specspire.git
+mkdir mi-proyecto && cd mi-proyecto
+node ../specspire/bin/specspire.mjs init --lang es
+```
 
-# Opción 2: Si el paquete se enlaza localmente o tras su futura publicación en npm
-npx specspire init --lang es
+**En Windows PowerShell (compatible con Windows PowerShell 5.1 y PowerShell 7):**
+```powershell
+# Opción estable fijada en v1.0.0
+git clone --branch v1.0.0 --depth 1 https://github.com/Nachovn114/specspire.git
+New-Item -ItemType Directory -Path mi-proyecto; Set-Location mi-proyecto
+node ..\specspire\bin\specspire.mjs init --lang es
 ```
 
 > [!NOTE]
-> **Disponibilidad en npm:** El paquete `specspire` no cuenta con una versión pública publicada en el registro de npm (estado 404 verificado; nombre disponible para publicación oficial por el titular). Por ello, la vía principal y reproducible para utilizar la CLI es clonar el repositorio de GitHub o enlazarlo localmente. Los comandos que invocan `npx specspire` aplican tras enlazar el paquete en el proyecto o tras su publicación oficial futura.
+> **Clonación desde tag y estado detached HEAD:** Al clonar con `--branch v1.0.0`, Git sitúa el repositorio clonado en estado *detached HEAD*. Esto garantiza la reproducibilidad exacta del código en la versión `1.0.0`. Para actualizar en el futuro a una versión posterior (ej. `v1.0.1`), ejecuta `git fetch --tags` y selecciona la nueva etiqueta mediante `git checkout <nuevo-tag>`.
+>
+> **Disponibilidad en npm:** El paquete `specspire` no se encuentra publicado en el registro de npm (nombre reservado por el mantenedor; sin publicación externa en esta versión). Por ello, el método oficial y reproducible para utilizar la CLI es clonar el repositorio de GitHub. No utilices comandos `npm install specspire` o `npx specspire` hasta que el proyecto anuncie formalmente su publicación en dicho registro.
 
 `init` crea **hasta 34 archivos** en el proyecto:
 - 3 documentos base del proyecto (`AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md`) seleccionados del idioma elegido (`--lang es` o `--lang en`) a partir de las 6 plantillas base disponibles (3 ES + 3 EN).
@@ -202,7 +217,7 @@ node path/to/specspire/bin/specspire.mjs feature review auth-login --lang es
 |---|---|---|
 | **Skill no descubierta por el agente** | El agente busca en otra carpeta de skills (ej. `.claude/skills/`, `.cursor/skills/`). | Indica en el prompt la ruta explícita o mueve la Skill al directorio indexado por tu entorno. |
 | **Error de versión de Node.js** | Node inferior a 20.0.0 (o inferior a 22.20.0 para `npx skills`). | Specspire funciona en Node.js `>= 20.0.0` (LTS 22 o 24 recomendado en CI; Node 20 es EOL desde abril de 2026). La herramienta externa `skills` exige Node.js `>= 22.20.0`. |
-| **PowerShell bloquea scripts (`.ps1`)** | Política de ejecución restrictiva en Windows. | Ejecuta mediante `node path/to/specspire/bin/specspire.mjs` o usa `npx.cmd specspire`. |
+| **PowerShell bloquea scripts (`.ps1`)** | Política de ejecución restrictiva en Windows. | Ejecuta la CLI directamente mediante Node.js: `node ..\specspire\bin\specspire.mjs doctor`. |
 | **Directorio de instalación incorrecto** | `npx skills` instaló en carpeta global o errónea. | Usa las opciones oficiales de `skills` como `--agent <agente>` (ej. `--agent cursor`), `--global` o `--copy` para dirigir la instalación, o mueve la carpeta manualmente. Ten en cuenta que `--target <dir>` es una opción propia de la CLI de Specspire, no del gestor `skills`. |
 | **Symlink o Junction rechazado** | Specspire bloquea symlinks por seguridad para prevenir path traversal. | Instala siempre en rutas físicas reales de disco sin enlaces simbólicos en la jerarquía. |
 | **`doctor` reporta código 1** | Faltan referencias o archivos de plantilla. | Ejecuta `init` para reponer los archivos ausentes sin tocar los existentes (`EXISTE`). |

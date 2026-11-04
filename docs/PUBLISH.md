@@ -31,7 +31,7 @@ Before cutting a new stable release:
    - Ensure local `main` is synchronized with `origin/main`.
    - Ensure working tree is clean (`git status --short` returns empty).
 2. **Review Documentation & Versioning:**
-   - Bump version in `package.json` following semantic versioning (`1.0.0`).
+   - Bump version in `package.json` following semantic versioning (`X.Y.Z`).
    - Update `CHANGELOG.md`: convert relevant `[Unreleased]` entries into a new version section `[X.Y.Z] — YYYY-MM-DD`.
    - Ensure `README.md` and `README.es.md` badges and version notes accurately reflect the release.
    - Update `tests/identity.test.mjs` to match the new package version.
@@ -74,7 +74,7 @@ Once the release PR or commit is approved and merged into `main`:
 
 ### Runtime Differentiation
 - **Specspire CLI:** Requires Node.js `>=20.0.0` (validated in CI on Node.js 20.0.0, 22.x, and 24.x across Ubuntu, macOS, and Windows).
-- **External Installer `npx skills`:** Requires Node.js `>=22.20.0` as declared in the `skills` CLI package engines specification (`npm view skills engines`). Developers on Node.js 20.x should install the CLI kit directly (`npm install -D specspire` or local clone) rather than `npx skills add`.
+- **External Installer `npx skills`:** Requires Node.js `>=22.20.0` as declared in the `skills` CLI package engines specification (`npm view skills engines`). Developers on Node.js 20.x should install the CLI kit directly via repository clone (`git clone https://github.com/Nachovn114/specspire.git`) rather than `npx skills add`.
 
 1. **Verify Remote Skill Installation:**
    ```bash

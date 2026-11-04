@@ -48,10 +48,16 @@ npx skills add Nachovn114/specspire --skill specspire --global
 
 Confirm that the skill files are present in your skills directory:
 
+**In Bash / macOS / Linux:**
 ```bash
-# Verify main SKILL.md entrypoint and references (adjust path for your agent)
 ls -la .agents/skills/specspire/SKILL.md
 ls -la .agents/skills/specspire/references/
+```
+
+**In Windows PowerShell:**
+```powershell
+Get-ChildItem .agents\skills\specspire\SKILL.md
+Get-ChildItem .agents\skills\specspire\references
 ```
 
 You should see `SKILL.md`, 15 Spanish references in `references/`, and 15 English references in `references/en/`.
@@ -107,19 +113,28 @@ Use the Full Kit when you want to persist specifications, plans, and task breakd
 
 ### 1. Initialize the Project
 
-The primary and verifiable method to execute the CLI is cloning the GitHub repository:
+The primary and reproducible method to execute the CLI is cloning the GitHub repository:
 
+**In Bash / macOS / Linux:**
 ```bash
-# Option 1 (Recommended & Reproducible): From cloned GitHub repository
-git clone https://github.com/Nachovn114/specspire.git
-node path/to/specspire/bin/specspire.mjs init --lang en
+# Pinned stable release option (v1.0.0)
+git clone --branch v1.0.0 --depth 1 https://github.com/Nachovn114/specspire.git
+mkdir my-project && cd my-project
+node ../specspire/bin/specspire.mjs init --lang en
+```
 
-# Option 2: When linked locally or upon future official npm release
-npx specspire init --lang en
+**In Windows PowerShell (compatible with Windows PowerShell 5.1 and PowerShell 7):**
+```powershell
+# Pinned stable release option (v1.0.0)
+git clone --branch v1.0.0 --depth 1 https://github.com/Nachovn114/specspire.git
+New-Item -ItemType Directory -Path my-project; Set-Location my-project
+node ..\specspire\bin\specspire.mjs init --lang en
 ```
 
 > [!NOTE]
-> **npm Registry Availability:** The `specspire` package is not yet published to the public npm registry (verified 404 status; name available for official publication by project maintainer). The primary reproducible method to run the CLI is cloning the GitHub repository or linking it locally. Commands invoking `npx specspire` apply once linked as a project dependency or following future official publication.
+> **Tag checkout and detached HEAD state:** Cloning with `--branch v1.0.0` places the cloned repository in a *detached HEAD* state. This ensures exact, reproducible checkout of release `1.0.0`. To upgrade to a subsequent release in the future (e.g. `v1.0.1`), run `git fetch --tags` and check out the new tag with `git checkout <new-tag>`.
+>
+> **npm Registry Availability:** The `specspire` package is not published to the public npm registry (name held by the maintainer; not released externally in this version). The official, reproducible method to run the CLI is cloning the GitHub repository. Do not use `npm install specspire` or `npx specspire` until an official registry release is announced.
 
 `init` installs **up to 34 files** into your project:
 - 3 core project guide documents (`AGENTS.md`, `PROJECT.md`, `README-DESARROLLO.md`) selected in the chosen language (`--lang en` or `--lang es`) from the 6 base project templates available (3 ES + 3 EN).
@@ -202,7 +217,7 @@ node path/to/specspire/bin/specspire.mjs feature review auth-login --lang en
 |---|---|---|
 | **Skill not discovered by agent** | Agent searches in a different skills directory (e.g. `.claude/skills/`, `.cursor/skills/`). | Explicitly pass the path in your prompt or move the skill into the directory indexed by your environment. |
 | **Node.js version mismatch** | Node.js version is older than 20.0.0 (or older than 22.20.0 for `npx skills`). | Specspire operates on Node.js `>= 20.0.0` (LTS 22 or 24 recommended in CI; Node 20 is EOL as of April 2026). External `skills` CLI requires Node.js `>= 22.20.0`. |
-| **PowerShell script execution blocked** | Windows execution policy blocks `.ps1` scripts. | Execute with `node path/to/specspire/bin/specspire.mjs` directly or use `npx.cmd specspire`. |
+| **PowerShell script execution blocked** | Windows execution policy blocks `.ps1` scripts. | Execute the CLI directly with Node.js: `node ..\specspire\bin\specspire.mjs doctor`. |
 | **Wrong installation directory** | `npx skills` placed the skill in a global or unintended folder. | Use official `skills` options such as `--agent <agent>` (e.g. `--agent cursor`), `--global`, or `--copy` to direct installation, or move the folder manually. Note that `--target <dir>` is an option of the Specspire CLI, not the `skills` installer. |
 | **Symlink or junction rejected** | Specspire defensively blocks symlinks to prevent path traversal vulnerabilities. | Always install on real physical disk paths without symbolic links in ancestor directories. |
 | **`doctor` reports exit code 1** | Missing references or corrupted template files. | Re-run `init` to restore missing files without overwriting existing files (`EXISTE`). |

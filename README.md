@@ -25,7 +25,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20-339933" alt="Node.js 20+">
 </p>
 
-Specspire stops AI coding agents from jumping straight to code, inventing unrequested architecture, or hallucinating test runs. It provides a single Agent Skills standard entrypoint (`SKILL.md`) that dynamically routes to 30 on-demand references across seven disciplined phases.
+Specspire helps AI coding agents avoid jumping straight to code, inventing unrequested architecture, or hallucinating test runs. It provides a single Agent Skills standard entrypoint (`SKILL.md`) that dynamically routes to 30 on-demand references across seven disciplined phases.
 
 ---
 
@@ -113,7 +113,7 @@ Specspire was tested and validated on real-world reference implementations:
 | Seven-Phase Workflow | [docs/en/WORKFLOW.md](docs/en/WORKFLOW.md) | [docs/WORKFLOW.md](docs/WORKFLOW.md) |
 | Quality Gates & Evidence | [docs/en/QUALITY.md](docs/en/QUALITY.md) | [docs/QUALITY.md](docs/QUALITY.md) |
 | Responsive UI Standards | [docs/DESIGN.md](docs/DESIGN.md) | [docs/DESIGN.md](docs/DESIGN.md) |
-| CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) | [docs/CLI.md](docs/CLI.md) |
+| CLI & Scaffolding | [docs/CLI.md](docs/CLI.md) *(Spanish)* | [docs/CLI.md](docs/CLI.md) |
 | Brand Identity Manual | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> | <a href="https://github.com/Nachovn114/specspire/blob/main/docs/BRAND.md">docs/BRAND.md</a> |
 
 ---
@@ -129,8 +129,8 @@ Specspire was tested and validated on real-world reference implementations:
 | **T3 Code / Antigravity ACP** | PASS | Full 7-phase lifecycle verified across web and CLI reference pilots. |
 | **Google Antigravity** | PASS | Interactive discovery and multi-scenario phase routing verified. |
 | **CI Matrix (Linux / Windows / macOS)** | PASS | Automated unit, CLI, package, and link test matrix on Node.js 20, 22, 24. |
-| **OpenAI Codex** | BLOCKED | CLI 0.166.0 & Skill structure verified; live inference blocked by account quota. |
-| **Claude Code / Cursor** | NOT VERIFIED | Standard Agent Skills format compatible; live execution adheres to user prompts without guaranteed agent compliance. |
+| **OpenAI Codex** | UNVERIFIED | Historical beta evaluations blocked by environment quota; unverified in v1.0.0. |
+| **Claude Code / Cursor** | NOT VERIFIED | Standard Agent Skills format compatible; live adherence depends on agent model. |
 
 ---
 

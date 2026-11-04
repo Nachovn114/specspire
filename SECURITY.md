@@ -2,7 +2,12 @@
 
 ## Supported versions
 
-Security fixes are targeted at the latest beta release until the first stable version.
+| Version | Supported          |
+| ------- | ------------------ |
+| 1.0.x   | :white_check_mark: |
+| < 1.0   | :x:                |
+
+Security fixes are targeted at the active stable release series (`1.0.x`). Historical beta releases are no longer maintained.
 
 ## Reporting a vulnerability
 
