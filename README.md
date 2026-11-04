@@ -49,13 +49,13 @@ Once installed, prompt your agent in any conversation:
 Use the specspire skill. Review our project goals and identify the current phase before writing any code.
 ```
 
-Your agent steps back, adopts the 4-line protocol, and establishes boundaries before touching files:
+Instructs your agent to adopt the 4-line status format and establish boundaries before modifying files:
 
 ```text
 Phase: 0 · Context & Discovery
 Next action: Review problem statement, target users, and non-goals in conversation.
 Verification: Confirm agreed scope with developer before creating any files.
-Blockers: None.
+Real blocker (if any): None.
 ```
 
 ---
@@ -84,11 +84,15 @@ Specspire adapts to how you work:
 
 | Feature | Skill-only Mode | Full Kit Mode |
 |---|---|---|
-| **Best for** | Fast adoption in any coding agent chat | Complete repository specification management |
-| **Setup command** | `npx skills add Nachovn114/specspire --skill specspire` | `node ./bin/specspire.mjs init --lang en` |
-| **Files installed** | `.agents/skills/specspire/` (Skill + 30 references) | Skill + CLI (`doctor`, `next`, `feature`) + 16 templates |
-| **Context storage** | Conversational chat memory | Markdown documents (`PROJECT.md`, `AGENTS.md`, `specs/`) |
-| **Overwrites files** | Never | Never; existing project files are preserved |
+| **Best for** | Fast adoption in any coding agent chat | Repository specification management & CLI governance |
+| **Setup command** | `npx skills add Nachovn114/specspire --skill specspire` | Cloned: `node ./bin/specspire.mjs init --lang en`<br>npm: `npx specspire init --lang en` |
+| **Files installed** | Agent skill directory (`.agents/skills/specspire/`; 31 files) | Up to 34 project files (3 project guides + complete Skill) |
+| **Specspire CLI** | Not installed (agent guided conversationally) | Installed (`init`, `doctor`, `next`, `feature`) |
+| **Context storage** | Conversational chat memory (no files created automatically) | Markdown documents (`PROJECT.md`, `AGENTS.md`, `specs/`) |
+| **Progressive templates** | Guided in conversation without template files | 16 bilingual templates for `feature` commands |
+| **Integrity audit** | Prompt agent to verify reference availability | `doctor` verifies document structure (0/1/2, not code quality) |
+| **Existing files** | Preserved (zero project files touched) | Preserved (`EXISTE` reported, never overwritten) |
+| **Updates** | Via skill manager (`npx skills update` / `npx skills check`) | Re-run `init` or update package |
 
 ---
 
@@ -97,7 +101,7 @@ Specspire adapts to how you work:
 Specspire was tested and validated on real-world reference implementations:
 
 - [**TaskFlow ES Case Study**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md): Responsive web client (320px–1440px), client-side privacy controls (P01–P06), and Vitest/Playwright E2E suites.
-- [**LogLens CLI Case Study**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md): High-throughput streaming log parser with zero runtime dependencies, POSIX CLI, and 40 Node.js test runner assertions.
+- [**LogLens CLI Case Study**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md): Documented case study from an internal reference pilot; streaming log parser with zero runtime dependencies, POSIX CLI, and 40 test runner assertions.
 
 ---
 
@@ -116,8 +120,8 @@ Specspire was tested and validated on real-world reference implementations:
 
 ## Compatibility & Requirements
 
-- **Runtime:** Node.js `>= 20.0.0` (LTS 20, 22, 24). Zero runtime dependencies (`dependencies: {}`).
-- **Skills Installer:** `npx skills` requires Node.js `>= 22.20.0`.
+- **Runtime:** Node.js `>= 20.0.0` (Node 20 technically compatible but reaches EOL April 2026; Node 22 & 24 LTS verified in CI; Node 26 current/LTS unverified). Zero runtime dependencies (no runtime `dependencies` declared in `package.json`).
+- **Skills Installer:** `npx skills` requires Node.js `>= 22.20.0` (independent installer requirement).
 - **Platform Matrix:** Validated across Ubuntu, macOS, and Windows.
 
 | Platform / Agent | Status | Notes |
@@ -126,7 +130,7 @@ Specspire was tested and validated on real-world reference implementations:
 | **Google Antigravity** | PASS | Interactive discovery and multi-scenario phase routing verified. |
 | **CI Matrix (Linux / Windows / macOS)** | PASS | Automated unit, CLI, package, and link test matrix on Node.js 20, 22, 24. |
 | **OpenAI Codex** | BLOCKED | CLI 0.166.0 & Skill structure verified; live inference blocked by account quota. |
-| **Claude Code / Cursor** | NOT VERIFIED | Standard Agent Skills format compatible; no live automated execution verified. |
+| **Claude Code / Cursor** | NOT VERIFIED | Standard Agent Skills format compatible; live execution adheres to user prompts without guaranteed agent compliance. |
 
 ---
 

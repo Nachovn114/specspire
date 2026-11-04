@@ -49,13 +49,13 @@ Una vez instalada, indica a tu agente en cualquier conversación:
 Usa la Skill specspire. Revisa los objetivos de nuestro proyecto e identifica la fase actual antes de escribir código.
 ```
 
-Tu agente se detiene, adopta el protocolo de 4 líneas y establece los límites antes de modificar archivos:
+Instruye a tu agente a adoptar el formato de estado de 4 líneas y definir los límites antes de modificar archivos:
 
 ```text
 Fase: 0 · Contexto y descubrimiento
-Siguiente acción: Revisar la definición del problema, usuarios objetivo y no-objetivos en la conversación.
-Comprobación: Confirmar el alcance acordado con el desarrollador antes de crear archivos.
-Bloqueo real: Ninguno.
+Qué haremos ahora: Revisar la definición del problema, usuarios objetivo y no-objetivos en la conversación.
+Cómo se comprueba: Confirmar el alcance acordado con el desarrollador antes de crear archivos.
+Bloqueo real (si existe): Ninguno.
 ```
 
 ---
@@ -84,11 +84,15 @@ Specspire se adapta a tu flujo de trabajo:
 
 | Característica | Modo Skill-only | Modo Kit completo |
 |---|---|---|
-| **Ideal para** | Adopción rápida en el chat de cualquier agente de código | Gestión completa de especificaciones a nivel de repositorio |
-| **Comando de instalación** | `npx skills add Nachovn114/specspire --skill specspire` | `node ./bin/specspire.mjs init --lang es` |
-| **Archivos instalados** | `.agents/skills/specspire/` (Skill + 30 referencias) | Skill + CLI (`doctor`, `next`, `feature`) + 16 plantillas |
-| **Almacenamiento de contexto** | Memoria conversacional en el chat | Documentos Markdown (`PROJECT.md`, `AGENTS.md`, `specs/`) |
-| **Sobrescribe archivos** | Nunca | Nunca; los archivos existentes del proyecto se preservan |
+| **Ideal para** | Adopción rápida en el chat de cualquier agente de código | Gestión completa de especificaciones a nivel de repositorio y gobernanza CLI |
+| **Comando de instalación** | `npx skills add Nachovn114/specspire --skill specspire` | Clonado: `node ./bin/specspire.mjs init --lang es`<br>npm: `npx specspire init --lang es` |
+| **Archivos instalados** | Directorio de skills del agente (`.agents/skills/specspire/`; 31 archivos) | Hasta 34 archivos del proyecto (3 guías del proyecto + Skill completa) |
+| **CLI de Specspire** | No se instala (guía conversacionalmente al agente) | Instalada (`init`, `doctor`, `next`, `feature`) |
+| **Almacenamiento de contexto** | Memoria conversacional en el chat (sin crear archivos automáticamente) | Documentos Markdown (`PROJECT.md`, `AGENTS.md`, `specs/`) |
+| **Plantillas progresivas** | Guiadas en conversación sin archivos de plantilla | 16 plantillas bilingües para comandos `feature` |
+| **Auditoría de integridad** | Indicación en chat para verificar referencias | `doctor` comprueba estructura documental (0/1/2, no calidad de código) |
+| **Archivos existentes** | Intactos (sin tocar archivos del proyecto) | Preservados (`EXISTE` informado, nunca sobrescribe) |
+| **Actualizaciones** | Mediante el gestor de skills (`npx skills update` / `npx skills check`) | Reejecutar `init` o actualizar el paquete |
 
 ---
 
@@ -97,7 +101,7 @@ Specspire se adapta a tu flujo de trabajo:
 Specspire ha sido evaluado y validado en implementaciones de referencia del mundo real:
 
 - [**Caso de estudio TaskFlow ES**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/TASKFLOW_ES_CASE_STUDY.md): Cliente web responsive (320px–1440px), controles de privacidad local (P01–P06) y suites de pruebas Vitest/Playwright E2E.
-- [**Caso de estudio LogLens CLI**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md): Analizador de logs en streaming con cero dependencias runtime, CLI POSIX y 40 aserciones nativas del test runner de Node.js.
+- [**Caso de estudio LogLens CLI**](https://github.com/Nachovn114/specspire/blob/main/docs/case-studies/LOGLENS_CLI_CASE_STUDY.md): Caso de estudio documentado a partir de un piloto de referencia interno; analizador de logs en streaming sin dependencias runtime, CLI POSIX y 40 aserciones del test runner.
 
 ---
 
@@ -116,8 +120,8 @@ Specspire ha sido evaluado y validado en implementaciones de referencia del mund
 
 ## Compatibilidad y Requisitos
 
-- **Entorno de ejecución:** Node.js `>= 20.0.0` (LTS 20, 22, 24). Cero dependencias runtime (`dependencies: {}`).
-- **Instalador de Skills:** `npx skills` requiere Node.js `>= 22.20.0`.
+- **Entorno de ejecución:** Node.js `>= 20.0.0` (Node 20 técnicamente compatible pero en EOL en abril de 2026; Node 22 y 24 LTS comprobados en CI; Node 26 versión actual / LTS sin verificar en CI). Cero dependencias runtime (sin campo `dependencies` en `package.json`).
+- **Instalador de Skills:** `npx skills` requiere Node.js `>= 22.20.0` (requisito independiente de la herramienta).
 - **Matriz de plataformas:** Validado en Ubuntu, macOS y Windows.
 
 | Plataforma / Agente | Estado | Notas |
@@ -126,7 +130,7 @@ Specspire ha sido evaluado y validado en implementaciones de referencia del mund
 | **Google Antigravity** | PASS | Descubrimiento interactivo y ruteo multiescenario verificados. |
 | **Matriz CI (Linux / Windows / macOS)** | PASS | Matriz automatizada de pruebas unitarias, CLI, empaquetado y enlaces en Node.js 20, 22, 24. |
 | **OpenAI Codex** | BLOCKED | CLI 0.166.0 y estructura de Skill verificadas; inferencia bloqueada por cuota de cuenta. |
-| **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Agent Skills compatible; sin ejecución automatizada verificada. |
+| **Claude Code / Cursor** | NOT VERIFIED | Formato estándar de Agent Skills compatible; la ejecución se apega a las indicaciones del usuario sin garantizar cumplimiento autónomo absoluto. |
 
 ---
 

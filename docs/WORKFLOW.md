@@ -95,7 +95,7 @@ Es fundamental distinguir qué ejecuta la CLI de Specspire y qué hace el agente
 |---|---|---|
 | **Inicialización** | Copia plantillas y la Skill de forma segura e idempotente. | Lee el contexto existente y adopta el protocolo de 4 líneas. |
 | **Scaffolding de features** | Crea carpetas `specs/<slug>/` con plantillas predefinidas. | Completa los campos de la especificación con contenido real. |
-| **Diagnóstico (`doctor`)** | Valida la integridad documental y física de los archivos. | Interpreta los hallazgos y corrige discrepancias. |
+| **Diagnóstico (`doctor`)** | Valida la integridad documental y física de los archivos (no la calidad del código de la aplicación). | Interpreta los hallazgos y corrige discrepancias. |
 | **Navegación (`next`)** | Informa el siguiente archivo pendiente según reglas. | Propone la siguiente acción técnica dentro de la fase activa. |
 | **Desarrollo (TDD)** | No genera código de la aplicación. | Escribe pruebas rojas, implementa código verde y refactoriza. |
 | **Ejecución de pruebas** | No ejecuta los tests de tu aplicación. | Ejecuta los comandos del proyecto (`npm test`) y registra la salida real. |

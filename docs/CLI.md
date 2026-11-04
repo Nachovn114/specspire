@@ -27,15 +27,15 @@ El parámetro `<slug>` admite letras minúsculas, números y guiones (por ejempl
 
 ## Ejecución sin instalación global
 
-No es necesario instalar Specspire de forma global en tu sistema. Desde la carpeta de tu proyecto:
+No es necesario instalar Specspire de forma global en tu sistema. Desde la carpeta de tu proyecto puedes ejecutarlo de dos formas:
 
-```powershell
-# En Windows (PowerShell)
-node path/to/specspire/bin/specspire.mjs init --lang es
-node path/to/specspire/bin/specspire.mjs doctor
-node path/to/specspire/bin/specspire.mjs next
+```bash
+# Opción 1: Si agregaste specspire como dependencia (npm install -D specspire)
+npx specspire init --lang es
+npx specspire doctor
+npx specspire next
 
-# En Linux / macOS
+# Opción 2: Si estás utilizando un repositorio clonado de Specspire
 node path/to/specspire/bin/specspire.mjs init --lang es
 node path/to/specspire/bin/specspire.mjs doctor
 node path/to/specspire/bin/specspire.mjs next
@@ -48,6 +48,8 @@ node path/to/specspire/bin/specspire.mjs next
 La CLI utiliza códigos de salida semánticos para integrarse limpiamente con scripts y pipelines:
 
 ### `specspire doctor`
+*Nota: `doctor` audita exclusivamente la estructura física de archivos, plantillas y enlaces documentales; no evalúa la calidad del código fuente de la aplicación ni sus pruebas.*
+
 | Código | Estado | Significado |
 |:---:|---|---|
 | `0` | **PASS** | Instalación íntegra y contrato bilingüe de 34 archivos verificado (`SKILL.md`, 30 referencias ES/EN y 3 plantillas base). |

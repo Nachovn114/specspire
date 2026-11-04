@@ -16,7 +16,7 @@ Autonomous AI coding agents frequently fall victim to architectural shortcuts wh
 | Dimension | Result | Verification Method |
 |---|---|---|
 | **Workflow Adherence** | 7 of 7 phases completed in sequence | Progressive feature scaffolding (`spec`, `plan`, `design`, `tasks`, `review`) |
-| **Runtime Dependencies** | **0 (Zero)** | `package.json` contains `dependencies: {}`; standard library only |
+| **Runtime Dependencies** | **0 (Zero)** | Zero runtime dependencies (standard library only; no runtime dependencies declared in `package.json`) |
 | **Test Suite Quality** | **40 PASS / 0 FAIL / 0 SKIP** | Native Node.js test runner (`node --test tests/*.test.js`) executed in ~700 ms |
 | **Streaming Performance** | Constant $O(1)$ memory on raw streaming | 100,000 lines (25 MB) processed with heap delta < 12 MB |
 | **Independent Audit** | Step 20G.3 audit identified 2 defects (F-01, F-02) | Formally remediated in Step 20G.3.1 via strict test-first development |
@@ -151,16 +151,19 @@ LogLens CLI was built as a rigorous, real-world reference pilot to stress-test t
 
 ---
 
-## 8. How to Reproduce & Verify
+## 8. Reproducibility & Verified Pilot Evidence
 
-Verify the complete test suite and CLI behaviors locally using Node.js `>= 20.0.0`:
+LogLens CLI was developed as an internal reference pilot in a controlled development workspace (`Specspire-Pilots/loglens-cli`). While the pilot codebase itself remains an internal reference implementation rather than a standalone public repository, all findings, throughput metrics, and 40 test assertions reported in this study were verified through real executions.
+
+The reference commands and verification suite executed during the pilot evaluation using Node.js `>= 20.0.0`:
 
 ```bash
-# 1. Navigate to the pilot repository (or clone)
+# 1. Reference execution commands verified in pilot workspace:
+# (Navigate to the local pilot directory)
 cd path/to/loglens-cli
 
 # 2. Run the full native test suite (40 tests, 0 dependencies)
-npm test
+node --test tests/*.test.js
 
 # Expected output:
 # ✔ T03 - analyzer: acumulador vacío retorna estadísticas con ceros

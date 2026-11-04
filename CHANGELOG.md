@@ -11,7 +11,7 @@ Notable changes to Specspire are documented here.
 - **Installation & Onboarding Hardening:** Overhauled `docs/QUICKSTART.md` and `docs/en/QUICKSTART.md` with explicit Path A (Skill-only) and Path B (Full Kit) guides, initial steering prompts, expected 4-line responses, and comprehensive troubleshooting.
 - **CLI Reference & Semantic Exit Codes:** Streamlined `docs/CLI.md` with clear command tables, flag documentation (`--lang`, `--dry-run`, `--target`), and semantic exit codes (`0` = PASS, `1` = FAIL, `2` = MIGRATION REQUIRED).
 - **Packaging & Link Integrity Gate:** Enhanced automated verification in `tests/package-smoke.mjs` and `tests/docs.test.mjs` to validate HTML `src`, `srcset`, and `href` attributes, guaranteeing zero broken image or document links in npm packages.
-- **Zero Runtime Dependencies:** Maintained lightweight, dependency-free architecture (`dependencies: {}`) running natively on Node.js 20, 22, and 24.
+- **Zero Runtime Dependencies:** Maintained lightweight, zero-dependency architecture (no runtime dependencies declared in `package.json`) running natively on Node.js 20, 22, and 24.
 
 ## [0.10.0-beta.1] — 2026-11-03
 

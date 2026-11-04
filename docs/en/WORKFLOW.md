@@ -95,7 +95,7 @@ It is essential to understand what the Specspire CLI does versus what the AI age
 |---|---|---|
 | **Initialization** | Safely copies templates and Skill idempotently. | Reads existing context and adopts the 4-line protocol. |
 | **Feature Scaffolding** | Creates `specs/<slug>/` directories with template files. | Fills specification fields with meaningful requirements. |
-| **Environment Diagnosis (`doctor`)** | Validates file presence, link integrity, and disk structure. | Interprets doctor output and corrects configuration defects. |
+| **Environment Diagnosis (`doctor`)** | Validates file presence, link integrity, and disk structure (not application code quality). | Interprets doctor output and corrects configuration defects. |
 | **Next Action (`next`)** | Inspects document progression state on disk. | Proposes next concrete technical action within active phase. |
 | **Development (TDD)** | Does not write application code. | Writes failing tests, implements features, and refactors. |
 | **Test Execution** | Does not execute application tests. | Executes project commands (`npm test`) and records real output. |
